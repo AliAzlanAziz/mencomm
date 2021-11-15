@@ -99,7 +99,7 @@ const Signin = ({navigation}) => {
                 }]}>Email</Text>
                 <View style={styles.action}>
                     <FontAwesome 
-                        name="user-o"
+                        name="envelope-o"
                         color={colors.text}
                         size={20}
                     />
