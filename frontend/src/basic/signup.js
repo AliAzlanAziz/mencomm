@@ -5,7 +5,6 @@ import {
     TouchableOpacity, 
     TextInput,
     Platform,
-    StyleSheet ,
     StatusBar,
     ScrollView,
 } from 'react-native';
@@ -14,15 +13,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useTheme } from 'react-native-paper';
 import RNSingleSelect from "@freakycoder/react-native-single-select";
 import DatePicker from '@react-native-community/datetimepicker';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import validator from 'validator'
+import { useTheme } from 'react-native-paper';
 import { ageLimit } from '../utils.js/checkdate';
+import createStyles from '../style/basic/signup'
 
 const genderData = [
     {
@@ -35,8 +34,10 @@ const genderData = [
     }
 ]
 
-const Signup = ({navigation}) => {
+const Signup = ({ navigation }) => {
     const { colors } = useTheme();
+    const styles = createStyles(colors)
+
     const [show, setShow] = React.useState(false);
 
     const onDateChange = (val) => {
@@ -100,18 +101,11 @@ const Signup = ({navigation}) => {
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.header}>
-                <Text style={styles.text_header}>Sign Up Now!</Text>
+                <Text style={styles.textHeader}>Sign Up Now!</Text>
             </View>
-            <Animatable.View
-                animation="fadeInUpBig"
-                style={[styles.footer, {
-                    backgroundColor: colors.background
-                }]}
-            >
+            <Animatable.View animation="fadeInUpBig" style={styles.footer} >
                 <ScrollView>
-                    <Text style={[styles.text_footer, {
-                        color: colors.text
-                    }]}>First Name*</Text>
+                    <Text style={styles.textFooter}>First Name*</Text>
                     <View style={styles.action}>
                         <FontAwesome 
                             name="user-o"
@@ -121,9 +115,7 @@ const Signup = ({navigation}) => {
                         <TextInput 
                             placeholder="First Name"
                             placeholderTextColor="#666666"
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
+                            style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, firstname: val})}
                             onEndEditing={() => setCheck({...check, firstname: true})}
@@ -148,9 +140,7 @@ const Signup = ({navigation}) => {
                         </Animatable.View>
                     )}
 
-                    <Text style={[styles.text_footer, {
-                        color: colors.text
-                    }]}>Last Name</Text>
+                    <Text style={styles.textFooter}>Last Name</Text>
                     <View style={styles.action}>
                         <FontAwesome 
                             name="user-o"
@@ -160,9 +150,7 @@ const Signup = ({navigation}) => {
                         <TextInput 
                             placeholder="Last Name"
                             placeholderTextColor="#666666"
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
+                            style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, lastname: val})}
                         />
@@ -179,11 +167,7 @@ const Signup = ({navigation}) => {
                         : null}
                     </View>
 
-                    <Text style={[styles.text_footer, {
-                        color: colors.text,
-                        marginTop: 5,
-                        marginBottom: 0
-                    }]}>Birthday*</Text>
+                    <Text style={styles.textFooterBirthday}>Birthday*</Text>
                     <TouchableOpacity
                         onPress={() => setShow(!show)}
                     >
@@ -193,15 +177,8 @@ const Signup = ({navigation}) => {
                                 color={colors.text}
                                 size={20}
                             />
-                            <Text style={[styles.textInput, {
-                                color: "#666666",
-                                marginTop: 2,
-                            }]}>Your Birthday</Text>
-                            <Text style={[styles.textInput, {
-                                color: "#666666",
-                                marginTop: 2,
-                                marginLeft: 180
-                            }]}>{ (data.birthday.toISOString().split('T')[0] !== new Date().toISOString().split('T')[0]) ? data.birthday.toISOString().split('T')[0] : null}</Text>
+                            <Text style={styles.textInputBirthday}>Your Birthday</Text>
+                            <Text style={styles.textOutputBirthday}>{ (data.birthday.toISOString().split('T')[0] !== new Date().toISOString().split('T')[0]) ? data.birthday.toISOString().split('T')[0] : null}</Text>
                         </View>
                     </TouchableOpacity>
                     {show && (
@@ -220,11 +197,7 @@ const Signup = ({navigation}) => {
                         </Animatable.View>
                     )}
 
-                    <Text style={[styles.text_footer, {
-                        color: colors.text,
-                        marginTop: 15,
-                        marginBottom: -13
-                    }]}>Gender*</Text>
+                    <Text style={styles.textFooterGender}>Gender*</Text>
                     <View style={styles.action}>
                         <FontAwesome 
                             name="genderless"
@@ -252,9 +225,7 @@ const Signup = ({navigation}) => {
                     )}
 
 
-                    <Text style={[styles.text_footer, {
-                        color: colors.text,
-                    }]}>Location</Text>
+                    <Text style={styles.textFooter}>Location</Text>
                     <View style={styles.action}>
                         <Ionicons 
                             name="location-outline"
@@ -264,10 +235,7 @@ const Signup = ({navigation}) => {
                         <TextInput 
                             placeholder="Your Address or Use Current Location"
                             placeholderTextColor="#666666"
-                            secureTextEntry={check.secureTextEntry ? true : false}
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
+                            style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={
                                 (val) => setData({
@@ -289,9 +257,7 @@ const Signup = ({navigation}) => {
                         </TouchableOpacity>
                     </View>
                         
-                    <Text style={[styles.text_footer, {
-                        color: colors.text,
-                    }]}>Email*</Text>
+                    <Text style={styles.textFooter}>Email*</Text>
                     <View style={styles.action}>
                         <FontAwesome 
                             name="envelope-o"
@@ -301,9 +267,7 @@ const Signup = ({navigation}) => {
                         <TextInput 
                             placeholder="Your Email"
                             placeholderTextColor="#666666"
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
+                            style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, email: val})}
                             onEndEditing={() => setCheck({...check, email: true})}
@@ -330,10 +294,7 @@ const Signup = ({navigation}) => {
                         </Animatable.View>
                     )}
                 
-                    <Text style={[styles.text_footer, {
-                        color: colors.text,
-                        marginTop: 5
-                    }]}>Password*</Text>
+                    <Text style={styles.textFooter}>Password*</Text>
                     <View style={styles.action}>
                         <Feather 
                             name="lock"
@@ -344,9 +305,7 @@ const Signup = ({navigation}) => {
                             placeholder="Your Password"
                             placeholderTextColor="#666666"
                             secureTextEntry={check.secureTextEntry ? true : false}
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
+                            style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, password: val})}
                             onEndEditing={() => setCheck({...check, password: true})}
@@ -387,9 +346,7 @@ const Signup = ({navigation}) => {
                             placeholder="Confirm Password"
                             placeholderTextColor="#666666"
                             secureTextEntry={check.secureTextEntry ? true : false}
-                            style={[styles.textInput, {
-                                color: colors.text
-                            }]}
+                            style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, confirmPassword: val})}
                             onEndEditing={() => setCheck({...check, confirmPassword: true})}
@@ -421,31 +378,14 @@ const Signup = ({navigation}) => {
                     )}
                 
                     <View style={styles.button}>
-                        <TouchableOpacity
-                            style={styles.signIn}
-                            onPress={() => {}}
-                        >
-                            <LinearGradient
-                                colors={['#5B1B9B', '#7063AD']}
-                                style={styles.signIn}
-                            >
-                                <Text style={[styles.textSign, {
-                                    color:'#fff'
-                                }]}>Sign Up</Text>
+                        <TouchableOpacity style={styles.signIn}onPress={() => {}}>
+                            <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signIn}>
+                                <Text style={styles.textSignIn}>Sign Up</Text>
                             </LinearGradient>
                         </TouchableOpacity>
         
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Signin')}
-                            style={[styles.signIn, {
-                                borderColor: '#5B1B9B',
-                                borderWidth: 1,
-                                marginTop: 15
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#5B1B9B'
-                            }]}>Sign In</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Signin')} style={styles.signInButton}>
+                            <Text style={styles.textSignUp}>Sign In</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -455,76 +395,3 @@ const Signup = ({navigation}) => {
 };
   
 export default Signup;
-  
-const styles = StyleSheet.create({
-    container: {
-        flex: 1, 
-        backgroundColor: '#551A91'
-    },
-    header: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
-    },
-    footer: {
-        flex: 3,
-        backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        paddingHorizontal: 20,
-        paddingVertical: 30
-    },
-    text_header: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 30
-    },
-    text_footer: {
-        color: '#05375a',
-        fontSize: 18
-    },
-    action: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f2f2f2',
-        paddingBottom: 5
-    },
-    actionError: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#FF0000',
-        paddingBottom: 5
-    },
-    textInput: {
-        flex: 1,
-        marginTop: Platform.OS === 'ios' ? 0 : -12,
-        paddingLeft: 10,
-        color: '#05375a',
-    },
-    errorMsg: {
-        color: '#FF0000',
-        fontSize: 14,
-    },
-    infoMsg: {
-        color: '#3048B2',
-        fontSize: 14,
-    },
-    button: {
-        alignItems: 'center',
-        marginTop: 30
-    },
-    signIn: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10
-    },
-    textSign: {
-        fontSize: 18,
-        fontWeight: 'bold'
-    }
-});

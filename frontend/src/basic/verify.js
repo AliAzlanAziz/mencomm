@@ -9,7 +9,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Verify = ({ navigation }) => {
+const Verify = () => {
     const email = "K180357@gmail.com"
     return (
         <View style={styles.container}>
