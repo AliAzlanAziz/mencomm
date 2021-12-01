@@ -10,52 +10,34 @@ export default createStyles = (colors) => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: '#5B1B9B'
+            backgroundColor: '#fff'
         },
-        header: {
-            flex: 2,
-            justifyContent: 'center',
-            alignItems: 'center'
+        searchBar: {
+            marginTop: 10,
+            height: 50,
+            borderRadius: 15,
+            elevation: 2
         },
-        footer: {
-            flex: 1,
-            backgroundColor: colors.background,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-            paddingVertical: 50,
-            paddingHorizontal: 30
-        },
-        logo: {
-            width: height_logo,
-            height: height_logo
-        },
-        title: {
-            fontFamily: 'Nunito-Regular',
-            color: colors.text,
-            fontSize: 25,
-            fontWeight: 'bold'
-        },
-        text: {
-            fontFamily: 'Nunito-Regular',
-            color: 'grey',
-            marginTop:5
+        buttonContainer: {
+            width: '90%', 
+            alignSelf: 'center'
         },
         button: {
-            alignItems: 'flex-end',
-            marginTop: 30
+            marginTop: 10,
         },
-        signIn: {
-            width: 150,
+        textButton: {
+            fontFamily: 'Nunito-Bold',
+            fontSize: 18,
+            color: '#000',
+        },
+        saveButton: {
+            width: '40%',
             height: 40,
             justifyContent: 'center',
             alignItems: 'center',
-            borderRadius: 50,
-            flexDirection: 'row'
+            borderRadius: 10,
+            backgroundColor: '#fff',
+            elevation: 2
         },
-        textSign: {
-            fontFamily: 'Nunito-Regular',
-            color: 'white',
-            fontWeight: 'bold'
-        }
     })
 }

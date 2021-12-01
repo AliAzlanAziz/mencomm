@@ -16,6 +16,9 @@ import Newsfeed from '../student/newsfeed'
 import EditProfile from '../student/editProfile'
 import PostDetails from '../student/postDetails'
 import Profile from '../student/profile'
+import Setting from '../student/setting'
+import UpdatePassword from '../student/updatePassword'
+import Announcement from '../student/announcement'
 import Role from './role'
 
 const Stack = createNativeStackNavigator();
@@ -230,6 +233,51 @@ const StackNavigator = () => {
                     component={Profile}
                     options={{ 
                         title: 'Profile', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="Setting" 
+                    component={Setting}
+                    options={{ 
+                        title: 'Settings', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="UpdatePassword" 
+                    component={UpdatePassword}
+                    options={{ 
+                        title: 'Update Password', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="Announcement" 
+                    component={Announcement}
+                    options={{ 
+                        title: 'Announcement', 
                         headerShown:true, 
                         headerStyle: {
                             backgroundColor: '#2D52B0',

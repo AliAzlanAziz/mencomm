@@ -43,7 +43,7 @@ export default createStyles = (colors) => {
             alignItems: 'flex-end',
             marginTop: 30
         },
-        signIn: {
+        buttonContainer: {
             width: 150,
             height: 40,
             justifyContent: 'center',
@@ -51,7 +51,7 @@ export default createStyles = (colors) => {
             borderRadius: 50,
             flexDirection: 'row'
         },
-        textSign: {
+        textButton: {
             fontFamily: 'Nunito-Bold',
             color: 'white',
         }

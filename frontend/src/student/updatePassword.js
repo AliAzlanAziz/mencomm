@@ -10,9 +10,9 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
-import createStyles from '../style/basic/resetPassword'
+import createStyles from '../style/student/updatePassword'
 
-const ResetPassword = () => {
+const UpdatePassword = () => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -75,7 +75,26 @@ const ResetPassword = () => {
                 <Text style={styles.textHeader}>Reset Password!</Text>
             </View>
             <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-            <Text style={styles.textFooter}>Password</Text>
+                <Text style={styles.textFooter}>Password</Text>
+                <View style={styles.action}>
+                    <Feather name="lock" color={colors.text} size={20}/>
+                    <TextInput 
+                        placeholder="Enter Old Password"
+                        placeholderTextColor="#666666"
+                        secureTextEntry={data.secureTextEntry ? true : false}
+                        style={styles.textInput}
+                        autoCapitalize="none"
+                        onChangeText={() => {}}
+                    />
+                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                        {data.secureTextEntry ? 
+                            <Feather name="eye-off" color="grey" size={20}/>
+                            :
+                            <Feather name="eye" color="grey" size={20}/>
+                        }
+                    </TouchableOpacity>
+                </View>
+
                 <View style={styles.action}>
                     <Feather name="lock" color={colors.text} size={20}/>
                     <TextInput 
@@ -127,7 +146,7 @@ const ResetPassword = () => {
 
                 <View style={styles.button}>
                     <TouchableOpacity style={styles.signIn} onPress={() => {}}>
-                        <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signIn}>
+                        <LinearGradient colors={['#2D52B0', '#4D7CF2']} style={styles.signIn}>
                             <Text style={styles.textSign}>Reset Password</Text>
                         </LinearGradient>
                     </TouchableOpacity>
@@ -137,4 +156,4 @@ const ResetPassword = () => {
       );
 };
   
-export default ResetPassword
+export default UpdatePassword
