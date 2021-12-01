@@ -1,3 +1,4 @@
+//resolve styling problem of using width in text ouput instead of flex
 import React from 'react';
 import {
     Text,

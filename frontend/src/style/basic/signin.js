@@ -24,11 +24,12 @@ export default createStyles = (colors) => {
             paddingVertical: 30
         },
         textHeader: {
+            fontFamily: 'Nunito-Bold',
             color: '#fff',
-            fontWeight: 'bold',
             fontSize: 30
         },
         textFooter: {
+            fontFamily: 'Nunito-Regular',
             color: colors.text,
             fontSize: 18
         },
@@ -51,8 +52,10 @@ export default createStyles = (colors) => {
             marginTop: Platform.OS === 'ios' ? 0 : -12,
             paddingLeft: 10,
             color: colors.text,
+            fontFamily: 'Nunito-Regular'
         },
         errorMsg: {
+            fontFamily: 'Nunito-Regular',
             color: '#FF0000',
             fontSize: 14,
         },
@@ -78,17 +81,18 @@ export default createStyles = (colors) => {
             marginTop: 15
         },
         forgetPasswordLink:{
+            fontFamily: 'Nunito-Regular',
             color: '#5B1B9B', 
             marginTop:15
         },
         textSignIn: {
+            fontFamily: 'Nunito-Bold',
             fontSize: 18,
-            fontWeight: 'bold',
             color: '#fff'
         },
         textSignUp: {
+            fontFamily: 'Nunito-Bold',
             fontSize: 18,
-            fontWeight: 'bold',
             color: '#5B1B9B'
         }
     });

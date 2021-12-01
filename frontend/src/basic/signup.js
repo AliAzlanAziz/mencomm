@@ -20,8 +20,8 @@ import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import validator from 'validator'
 import { useTheme } from 'react-native-paper';
-import { ageLimit } from '../utils.js/checkdate';
 import createStyles from '../style/basic/signup'
+import { ageLimit } from '../utils.js/checkdate';
 
 const genderData = [
     {
@@ -107,11 +107,7 @@ const Signup = ({ navigation }) => {
                 <ScrollView>
                     <Text style={styles.textFooter}>First Name*</Text>
                     <View style={styles.action}>
-                        <FontAwesome 
-                            name="user-o"
-                            color={colors.text}
-                            size={20}
-                        />
+                        <FontAwesome name="user-o" color={colors.text} size={20}/>
                         <TextInput 
                             placeholder="First Name"
                             placeholderTextColor="#666666"
@@ -120,33 +116,23 @@ const Signup = ({ navigation }) => {
                             onChangeText={(val) => setData({...data, firstname: val})}
                             onEndEditing={() => setCheck({...check, firstname: true})}
                         />
-                        {validator.isLength(data.firstname, {min:4}) ? 
-                            <Animatable.View
-                                animation="bounceIn"
-                            >
-                                <Feather 
-                                    name="check-circle"
-                                    color="green"
-                                    size={20}
-                                />
+                        {validator.isLength(data.firstname, {min:2}) ? 
+                            <Animatable.View animation="bounceIn" >
+                                <Feather name="check-circle" color="green" size={20}/>
                             </Animatable.View>
                         : null}
                     </View>
                     {check.firstname && (
-                        validator.isLength(data.firstname, {min:4, max:256}) ? null 
+                        validator.isLength(data.firstname, {min:2, max:256}) ? null 
                         : 
                         <Animatable.View animation="fadeInLeft" duration={500}>
-                            <Text style={styles.errorMsg}>First Name must contain from 4 to 256 characters.</Text>
+                            <Text style={styles.errorMsg}>First Name must contain from 2 to 256 characters.</Text>
                         </Animatable.View>
                     )}
 
                     <Text style={styles.textFooter}>Last Name</Text>
                     <View style={styles.action}>
-                        <FontAwesome 
-                            name="user-o"
-                            color={colors.text}
-                            size={20}
-                        />
+                        <FontAwesome name="user-o" color={colors.text} size={20}/>
                         <TextInput 
                             placeholder="Last Name"
                             placeholderTextColor="#666666"
@@ -155,42 +141,24 @@ const Signup = ({ navigation }) => {
                             onChangeText={(val) => setData({...data, lastname: val})}
                         />
                         {validator.isLength(data.lastname, {min:1}) ? 
-                            <Animatable.View
-                                animation="bounceIn"
-                            >
-                                <Feather 
-                                    name="check-circle"
-                                    color="green"
-                                    size={20}
-                                />
+                            <Animatable.View animation="bounceIn">
+                                <Feather name="check-circle" color="green" size={20}/>
                             </Animatable.View>
                         : null}
                     </View>
 
                     <Text style={styles.textFooterBirthday}>Birthday*</Text>
-                    <TouchableOpacity
-                        onPress={() => setShow(!show)}
-                    >
-                        <View style={styles.action}>
-                            <Fontisto 
-                                name="date"
-                                color={colors.text}
-                                size={20}
-                            />
-                            <Text style={styles.textInputBirthday}>Your Birthday</Text>
-                            <Text style={styles.textOutputBirthday}>{ (data.birthday.toISOString().split('T')[0] !== new Date().toISOString().split('T')[0]) ? data.birthday.toISOString().split('T')[0] : null}</Text>
-                        </View>
+                    <TouchableOpacity onPress={() => setShow(!show)} style={styles.actionBirthday}>
+                        <Fontisto name="date" color={colors.text} size={20}/>
+                        <Text style={styles.textInputBirthday}>Your Birthday</Text>
+                        <Text style={styles.textOutputBirthday}>{ (data.birthday.toISOString().split('T')[0] !== new Date().toISOString().split('T')[0]) ? data.birthday.toISOString().split('T')[0] : null}</Text>
                     </TouchableOpacity>
+                    <View style={styles.separatorBirthday}></View>
                     {show && (
-                        <DatePicker
-                            value={data.birthday}
-                            mode={"date"}
-                            display="calendar"
-                            onChange={(val) => {onDateChange(val)}}
-                        />
+                        <DatePicker value={data.birthday} mode={"date"} display="calendar" onChange={(val) => {onDateChange(val)}}/>
                     )}
-                    {check.birthday && (
-                        ageLimit(data.birthday) ? null 
+                    {check.birthday && (ageLimit(data.birthday) ? 
+                        null 
                         : 
                         <Animatable.View animation="fadeInLeft" duration={500}>
                             <Text style={styles.errorMsg}>You must be from 13 to 80 years old.</Text>
@@ -199,14 +167,7 @@ const Signup = ({ navigation }) => {
 
                     <Text style={styles.textFooterGender}>Gender*</Text>
                     <View style={styles.action}>
-                        <FontAwesome 
-                            name="genderless"
-                            color={colors.text}
-                            size={20}
-                            style={{
-                                marginTop: 13,
-                            }}
-                        />
+                        <FontAwesome name="genderless" color={colors.text} size={20} style={styles.genderIcon}/>
                         <RNSingleSelect
                             data={genderData}
                             placeholder="Your Gender"
@@ -227,11 +188,7 @@ const Signup = ({ navigation }) => {
 
                     <Text style={styles.textFooter}>Location</Text>
                     <View style={styles.action}>
-                        <Ionicons 
-                            name="location-outline"
-                            color={colors.text}
-                            size={20}
-                        />
+                        <Ionicons name="location-outline" color={colors.text} size={20}/>
                         <TextInput 
                             placeholder="Your Address or Use Current Location"
                             placeholderTextColor="#666666"
@@ -246,24 +203,14 @@ const Signup = ({ navigation }) => {
                                     }
                                 })}
                         />
-                        <TouchableOpacity
-                            onPress={() => getLocation()}
-                        >
-                            <Ionicons 
-                                name="location-outline"
-                                color={colors.text}
-                                size={20}
-                            />
+                        <TouchableOpacity onPress={() => getLocation()}>
+                            <Ionicons name="location-outline" color={colors.text} size={20}/>
                         </TouchableOpacity>
                     </View>
                         
                     <Text style={styles.textFooter}>Email*</Text>
                     <View style={styles.action}>
-                        <FontAwesome 
-                            name="envelope-o"
-                            color={colors.text}
-                            size={20}
-                        />
+                        <FontAwesome name="envelope-o" color={colors.text} size={20}/>
                         <TextInput 
                             placeholder="Your Email"
                             placeholderTextColor="#666666"
@@ -274,14 +221,8 @@ const Signup = ({ navigation }) => {
                         />
                         {check.email && (
                             validator.isEmail(data.email) ? 
-                            <Animatable.View
-                                animation="bounceIn"
-                            >
-                                <Feather 
-                                    name="check-circle"
-                                    color="green"
-                                    size={20}
-                                />
+                            <Animatable.View animation="bounceIn" >
+                                <Feather name="check-circle" color="green" size={20} />
                             </Animatable.View>
                             : null
                         )}
@@ -296,11 +237,7 @@ const Signup = ({ navigation }) => {
                 
                     <Text style={styles.textFooter}>Password*</Text>
                     <View style={styles.action}>
-                        <Feather 
-                            name="lock"
-                            color={colors.text}
-                            size={20}
-                        />
+                        <Feather name="lock" color={colors.text} size={20}/>
                         <TextInput 
                             placeholder="Your Password"
                             placeholderTextColor="#666666"
@@ -310,21 +247,11 @@ const Signup = ({ navigation }) => {
                             onChangeText={(val) => setData({...data, password: val})}
                             onEndEditing={() => setCheck({...check, password: true})}
                         />
-                        <TouchableOpacity
-                            onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}
-                        >
+                        <TouchableOpacity onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}>
                         {check.secureTextEntry ? 
-                            <Feather 
-                                name="eye-off"
-                                color="grey"
-                                size={20}
-                            />
+                            <Feather name="eye-off" color="grey" size={20}/>
                             :
-                            <Feather 
-                                name="eye"
-                                color="grey"
-                                size={20}
-                            />
+                            <Feather name="eye" color="grey" size={20}/>
                         }
                         </TouchableOpacity>
                     </View>
@@ -337,11 +264,7 @@ const Signup = ({ navigation }) => {
                     )}
 
                     <View style={styles.action}>
-                        <Feather 
-                            name="lock"
-                            color={colors.text}
-                            size={20}
-                        />
+                        <Feather name="lock" color={colors.text} size={20}/>
                         <TextInput 
                             placeholder="Confirm Password"
                             placeholderTextColor="#666666"
@@ -351,21 +274,11 @@ const Signup = ({ navigation }) => {
                             onChangeText={(val) => setData({...data, confirmPassword: val})}
                             onEndEditing={() => setCheck({...check, confirmPassword: true})}
                         />
-                        <TouchableOpacity
-                            onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}
-                        >
+                        <TouchableOpacity onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}>
                             {check.secureTextEntry ? 
-                                <Feather 
-                                    name="eye-off"
-                                    color="grey"
-                                    size={20}
-                                />
+                                <Feather name="eye-off" color="grey" size={20}/>
                                 :
-                                <Feather 
-                                    name="eye"
-                                    color="grey"
-                                    size={20}
-                                />
+                                <Feather name="eye" color="grey" size={20}/>
                             }
                         </TouchableOpacity>
                     </View>

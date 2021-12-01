@@ -24,26 +24,25 @@ export default createStyles = (colors) => {
             paddingVertical: 30,
         },
         textHeader: {
+            fontFamily: 'Nunito-Bold',
             color: '#fff',
-            fontWeight: 'bold',
             fontSize: 30
         },
         textFooter: {
-            color: colors.text,
-            fontSize: 18,
-        },
-        textFooter: {
+            fontFamily: 'Nunito-Regular',
             color: colors.text,
             fontSize: 18,
             marginTop: 5
         },
         textFooterGender: {
+            fontFamily: 'Nunito-Regular',
             color: colors.text,
             fontSize: 18,
             marginTop: 15,
             marginBottom: -13
         },
         textFooterBirthday: {
+            fontFamily: 'Nunito-Regular',
             color: colors.text,
             fontSize: 18,
             marginTop: 5,
@@ -56,6 +55,15 @@ export default createStyles = (colors) => {
             borderBottomColor: '#f2f2f2',
             paddingBottom: 5
         },
+        actionBirthday: {
+            marginTop: 10,
+            flexDirection: 'row',
+        },
+        separatorBirthday: {
+            marginTop: 14,
+            borderBottomWidth: 1,
+            borderBottomColor: '#f2f2f2',
+        },
         actionError: {
             flexDirection: 'row',
             marginTop: 10,
@@ -67,26 +75,34 @@ export default createStyles = (colors) => {
             flex: 1,
             marginTop: Platform.OS === 'ios' ? 0 : -12,
             paddingLeft: 10,
-            color: colors.text
+            color: colors.text,
+            fontFamily: 'Nunito-Regular'
         },
         textInputBirthday: {
-            marginTop: Platform.OS === 'ios' ? 0 : -12,
-            paddingLeft: 10,
-            color: '#666666',
-            marginTop: 2
-        },
-        textOutputBirthday: {
+            flex: 1,
             marginTop: Platform.OS === 'ios' ? 0 : -12,
             paddingLeft: 10,
             color: '#666666',
             marginTop: 2,
-            marginLeft: 150
+            fontFamily: 'Nunito-Regular'
+        },
+        textOutputBirthday: {
+            marginTop: Platform.OS === 'ios' ? 0 : -12,
+            color: '#666666',
+            marginTop: 2,
+            marginLeft: 150,
+            fontFamily: 'Nunito-Regular'
+        },
+        genderIcon: {
+            marginTop: 13,
         },
         errorMsg: {
+            fontFamily: 'Nunito-Regular',
             color: '#FF0000',
             fontSize: 14,
         },
         infoMsg: {
+            fontFamily: 'Nunito-Regular',
             color: '#3048B2',
             fontSize: 14,
         },
@@ -112,13 +128,13 @@ export default createStyles = (colors) => {
             marginTop: 15
         },
         textSignIn: {
+            fontFamily: 'Nunito-Bold',
             fontSize: 18,
-            fontWeight: 'bold',
             color: '#fff'
         },
         textSignUp: {
+            fontFamily: 'Nunito-Bold',
             fontSize: 18,
-            fontWeight: 'bold',
             color: '#5B1B9B'
         }
     });

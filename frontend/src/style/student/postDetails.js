@@ -21,9 +21,9 @@ export default createStyles = (colors) => {
             marginTop: 20
         },
         name: {
-            fontFamily: 'Nunito-Regular',
             marginTop: 5, 
-            fontSize: 18, 
+            fontSize: 18,
+            fontFamily: 'Nunito-Regular',
             color: '#000'
         },
         userRating: {
@@ -33,9 +33,9 @@ export default createStyles = (colors) => {
             marginTop:5
         },
         userRatingCount: { 
-            fontFamily: 'Nunito-Regular',
             marginLeft: 5, 
-            fontSize: 14
+            fontSize: 14,
+            fontFamily: 'Nunito-Regular',
         },
         action: {
             flexDirection: 'row',
@@ -78,43 +78,68 @@ export default createStyles = (colors) => {
             width: '85%',
             color: colors.text
         },
-        textInput: {
-            fontFamily: 'Nunito-Regular',
-            marginLeft: 40,
-            marginTop: Platform.OS === 'ios' ? 0 : -12,
-            width: '85%',
-            height: 40, 
-            borderColor: 'gray', 
-            borderBottomWidth: 1,
-        },
         button: {
-            marginLeft: 40
+            alignItems: 'center',
+            marginTop: 5,
+            marginBottom: 20,
+        },
+        textButton: {
+            fontFamily: 'Nunito-Bold',
+            fontSize: 18,
+            color: '#fff',
         },
         saveButton: {
-            width: '25%',
+            width: '30%',
             height: 40,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
             backgroundColor: '#4378FF',
-            marginVertical: 10
-        },
-        textButton: {
-            fontFamily: 'Nunito-Bold',
-            fontSize: 18,
-            color: '#fff'
-        }, 
-        cancelButtonContainer: {
-            alignItems: 'center'
         },
         cancelButton: {
-            width: '60%',
+            width: '30%',
             height: 40,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
             backgroundColor: '#E05656',
-            marginBottom: 10
-        }
+        },
+        tutorButtonContainer:{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 5,
+            marginBottom: 20,
+        },
+        reqButton: {
+            width: '30%',
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#49C081',
+            marginRight: 10
+        },
+        enrollButton: {
+            width: '30%',
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#4378FF',
+        },
+        announcementButtonContainer:{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 5,
+            marginBottom: 20,
+        },
+        announcementButton: {
+            width: '50%',
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#4378FF',
+        },
     })
 }

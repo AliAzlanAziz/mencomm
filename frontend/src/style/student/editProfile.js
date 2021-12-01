@@ -1,5 +1,4 @@
 import {
-    Platform,
     StyleSheet,
 } from 'react-native';
 
@@ -12,7 +11,6 @@ export default createStyles = (colors) => {
         userInfo: {
             justifyContent: 'center',
             alignItems: 'center',
-            marginBottom: 10
         },
         image: {
             height: 100, 
@@ -29,7 +27,6 @@ export default createStyles = (colors) => {
         userRating: {
             flexDirection: 'row', 
             alignItems: 'center', 
-            marginBottom: 20, 
             marginTop:5
         },
         userRatingCount: { 
@@ -37,61 +34,53 @@ export default createStyles = (colors) => {
             marginLeft: 5, 
             fontSize: 14
         },
+        userInfoInput: {
+            paddingHorizontal: 20,
+        },
         action: {
+            marginTop: 10,
             flexDirection: 'row',
-            marginHorizontal: 10,
-            marginBottom: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: '#f2f2f2',    
+        },
+        actionBirthday: {
+            marginTop: 10,
+            flexDirection: 'row',
+        },
+        separatorBirthday: {
+            marginTop: 14,
             borderBottomWidth: 1,
             borderBottomColor: '#f2f2f2',
-            paddingBottom: 5,
-        },
-        schedule: {
-            flexDirection: 'row',
-            marginHorizontal: 10,
-        },
-        scheduleList: {
-            paddingBottom: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: '#f2f2f2',
-            width:'85%', 
-            marginLeft:40
-        },
-        scheduleListItem: {
-            flexDirection:'row', 
-            justifyContent:'space-between', 
-            marginTop: 3
-        },
-        scheduleListItemText: {
-            fontFamily: 'Nunito-Regular',
-            color: colors.text
-        },
-        review: {
-            flexDirection: 'row',
-            marginHorizontal: 10,
-            width:'72%', 
-            marginVertical: 5
-        },
-        text: {
-            fontFamily: 'Nunito-Regular',
-            paddingLeft: 10,
-            marginTop: 2,
-            width: '85%',
-            color: colors.text
         },
         textInput: {
             fontFamily: 'Nunito-Regular',
-            marginLeft: 40,
+            flex: 1,
             marginTop: Platform.OS === 'ios' ? 0 : -12,
-            width: '85%',
-            height: 40, 
-            borderColor: 'gray', 
-            borderBottomWidth: 1,
+            paddingLeft: 10,
+            color: colors.text,
+        },
+        textInputBirthday: {
+            fontFamily: 'Nunito-Regular',
+            flex: 1,
+            marginTop: Platform.OS === 'ios' ? 0 : 2,
+            paddingLeft: 10,
+            color: '#666666',
+        },
+        textOutputBirthday: {
+            fontFamily: 'Nunito-Regular',
+            marginTop: Platform.OS === 'ios' ? 0 : 2,
+            color: '#666666',
+        },
+        errorMsg: {
+            fontFamily: 'Nunito-Regular',
+            color: '#FF0000',
+            fontSize: 14,
         },
         button: {
-            marginLeft: 40
+            alignItems: 'center'
         },
         saveButton: {
-            width: '25%',
+            width: '33%',
             height: 40,
             justifyContent: 'center',
             alignItems: 'center',
@@ -99,22 +88,10 @@ export default createStyles = (colors) => {
             backgroundColor: '#4378FF',
             marginVertical: 10
         },
-        textButton: {
+        textSave: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
             color: '#fff'
-        }, 
-        cancelButtonContainer: {
-            alignItems: 'center'
-        },
-        cancelButton: {
-            width: '60%',
-            height: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 10,
-            backgroundColor: '#E05656',
-            marginBottom: 10
         }
     })
 }

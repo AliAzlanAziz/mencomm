@@ -5,7 +5,6 @@ import {
     TouchableOpacity,
     StatusBar
 } from 'react-native';
-
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -32,7 +31,7 @@ const Splash = ({ navigation }) => {
                 <Text style={styles.title}>Welcome to the MenComm App</Text>
                 <Text style={styles.text}>Sign in with account</Text>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('Signup')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                         <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
                             <Text style={styles.textSign}>Get Started</Text>
                             <MaterialIcons

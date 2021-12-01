@@ -1,5 +1,4 @@
 import React from 'react'
-import { AirbnbRating } from 'react-native-ratings'
 import {
     Text,
     View,
@@ -9,6 +8,7 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
+import { AirbnbRating } from 'react-native-ratings'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
@@ -27,22 +27,22 @@ const Contract = ({ navigation }) => {
         <ScrollView style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
-                    <Image source={require('../asset/logo.png')} style={styles.image}/>
-                    <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">
-                        Dr. Abdul Aziz
+                <Image source={require('../asset/logo.png')} style={styles.image}/>
+                <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">
+                    Dr. Abdul Aziz
+                </Text>
+                <View style={styles.userRating}>
+                    <AirbnbRating
+                        defaultRating={Math.floor(4.8) === Math.ceil(4.8) ? Math.floor(4.8) : Math.ceil(4.8)}
+                        size={18}
+                        showRating={false}
+                        isDisabled={true}
+                        />
+                    <Text style={styles.userRatingCount}>
+                        4.8
                     </Text>
-                    <View style={styles.userRating}>
-                        <AirbnbRating
-                            defaultRating={Math.floor(4.8) === Math.ceil(4.8) ? Math.floor(4.8) : Math.ceil(4.8)}
-                            size={18}
-                            showRating={false}
-                            isDisabled={true}
-                            />
-                        <Text style={styles.userRatingCount}>
-                            4.8
-                        </Text>
-                    </View>
-                    <MaterialIcons name="verified" color="#474ACC" size={25} />
+                </View>
+                <MaterialIcons name="verified" color="#474ACC" size={25} />
             </View>
             <View style={styles.action}>
                 <AntDesign name="book" color={colors.text} size={20} />
@@ -133,24 +133,22 @@ const Contract = ({ navigation }) => {
                     isDisabled={false} //to be handle according to the situation
                 />
             </View>
-            <View>
-                <TextInput 
-                        placeholder="Write feedback"
-                        placeholderTextColor="#666666"
-                        style={styles.textInput}
-                        multiline={true}
-                        autoCapitalize="none"
-                        onChangeText={() => {}}
-                    />
-            </View>
+            <TextInput 
+                    placeholder="Write feedback"
+                    placeholderTextColor="#666666"
+                    style={styles.textInput}
+                    multiline={true}
+                    autoCapitalize="none"
+                    onChangeText={() => {}}
+                />
             <View style={styles.button}>
                 <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
-                    <Text style={styles.textSave}>Done   <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
+                    <Text style={styles.textButton}>Done   <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.cancelButtonContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.cancelButton}>
-                    <Text style={styles.textCancel}>Cancel <Entypo name="circle-with-cross" color={colors.backgroundColor} size={18}/></Text>
+                    <Text style={styles.textButton}>Cancel <Entypo name="circle-with-cross" color={colors.backgroundColor} size={18}/></Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

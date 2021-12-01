@@ -30,11 +30,12 @@ export default createStyles = (colors) => {
             height: height_logo
         },
         title: {
+            fontFamily: 'Nunito-Bold',
             color: colors.text,
             fontSize: 25,
-            fontWeight: 'bold'
         },
         text: {
+            fontFamily: 'Nunito-Regular',
             color: 'grey',
             marginTop:5
         },
@@ -51,8 +52,8 @@ export default createStyles = (colors) => {
             flexDirection: 'row'
         },
         textSign: {
+            fontFamily: 'Nunito-Bold',
             color: 'white',
-            fontWeight: 'bold'
         }
     })
 }

@@ -12,6 +12,10 @@ import AllContracts from '../student/allContracts'
 import Contract from '../student/contract'
 import OthersProfile from '../student/othersProfile'
 import UpdateInfo from '../student/updateInfo'
+import Newsfeed from '../student/newsfeed'
+import EditProfile from '../student/editProfile'
+import PostDetails from '../student/postDetails'
+import Profile from '../student/profile'
 import Role from './role'
 
 const Stack = createNativeStackNavigator();
@@ -51,6 +55,7 @@ const StackNavigator = () => {
                             backgroundColor: '#5B1B9B',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -65,6 +70,7 @@ const StackNavigator = () => {
                             backgroundColor: '#5B1B9B',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -79,6 +85,7 @@ const StackNavigator = () => {
                             backgroundColor: '#5B1B9B',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -93,6 +100,7 @@ const StackNavigator = () => {
                             backgroundColor: '#5B1B9B',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -107,6 +115,7 @@ const StackNavigator = () => {
                             backgroundColor: '#2D52B0',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -121,6 +130,7 @@ const StackNavigator = () => {
                             backgroundColor: '#2D52B0',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -135,6 +145,7 @@ const StackNavigator = () => {
                             backgroundColor: '#2D52B0',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -149,6 +160,7 @@ const StackNavigator = () => {
                             backgroundColor: '#2D52B0',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
@@ -163,6 +175,67 @@ const StackNavigator = () => {
                             backgroundColor: '#2D52B0',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white',
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="Newsfeed" 
+                    component={Newsfeed}
+                    options={{ 
+                        title: 'Newsfeed', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="EditProfile" 
+                    component={EditProfile}
+                    options={{ 
+                        title: 'Edit Profile', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="PostDetails" 
+                    component={PostDetails}
+                    options={{ 
+                        title: 'Post', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="Profile" 
+                    component={Profile}
+                    options={{ 
+                        title: 'Profile', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'

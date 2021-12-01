@@ -24,11 +24,12 @@ export default createStyles = (colors) => {
             paddingVertical: 30
         },
         textHeader: {
+            fontFamily: 'Nunito-Bold',
             color: '#fff',
-            fontWeight: 'bold',
             fontSize: 30
         },
         textFooter: {
+            fontFamily: 'Nunito-Regular',
             color: '#05375a',
             fontSize: 18,
             color: colors.text,
@@ -51,9 +52,11 @@ export default createStyles = (colors) => {
             flex: 1,
             marginTop: Platform.OS === 'ios' ? 0 : -12,
             paddingLeft: 10,
-            color: colors.text
+            color: colors.text,
+            fontFamily: 'Nunito-Regular'
         },
         errorMsg: {
+            fontFamily: 'Nunito-Regular',
             color: '#FF0000',
             fontSize: 14,
         },
@@ -69,8 +72,8 @@ export default createStyles = (colors) => {
             borderRadius: 10
         },
         textSign: {
+            fontFamily: 'Nunito-Bold',
             fontSize: 18,
-            fontWeight: 'bold',
             color:'#fff'
         }
     });

@@ -41,7 +41,30 @@ const OthersProfile = ({ navigation }) => {
                     <Text style={styles.textSave}>Message <Entypo name="message" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </View>
-            
+            <View style={styles.cardContainer}>
+                <View style={styles.card}>
+                    <View style={styles.cardUserInfo}>
+                        <Image source={require('../asset/astronaut.png')} style={styles.cardAvatar} />
+                        <View style={styles.cardUserInfoSeparator}>
+                            <View style={styles.cardNameDate}>
+                                <Text style={styles.cardName}>Ali Azlan Aziz</Text>
+                                <Text style={styles.cardDate}>12/12/2020</Text>
+                            </View>
+                            <View style={styles.cardRating}>
+                                <AirbnbRating
+                                    defaultRating={Math.floor(4.8) === Math.ceil(4.8) ? Math.floor(4.8) : Math.ceil(4.8)}
+                                    size={14}
+                                    showRating={false}
+                                    isDisabled={true}
+                                    />
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.cardFeedbackContainer}>
+                        <Text style={styles.cardFeedback}>He is the best student i ever met. Commodo voluptate sint adipisicing adipisicing veniam cillum in ex tempor ea minim incididunt aute ad. Est anim cupidatat Lorem laborum est proident eiusmod. Et fugiat non mollit culpa ad laboris eu enim Lorem irure consectetur nulla nulla. In ut eu elit proident eu ad. Elit pariatur incididunt aliquip in et incididunt tempor proident nostrud ex. Aliquip sit laboris non consequat tempor incididunt sint pariatur ipsum ipsum occaecat minim.</Text>
+                    </View>
+                </View>
+            </View>            
         </ScrollView>
     )
 }
