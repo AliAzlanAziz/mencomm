@@ -8,6 +8,7 @@ import Signin from './signin'
 import Verify from './verify'
 import ForgotPassword from './forgotPassword'
 import ResetPassword from './resetPassword'
+
 import SSearch from '../student/search'
 import SAllContracts from '../student/allContracts'
 import SContract from '../student/contract'
@@ -16,10 +17,13 @@ import SUpdateInfo from '../student/updateInfo'
 import SNewsfeed from '../student/newsfeed'
 import SEditProfile from '../student/editProfile'
 import SPostDetails from '../student/postDetails'
+import SFeedback from '../student/feedback'
+import SAllUserPost from '../student/allUserPost'
 import SProfile from '../student/profile'
 import SSetting from '../student/setting'
 import SUpdatePassword from '../student/updatePassword'
 import SAnnouncement from '../student/announcement'
+
 import TSearch from '../tutor/search'
 import TAllContracts from '../tutor/allContracts'
 import TContract from '../tutor/contract'
@@ -28,10 +32,14 @@ import TUpdateInfo from '../tutor/updateInfo'
 import TNewsfeed from '../tutor/newsfeed'
 import TEditProfile from '../tutor/editProfile'
 import TPostDetails from '../tutor/postDetails'
+import TFeedback from '../tutor/feedback'
+import TAllUserPost from '../tutor/allUserPost'
 import TProfile from '../tutor/profile'
 import TSetting from '../tutor/setting'
 import TUpdatePassword from '../tutor/updatePassword'
 import TAnnouncement from '../tutor/announcement'
+import TRequested from '../tutor/requested'
+import TEnrolled from '../tutor/enrolled'
 import Role from './role'
 
 const Stack = createNativeStackNavigator();
@@ -258,6 +266,36 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
+                    name="SFeedback" 
+                    component={SFeedback}
+                    options={{ 
+                        title: 'Feedbacks', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="SAllUserPost" 
+                    component={SAllUserPost}
+                    options={{ 
+                        title: 'All Posts', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
                     name="SProfile" 
                     component={SProfile}
                     options={{ 
@@ -438,6 +476,36 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
+                    name="TFeedback" 
+                    component={TFeedback}
+                    options={{ 
+                        title: 'Feedbacks', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TAllUserPost" 
+                    component={TAllUserPost}
+                    options={{ 
+                        title: 'All Posts', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
                     name="TProfile" 
                     component={TProfile}
                     options={{ 
@@ -487,6 +555,36 @@ const StackNavigator = () => {
                     component={TAnnouncement}
                     options={{ 
                         title: 'Announcement', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TRequested" 
+                    component={TRequested}
+                    options={{ 
+                        title: 'Requests', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TEnrolled" 
+                    component={TEnrolled}
+                    options={{ 
+                        title: 'Enrolls', 
                         headerShown:true, 
                         headerStyle: {
                             backgroundColor: '#1CAB5F',

@@ -8,9 +8,13 @@ export default createStyles = (colors) => {
             flex: 1,
             backgroundColor: '#fff'
         },
+        scrollViewContainer: {
+            marginVertical: 10
+        },
         post: {
             flex: 1, 
             width:'100%', 
+            marginVertical: 10,
             borderTopWidth: 1, 
             borderBottomWidth: 1, 
             borderRadius:5, 

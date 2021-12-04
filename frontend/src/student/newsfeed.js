@@ -40,7 +40,7 @@ const SNewfeed = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
 
-            <ScrollView>
+            <ScrollView style={styles.scrollViewContainer}>
                 {data.map(item => <View style={styles.post} key={item.id}>
                     <View style={styles.cardUserInfo}>
                         <Image source={item.img} style={styles.cardAvatar} />

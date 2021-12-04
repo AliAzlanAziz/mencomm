@@ -37,6 +37,12 @@ const NavigatorEase = ({ navigation }) => {
             <TouchableOpacity onPress={() => { navigation.navigate('SPostDetails') }} style={styles.rowStudent}>
                 <Text style={styles.rowText}>Student Post Details</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate('SFeedback') }} style={styles.rowStudent}>
+                <Text style={styles.rowText}>Student's Feedbacks</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate('SAllUserPost') }} style={styles.rowStudent}>
+                <Text style={styles.rowText}>Student's All Posts</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => { navigation.navigate('SProfile') }} style={styles.rowStudent}>
                 <Text style={styles.rowText}>Student Profile</Text>
             </TouchableOpacity>
@@ -76,6 +82,12 @@ const NavigatorEase = ({ navigation }) => {
             <TouchableOpacity onPress={() => { navigation.navigate('TPostDetails') }} style={styles.rowTutor}>
                 <Text style={styles.rowText}>Tutor Post Details</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate('TFeedback') }} style={styles.rowTutor}>
+                <Text style={styles.rowText}>Tutor's Feedbacks</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate('TAllUserPost') }} style={styles.rowTutor}>
+                <Text style={styles.rowText}>Tutor's All Posts</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => { navigation.navigate('TProfile') }} style={styles.rowTutor}>
                 <Text style={styles.rowText}>Tutor Profile</Text>
             </TouchableOpacity>
@@ -90,6 +102,12 @@ const NavigatorEase = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { navigation.navigate('TAnnouncement') }} style={styles.rowTutor}>
                 <Text style={styles.rowText}>Tutor Announcement</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate('TRequested') }} style={styles.rowTutor}>
+                <Text style={styles.rowText}>Tutor Requested</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { navigation.navigate('TEnrolled') }} style={styles.rowTutor}>
+                <Text style={styles.rowText}>Tutor Enrolled</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => { navigation.navigate('TUpdateInfo') }} style={styles.rowTutor}>
                 <Text style={styles.rowText}>Tutor Update Info</Text>
