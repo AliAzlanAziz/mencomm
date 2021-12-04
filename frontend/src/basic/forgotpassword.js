@@ -100,10 +100,10 @@ const ForgotPassword = () => {
                     </Animatable.View>
                 }
 
-                <View style={styles.button}>
-                    <TouchableOpacity style={styles.signIn}onPress={() => {}}>
-                        <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signIn}>
-                            <Text style={styles.textSign}>Next</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button}onPress={() => {}}>
+                        <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.button}>
+                            <Text style={styles.buttonText}>Next</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>

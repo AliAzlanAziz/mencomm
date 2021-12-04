@@ -10,9 +10,9 @@ import {
 } from 'react-native'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/othersProfile'
+import createStyles from '../style/tutor/othersProfile'
 
-const SOthersProfile = ({ navigation }) => {
+const TOthersProfile = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -82,4 +82,4 @@ const SOthersProfile = ({ navigation }) => {
     )
 }
 
-export default SOthersProfile
+export default TOthersProfile

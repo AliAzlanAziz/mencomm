@@ -8,33 +8,21 @@ export default createStyles = (colors) => {
             flex: 1,
             backgroundColor: '#fff'
         },
-        announcementContainer: {
-            width: '95%',
-            alignSelf: 'center',
-            marginTop: 20,
-            marginBottom: 10,
-            borderRadius: 18,
-            backgroundColor: '#fff',
-            elevation:5,
-        },
-        announcementText: {
-            alignSelf: 'center',
-            fontFamily: 'Nunito-Regular',
-            fontSize: 18,
-            color: '#000',
-            padding: 30
-        },
-        postsContainer: {
-            marginBottom: 30
-        },
         post: {
             flex: 1, 
             width:'100%', 
-            marginTop: 20, 
             borderTopWidth: 1, 
             borderBottomWidth: 1, 
             borderRadius:5, 
             borderColor: '#C9CED3'
+        },
+        postInfoContainer: {
+            borderTopWidth: 1, 
+            borderColor: '#DCE2E9'
+        },
+        postInfo: {
+            marginLeft: 10, 
+            marginTop: 10
         },
         cardUserInfo: {
             flexDirection: 'row', 
@@ -65,15 +53,48 @@ export default createStyles = (colors) => {
         },
         action: {
             flexDirection: 'row',
-            alignSelf: 'center',
+            marginHorizontal: 10,
             marginBottom: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: '#f2f2f2',
+            paddingBottom: 5,
         },
         text: {
             fontFamily: 'Nunito-Regular',
             paddingLeft: 10,
             marginTop: 2,
-            width: '95%',
+            width: '85%',
             color: colors.text
         },
+        seeDetailsLinkContainer : {
+            borderTopWidth: 1, 
+            borderColor: '#DCE2E9'
+        },
+        seeDetailsLink: {
+            marginLeft: 40
+        },
+        seeDetailsText: {
+            fontFamily: 'Nunito-Bold',
+            margin: 10,
+            fontSize: 12,
+            color: '#33C979'
+        },
+        createPostButtonContainer: {
+            justifyContent: 'flex-end', 
+            alignItems: 'flex-end'
+        },
+        createPostButton: {
+            position: 'absolute'
+        },
+        infoMsg: {
+            fontSize: 12, 
+            fontFamily: 'Nunito-Bold',
+            color: '#00A0FF',
+            marginRight: 10,
+        },
+        plusIcon: {
+            marginRight: 10, 
+            marginBottom: 80
+        }
     })
 }

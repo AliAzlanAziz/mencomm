@@ -17,9 +17,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/contract'
+import createStyles from '../style/tutor/contract'
 
-const SContract = ({ navigation }) => {
+const TContract = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -155,4 +155,4 @@ const SContract = ({ navigation }) => {
     )
 }
 
-export default SContract
+export default TContract

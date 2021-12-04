@@ -19,10 +19,10 @@ import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import validator from 'validator'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/editProfile'
+import createStyles from '../style/tutor/editProfile'
 import { ageLimit } from '../utils.js/checkdate';
 
-const SEditProfile = ( navigation ) => {
+const TEditProfile = ( navigation ) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     
@@ -198,4 +198,4 @@ const SEditProfile = ( navigation ) => {
     )
 }
 
-export default SEditProfile
+export default TEditProfile

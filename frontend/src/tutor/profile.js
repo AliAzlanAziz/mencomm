@@ -11,9 +11,9 @@ import {
 import { AirbnbRating } from 'react-native-ratings'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/profile'
+import createStyles from '../style/tutor/profile'
 
-const SProfile = ({ navigation }) => {
+const TProfile = ({navigation}) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     
@@ -59,4 +59,4 @@ const SProfile = ({ navigation }) => {
     )
 }
 
-export default SProfile
+export default TProfile

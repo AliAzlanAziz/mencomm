@@ -7,9 +7,9 @@ import {
     FlatList,
     StatusBar,
 } from 'react-native';
-import styles from '../style/student/allContracts'
+import styles from '../style/tutor/allContracts'
 
-const SAllContracts = () => {
+const TAllContracts = () => {
     const [data, setData] = React.useState([
         {id:1,  name: "Mark Doe gasgsag asgag gasg asga",    status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar7.png"},
         {id:2,  name: "Clark Man",   status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar6.png"} ,
@@ -57,4 +57,4 @@ const SAllContracts = () => {
     );
 }
 
-export default SAllContracts
+export default TAllContracts

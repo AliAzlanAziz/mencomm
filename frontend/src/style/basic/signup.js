@@ -106,18 +106,18 @@ export default createStyles = (colors) => {
             color: '#3048B2',
             fontSize: 14,
         },
-        button: {
+        buttonContainer: {
             alignItems: 'center',
             marginTop: 30
         },
-        signIn: {
+        signupButton: {
             width: '100%',
             height: 50,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10
         },
-        signInButton: {
+        signinButton: {
             width: '100%',
             height: 50,
             justifyContent: 'center',
@@ -127,12 +127,12 @@ export default createStyles = (colors) => {
             borderWidth: 1,
             marginTop: 15
         },
-        textSignIn: {
+        textSignin: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
             color: '#fff'
         },
-        textSignUp: {
+        textSignup: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
             color: '#5B1B9B'

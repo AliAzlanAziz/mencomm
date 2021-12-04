@@ -290,15 +290,14 @@ const Signup = ({ navigation }) => {
                         </Animatable.View>
                     )}
                 
-                    <View style={styles.button}>
-                        <TouchableOpacity style={styles.signIn}onPress={() => {}}>
-                            <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signIn}>
-                                <Text style={styles.textSignIn}>Sign Up</Text>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Newsfeed')} style={styles.signupButton}>
+                            <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signupButton}>
+                                    <Text style={styles.textSignin}>Sign Up</Text>
                             </LinearGradient>
                         </TouchableOpacity>
-        
-                        <TouchableOpacity onPress={() => navigation.navigate('Signin')} style={styles.signInButton}>
-                            <Text style={styles.textSignUp}>Sign In</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('Signin')} style={styles.signinButton}>
+                            <Text style={styles.textSignup}>Sign In</Text>
                         </TouchableOpacity>
                     </View>
                 </ScrollView>

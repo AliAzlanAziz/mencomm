@@ -2,14 +2,19 @@ import React from 'react'
 import {
     Text,
     View,
+    TextInput,
     Image,
     ScrollView,
     StatusBar,
+    TouchableOpacity
 } from 'react-native'
+import Modal from "react-native-modal";
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/announcement'
+import createStyles from '../style/tutor/announcement'
 
-const SAnnouncement = ({ navigation }) => {
+const TAnnouncement = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -27,9 +32,33 @@ const SAnnouncement = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
-            <View style={styles.announcementContainer}>
-                <Text style={styles.announcementText}>Announcements</Text>
-            </View>
+            <TouchableOpacity style={styles.announcementContainer} onPress={() => setModalVisible(true)}>
+                <Text style={styles.announcementText}>Make an announcement to the students...</Text>
+            </TouchableOpacity>
+            <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
+                <View style={{}}>
+                    <StatusBar translucent={true} backgroundColor={colors.text} barStyle="light-content"/>
+                    <View style={{marginBottom: 20, alignItems: 'center', justifyContent: 'center', width: '95%', backgroundColor: '#fff', borderRadius: 18}}>
+                        <TextInput 
+                            placeholder="Write something"
+                            placeholderTextColor="#666666"
+                            style={[styles.textInput, {height: height}]}
+                            onContentSizeChange={(e) => { e.nativeEvent.contentSize.height < 200 ? setHeight(e.nativeEvent.contentSize.height) : setHeight(400)}}
+                            multiline={true}
+                            autoCapitalize="none"
+                            onChangeText={() => {}}
+                        />
+                    </View>
+                </View>
+                <View style={styles.button}>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.enrollButton}>
+                        <Text style={styles.textButton}>Post <Ionicons name="ios-arrow-up-circle-outline" color={colors.backgroundColor} size={20}/></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelButton}>
+                        <Text style={styles.textButton}>Cancel <Entypo name="circle-with-cross" color={colors.backgroundColor} size={18}/></Text>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
 
             <View style={styles.postsContainer}>
                 {
@@ -51,4 +80,4 @@ const SAnnouncement = ({ navigation }) => {
     )
 }
 
-export default SAnnouncement
+export default TAnnouncement

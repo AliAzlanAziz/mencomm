@@ -15,9 +15,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/newsfeed'
+import createStyles from '../style/tutor/newsfeed'
 
-const SNewfeed = ({ navigation }) => {
+const TNewfeed = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -106,11 +106,11 @@ const SNewfeed = ({ navigation }) => {
                         : 
                         null
                     }
-                    <Ionicons name="ios-add-circle" color={'#4378FF'} size={50} style={styles.plusIcon}/>
+                    <Ionicons name="ios-add-circle" color={'#33C979'} size={50} style={styles.plusIcon}/>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
 
-export default SNewfeed
+export default TNewfeed

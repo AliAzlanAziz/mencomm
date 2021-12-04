@@ -2,23 +2,36 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from './splash'
+import NavigatorEase from './navigatorEase'
 import Signup from './signup'
 import Signin from './signin'
 import Verify from './verify'
 import ForgotPassword from './forgotPassword'
 import ResetPassword from './resetPassword'
-import Search from '../student/search'
-import AllContracts from '../student/allContracts'
-import Contract from '../student/contract'
-import OthersProfile from '../student/othersProfile'
-import UpdateInfo from '../student/updateInfo'
-import Newsfeed from '../student/newsfeed'
-import EditProfile from '../student/editProfile'
-import PostDetails from '../student/postDetails'
-import Profile from '../student/profile'
-import Setting from '../student/setting'
-import UpdatePassword from '../student/updatePassword'
-import Announcement from '../student/announcement'
+import SSearch from '../student/search'
+import SAllContracts from '../student/allContracts'
+import SContract from '../student/contract'
+import SOthersProfile from '../student/othersProfile'
+import SUpdateInfo from '../student/updateInfo'
+import SNewsfeed from '../student/newsfeed'
+import SEditProfile from '../student/editProfile'
+import SPostDetails from '../student/postDetails'
+import SProfile from '../student/profile'
+import SSetting from '../student/setting'
+import SUpdatePassword from '../student/updatePassword'
+import SAnnouncement from '../student/announcement'
+import TSearch from '../tutor/search'
+import TAllContracts from '../tutor/allContracts'
+import TContract from '../tutor/contract'
+import TOthersProfile from '../tutor/othersProfile'
+import TUpdateInfo from '../tutor/updateInfo'
+import TNewsfeed from '../tutor/newsfeed'
+import TEditProfile from '../tutor/editProfile'
+import TPostDetails from '../tutor/postDetails'
+import TProfile from '../tutor/profile'
+import TSetting from '../tutor/setting'
+import TUpdatePassword from '../tutor/updatePassword'
+import TAnnouncement from '../tutor/announcement'
 import Role from './role'
 
 const Stack = createNativeStackNavigator();
@@ -35,6 +48,21 @@ const StackNavigator = () => {
                         headerShown:false 
                     }}/>
                 <Stack.Screen 
+                    name="NavigatorEase"
+                    component={NavigatorEase} 
+                    options={{ 
+                        title: 'Navigator Ease To Debug Screen', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#5B1B9B',
+                        },
+                        headerTitleStyle: {
+                            color: 'white',
+                            fontFamily: 'Nunito-Regular',
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
                     name="Signin" 
                     component={Signin} 
                     options={{ 
@@ -44,7 +72,8 @@ const StackNavigator = () => {
                             backgroundColor: '#5B1B9B',
                         },
                         headerTitleStyle: {
-                            color: 'white'
+                            color: 'white',
+                            fontFamily: 'Nunito-Regular',
                         },
                         headerTintColor: 'white'
                     }}/>
@@ -109,8 +138,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="Search" 
-                    component={Search}
+                    name="SSearch" 
+                    component={SSearch}
                     options={{ 
                         title: 'Search', 
                         headerShown:true, 
@@ -124,8 +153,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="AllContracts" 
-                    component={AllContracts}
+                    name="SAllContracts" 
+                    component={SAllContracts}
                     options={{ 
                         title: 'All Contracts', 
                         headerShown:true, 
@@ -139,8 +168,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="Contract" 
-                    component={Contract}
+                    name="SContract" 
+                    component={SContract}
                     options={{ 
                         title: 'Contract', 
                         headerShown:true, 
@@ -154,8 +183,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="OthersProfile" 
-                    component={OthersProfile}
+                    name="SOthersProfile" 
+                    component={SOthersProfile}
                     options={{ 
                         title: 'Profile', 
                         headerShown:true, 
@@ -169,8 +198,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="UpdateInfo" 
-                    component={UpdateInfo}
+                    name="SUpdateInfo" 
+                    component={SUpdateInfo}
                     options={{ 
                         title: 'Update Information', 
                         headerShown:true, 
@@ -184,8 +213,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="Newsfeed" 
-                    component={Newsfeed}
+                    name="SNewsfeed" 
+                    component={SNewsfeed}
                     options={{ 
                         title: 'Newsfeed', 
                         headerShown:true, 
@@ -199,8 +228,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="EditProfile" 
-                    component={EditProfile}
+                    name="SEditProfile" 
+                    component={SEditProfile}
                     options={{ 
                         title: 'Edit Profile', 
                         headerShown:true, 
@@ -214,8 +243,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="PostDetails" 
-                    component={PostDetails}
+                    name="SPostDetails" 
+                    component={SPostDetails}
                     options={{ 
                         title: 'Post', 
                         headerShown:true, 
@@ -229,8 +258,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="Profile" 
-                    component={Profile}
+                    name="SProfile" 
+                    component={SProfile}
                     options={{ 
                         title: 'Profile', 
                         headerShown:true, 
@@ -244,8 +273,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="Setting" 
-                    component={Setting}
+                    name="SSetting" 
+                    component={SSetting}
                     options={{ 
                         title: 'Settings', 
                         headerShown:true, 
@@ -259,8 +288,8 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="UpdatePassword" 
-                    component={UpdatePassword}
+                    name="SUpdatePassword" 
+                    component={SUpdatePassword}
                     options={{ 
                         title: 'Update Password', 
                         headerShown:true, 
@@ -274,13 +303,193 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="Announcement" 
-                    component={Announcement}
+                    name="SAnnouncement" 
+                    component={SAnnouncement}
                     options={{ 
                         title: 'Announcement', 
                         headerShown:true, 
                         headerStyle: {
                             backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TSearch" 
+                    component={TSearch}
+                    options={{ 
+                        title: 'Search', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TAllContracts" 
+                    component={TAllContracts}
+                    options={{ 
+                        title: 'All Contracts', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TContract" 
+                    component={TContract}
+                    options={{ 
+                        title: 'Contract', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TOthersProfile" 
+                    component={TOthersProfile}
+                    options={{ 
+                        title: 'Profile', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TUpdateInfo" 
+                    component={TUpdateInfo}
+                    options={{ 
+                        title: 'Update Information', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white',
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TNewsfeed" 
+                    component={TNewsfeed}
+                    options={{ 
+                        title: 'Newsfeed', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TEditProfile" 
+                    component={TEditProfile}
+                    options={{ 
+                        title: 'Edit Profile', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TPostDetails" 
+                    component={TPostDetails}
+                    options={{ 
+                        title: 'Post', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TProfile" 
+                    component={TProfile}
+                    options={{ 
+                        title: 'Profile', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TSetting" 
+                    component={TSetting}
+                    options={{ 
+                        title: 'Settings', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TUpdatePassword" 
+                    component={TUpdatePassword}
+                    options={{ 
+                        title: 'Update Password', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="TAnnouncement" 
+                    component={TAnnouncement}
+                    options={{ 
+                        title: 'Announcement', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
                         },
                         headerTitleStyle: {
                             fontFamily: 'Nunito-Regular',

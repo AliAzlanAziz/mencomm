@@ -12,7 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import createStyles from '../style/student/updatePassword'
 
-const UpdatePassword = () => {
+const SUpdatePassword = () => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -72,7 +72,7 @@ const UpdatePassword = () => {
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.header}>
-                <Text style={styles.textHeader}>Reset Password!</Text>
+                <Text style={styles.textHeader}>Update Password!</Text>
             </View>
             <Animatable.View animation="fadeInUpBig" style={styles.footer}>
                 <Text style={styles.textFooter}>Password</Text>
@@ -144,10 +144,10 @@ const UpdatePassword = () => {
                     </Animatable.View>
                 }
 
-                <View style={styles.button}>
-                    <TouchableOpacity style={styles.signIn} onPress={() => {}}>
-                        <LinearGradient colors={['#2D52B0', '#4D7CF2']} style={styles.signIn}>
-                            <Text style={styles.textSign}>Reset Password</Text>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                        <LinearGradient colors={['#2D52B0', '#4D7CF2']} style={styles.button}>
+                            <Text style={styles.buttonText}>Reset Password</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
@@ -156,4 +156,4 @@ const UpdatePassword = () => {
       );
 };
   
-export default UpdatePassword
+export default SUpdatePassword

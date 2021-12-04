@@ -14,9 +14,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/updateInfo'
+import createStyles from '../style/tutor/updateInfo'
 
-const SUpdateInfo = ({ navigation }) => {
+const TUpdateInfo = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     const [open, setOpen] = React.useState(false);
@@ -131,4 +131,4 @@ const SUpdateInfo = ({ navigation }) => {
     )
 }
 
-export default SUpdateInfo
+export default TUpdateInfo

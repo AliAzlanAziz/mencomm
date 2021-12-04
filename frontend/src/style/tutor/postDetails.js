@@ -81,7 +81,7 @@ export default createStyles = (colors) => {
         button: {
             alignItems: 'center',
             marginTop: 5,
-            marginBottom: 5,
+            marginBottom: 20,
         },
         textButton: {
             fontFamily: 'Nunito-Bold',

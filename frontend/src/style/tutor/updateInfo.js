@@ -99,7 +99,7 @@ export default createStyles = (colors) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
-            backgroundColor: '#4378FF',
+            backgroundColor: '#33C979',
             marginVertical: 10
         },
         saveButton: {
@@ -108,7 +108,7 @@ export default createStyles = (colors) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
-            backgroundColor: '#4378FF',
+            backgroundColor: '#33C979',
             marginVertical: 10
         },
         textSave: {

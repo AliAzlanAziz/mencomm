@@ -44,7 +44,7 @@ export default createStyles = (colors) => {
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
-            backgroundColor: '#4378FF',
+            backgroundColor: '#1CAB5F',
             marginTop: 2,
             marginBottom: 20,
         },
@@ -57,7 +57,7 @@ export default createStyles = (colors) => {
             alignItems: 'center'
         },
         card: { 
-            backgroundColor: '#7C9FF7', 
+            backgroundColor: '#95DFB8', 
             marginVertical: 10, 
             borderRadius: 15, 
             width: '95%'

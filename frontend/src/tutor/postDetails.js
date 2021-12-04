@@ -18,9 +18,9 @@ import Fontisto from 'react-native-vector-icons/Fontisto'
 import Entypo from 'react-native-vector-icons/Entypo'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/postDetails'
+import createStyles from '../style/tutor/postDetails'
 
-const SPostDetails = ({ navigation }) => {
+const TPostDetails = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -109,17 +109,13 @@ const SPostDetails = ({ navigation }) => {
                     <Text style={styles.text}>{data.desc}</Text>
                 </View>
             </View>
-            <View style={styles.button}>
-                {!enrolled && (
-                    <TouchableOpacity onPress={() => setEnrolled(true)} style={styles.saveButton}>
-                        <Text style={styles.textButton}>Enroll <Ionicons name="ios-arrow-up-circle-outline" color={colors.backgroundColor} size={20}/></Text>
-                    </TouchableOpacity>
-                )}
-                {enrolled && (
-                    <TouchableOpacity onPress={() => setEnrolled(false)} style={styles.cancelButton}>
-                        <Text style={styles.textButton}>Cancel <Entypo name="circle-with-cross" color={colors.backgroundColor} size={18}/></Text>
-                    </TouchableOpacity>
-                )}
+            <View style={styles.tutorButtonContainer}>
+                <TouchableOpacity onPress={() =>  navigation.navigate('#')} style={styles.reqButton}>
+                    <Text style={styles.textButton}>Requests <AntDesign name="exclamationcircleo" color={colors.backgroundColor} size={18}/></Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.enrollButton}>
+                    <Text style={styles.textButton}>Enrolled <MaterialCommunityIcons name="location-enter" color={colors.backgroundColor} size={18}/></Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.announcementButtonContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate('Announcement')} style={styles.announcementButton}>
@@ -130,4 +126,4 @@ const SPostDetails = ({ navigation }) => {
     )
 }
 
-export default SPostDetails
+export default TPostDetails

@@ -6,7 +6,7 @@ export default createStyles = (colors) => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: '#f6f6f6'
+            backgroundColor: '#fff'
         },
         userInfo: {
             justifyContent: 'center',
@@ -64,16 +64,21 @@ export default createStyles = (colors) => {
             flex: 1,
             marginTop: Platform.OS === 'ios' ? 0 : 2,
             paddingLeft: 10,
-            color: '#666666',
+            color: '#000',
         },
         textOutputBirthday: {
             fontFamily: 'Nunito-Regular',
             marginTop: Platform.OS === 'ios' ? 0 : 2,
-            color: '#666666',
+            color: '#000',
         },
         errorMsg: {
             fontFamily: 'Nunito-Regular',
             color: '#FF0000',
+            fontSize: 14,
+        },
+        infoMsg: {
+            fontFamily: 'Nunito-Regular',
+            color: '#00A0FF',
             fontSize: 14,
         },
         button: {

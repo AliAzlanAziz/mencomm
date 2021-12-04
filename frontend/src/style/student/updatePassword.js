@@ -60,18 +60,18 @@ export default createStyles = (colors) => {
             color: '#FF0000',
             fontSize: 14,
         },
-        button: {
+        buttonContainer: {
             alignItems: 'center',
             marginTop: 30
         },
-        signIn: {
+        button: {
             width: '100%',
             height: 50,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10
         },
-        textSign: {
+        buttonText: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
             color:'#fff'

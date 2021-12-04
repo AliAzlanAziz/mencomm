@@ -7,7 +7,7 @@ export default createStyles = (colors) => {
     return StyleSheet.create({
         container: {
             flex: 1, 
-            backgroundColor: '#551A91'
+            backgroundColor: '#1CAB5F'
         },
         header: {
             flex: 1,
@@ -30,8 +30,9 @@ export default createStyles = (colors) => {
         },
         textFooter: {
             fontFamily: 'Nunito-Regular',
+            color: '#05375a',
+            fontSize: 18,
             color: colors.text,
-            fontSize: 18
         },
         action: {
             flexDirection: 'row',
@@ -52,7 +53,7 @@ export default createStyles = (colors) => {
             marginTop: Platform.OS === 'ios' ? 0 : -12,
             paddingLeft: 10,
             color: colors.text,
-            fontFamily: 'Nunito-Regular',
+            fontFamily: 'Nunito-Regular'
         },
         errorMsg: {
             fontFamily: 'Nunito-Regular',
@@ -76,4 +77,4 @@ export default createStyles = (colors) => {
             color:'#fff'
         }
     });
-} 
+}

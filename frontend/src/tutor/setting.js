@@ -8,9 +8,9 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/setting'
+import createStyles from '../style/tutor/setting'
 
-const SSetting = ({ navigation }) => {
+const TSetting = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -20,19 +20,19 @@ const SSetting = ({ navigation }) => {
             <Ionicons name="settings-outline" color='#000' size={50} style={styles.settingsIcon}/>
             
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate('SEditProfile') } style={styles.rowFirst}>
+                <TouchableOpacity onPress={() => navigation.navigate('TEditProfile') } style={styles.rowFirst}>
                     <MaterialCommunityIcons name="account-edit-outline" color='#000' size={18} style={styles.rowIcon}/>
                     <Text style={styles.rowText}>Edit Profile</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('SUpdateInfo') } style={styles.row}>
+                <TouchableOpacity onPress={() => navigation.navigate('TUpdateInfo') } style={styles.row}>
                     <MaterialCommunityIcons name="update" color='#000' size={18} style={styles.rowIcon}/>
                     <Text style={styles.rowText}>Update Information</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('SRoles') } style={styles.row}>
+                <TouchableOpacity onPress={() => navigation.navigate('TRoles') } style={styles.row}>
                     <MaterialCommunityIcons name="toggle-switch-outline" color='#000' size={18} style={styles.rowIcon}/>
                     <Text style={styles.rowText}>Switch Roles</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('SAllContracts') } style={styles.row}>
+                <TouchableOpacity onPress={() => navigation.navigate('TAllContracts') } style={styles.row}>
                     <MaterialCommunityIcons name="file-outline" color='#000' size={18} style={styles.rowIcon}/>
                     <Text style={styles.rowText}>Contracts</Text>
                 </TouchableOpacity>
@@ -45,4 +45,4 @@ const SSetting = ({ navigation }) => {
     )
 }
 
-export default SSetting
+export default TSetting

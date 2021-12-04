@@ -9,9 +9,9 @@ import SearchBar from "react-native-dynamic-search-bar"
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import Modal from "react-native-modal";
 import { useTheme } from 'react-native-paper'
-import createStyles from '../style/student/search'
+import createStyles from '../style/tutor/search'
 
-const SSearch = () => {
+const TSearch = () => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -65,4 +65,4 @@ const SSearch = () => {
     );
 }
 
-export default SSearch
+export default TSearch

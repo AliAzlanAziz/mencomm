@@ -6,7 +6,7 @@ export default createStyles = (colors) => {
     return StyleSheet.create({
         container: {
             flex: 1,
-            backgroundColor: '#f6f6f6'
+            backgroundColor: '#fff',
         },
         post: {
             flex: 1, 
@@ -71,23 +71,35 @@ export default createStyles = (colors) => {
             width: '85%',
             color: colors.text
         },
-        button: {
+        seeDetailsLinkContainer : {
+            borderTopWidth: 1, 
+            borderColor: '#DCE2E9'
+        },
+        seeDetailsLink: {
             marginLeft: 40
         },
-        saveButton: {
-            width: '25%',
-            height: 40,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 10,
-            backgroundColor: '#4378FF',
-            marginVertical: 10
-        },
-        textSave: {
-            fontFamily: 'Nunito-Regular',
+        seeDetailsText: {
+            fontFamily: 'Nunito-Bold',
             margin: 10,
             fontSize: 12,
             color: '#4378FF'
-        }, 
+        },
+        createPostButtonContainer: {
+            justifyContent: 'flex-end', 
+            alignItems: 'flex-end'
+        },
+        createPostButton: {
+            position: 'absolute'
+        },
+        infoMsg: {
+            fontSize: 12, 
+            fontFamily: 'Nunito-Bold',
+            color: '#00A0FF',
+            marginRight: 10,
+        },
+        plusIcon: {
+            marginRight: 10, 
+            marginBottom: 80
+        }
     })
 }

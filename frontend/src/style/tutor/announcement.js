@@ -24,6 +24,38 @@ export default createStyles = (colors) => {
             color: '#000',
             padding: 30
         },
+        textInput: {
+            fontFamily: 'Nunito-Regular',
+            width: '90%',
+        },
+        button: {
+            flexDirection: 'row',
+            alignSelf: 'center',
+            marginTop: 5,
+            marginBottom: 20,
+        },
+        enrollButton: {
+            width: '30%',
+            height: 40,
+            marginRight: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#4378FF',
+        },
+        cancelButton: {
+            width: '30%',
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#E05656',
+        },
+        textButton: {
+            fontFamily: 'Nunito-Bold',
+            fontSize: 18,
+            color: '#fff',
+        },
         postsContainer: {
             marginBottom: 30
         },

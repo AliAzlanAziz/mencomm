@@ -26,7 +26,8 @@ const postSchema = mongoose.Schema({
     schedule: [
         {
             day: String,
-            time: Date
+            start_time: Date,
+            end_time: Date,
         }
     ],
     capacity: Number,
