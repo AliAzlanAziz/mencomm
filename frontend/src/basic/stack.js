@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 import Splash from './splash'
 import NavigatorEase from './navigatorEase'
 import Signup from './signup'
@@ -41,13 +42,23 @@ import TAnnouncement from '../tutor/announcement'
 import TRequested from '../tutor/requested'
 import TEnrolled from '../tutor/enrolled'
 import Role from './role'
+import { TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const BackButton = () => {
+    return (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" color={colors.text} size={20}/>
+        </TouchableOpacity>
+    )
+}
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigator = () => {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
+        <NavigationContainer> 
+            <Stack.Navigator screenOptions={{headerShown: false}}>
                 <Stack.Screen 
                     name="Splash" 
                     component={Splash} 
@@ -58,7 +69,7 @@ const StackNavigator = () => {
                 <Stack.Screen 
                     name="NavigatorEase"
                     component={NavigatorEase} 
-                    options={{ 
+                    options={{
                         title: 'Navigator Ease To Debug Screen', 
                         headerShown:true, 
                         headerStyle: {
@@ -68,14 +79,14 @@ const StackNavigator = () => {
                             color: 'white',
                             fontFamily: 'Nunito-Regular',
                         },
-                        headerTintColor: 'white'
+                        headerTintColor: 'white',
                     }}/>
                 <Stack.Screen 
                     name="Signin" 
                     component={Signin} 
                     options={{ 
                         title: 'Sign In', 
-                        headerShown:true, 
+                        headerShown: true, 
                         headerStyle: {
                             backgroundColor: '#5B1B9B',
                         },
@@ -83,7 +94,8 @@ const StackNavigator = () => {
                             color: 'white',
                             fontFamily: 'Nunito-Regular',
                         },
-                        headerTintColor: 'white'
+                        headerTintColor: 'white',
+                        // headerLeft: (props) => {}
                     }}/>
                 <Stack.Screen 
                     name="Signup" 
@@ -145,6 +157,8 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
+
+  
                 <Stack.Screen 
                     name="SSearch" 
                     component={SSearch}
@@ -370,6 +384,8 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
+
+
                 <Stack.Screen 
                     name="TAllContracts" 
                     component={TAllContracts}

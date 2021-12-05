@@ -9,7 +9,7 @@ export default createStyles = (colors) => {
             backgroundColor: '#fff',
         },
         scrollViewContainer: {
-            marginVertical: 10
+            marginBottom: 60
         },
         post: {
             flex: 1, 

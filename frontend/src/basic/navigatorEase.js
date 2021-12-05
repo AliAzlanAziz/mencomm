@@ -2,122 +2,72 @@ import React from 'react'
 import { View, Text, TouchableOpacity, ScrollView, StyleSheet } from 'react-native'
 
 const NavigatorEase = ({ navigation }) => {
+    const [basic, setBasic] = React.useState([
+        {id:1, name: 'Signin', label: 'Sign In'},
+        {id:2, name: 'Signup', label: 'Sign Up'},
+        {id:3, name: 'Verify', label: 'Verify'},
+        {id:4, name: 'ForgotPassword', label: 'Forgot Password'},
+        {id:5, name: 'ResetPassword', label: 'Reset Password'}
+    ])
+
+    const [student, setStudent] = React.useState([
+        {id:1, name: 'SAllContracts', label: 'Student All Contracts'},
+        {id:2, name: 'SContract', label: 'Student Contract'},
+        {id:3, name: 'SNewsfeed', label: 'Student Newsfeed'},
+        {id:4, name: 'SPostDetails', label: 'Student Post Details'},
+        {id:5, name: 'SFeedback', label: 'Student\'s Feedbacks'},
+        {id:6, name: 'SAllUserPost', label: 'Student\'s All Posts'},
+        {id:7, name: 'SProfile', label: 'Student Profile'},
+        {id:8, name: 'SEditProfile', label: 'Student Edit Profile'},
+        {id:9, name: 'SOthersProfile', label: 'Student Other\'s Profile'},
+        {id:10, name: 'SSearch', label: 'Student Search'},
+        {id:11, name: 'SAnnouncement', label: 'Student Announcement'},
+        {id:12, name: 'SUpdateInfo', label: 'Student Update Info'},
+        {id:13, name: 'SSetting', label: 'Student Setting'},
+        {id:14, name: 'SUpdatePassword', label: 'Student Update Password'},
+    ])
+
+    const [tutor, setTutor] = React.useState([
+        {id:1, name: 'TAllContracts', label: 'Tutor All Contracts'},
+        {id:2, name: 'TContract', label: 'Tutor Contract'},
+        {id:3, name: 'TNewsfeed', label: 'Tutor Newsfeed'},
+        {id:4, name: 'TPostDetails', label: 'Tutor Post Details'},
+        {id:5, name: 'TFeedback', label: 'Tutor\'s Feedbacks'},
+        {id:6, name: 'TAllUserPost', label: 'Tutor\'s All Posts'},
+        {id:7, name: 'TProfile', label: 'Tutor Profile'},
+        {id:8, name: 'TEditProfile', label: 'Tutor Edit Profile'},
+        {id:9, name: 'TOthersProfile', label: 'Tutor Other\'s Profile'},
+        {id:10, name: 'TSearch', label: 'Tutor Search'},
+        {id:11, name: 'TAnnouncement', label: 'Tutor Announcement'},
+        {id:12, name: 'TRequested', label: 'Tutor Requested'},
+        {id:13, name: 'TEnrolled', label: 'Tutor Enrolls'},
+        {id:14, name: 'TUpdateInfo', label: 'Tutor Update Info'},
+        {id:15, name: 'TSetting', label: 'Tutor Setting'},
+        {id:16, name: 'TUpdatePassword', label: 'Tutor Update Password'},
+    ])
+
     return (
         <ScrollView style={{backgroundColor: '#fff'}}>
             <View style={{backgroundColor: 'white'}}>
                 <Text style={{fontFamily: 'Nunito-Regular', fontSize: 18, color: '#000', marginLeft: 20, paddingVertical: 20}}>Basic Screen</Text>
             </View>
-            <TouchableOpacity onPress={() => { navigation.navigate('Signin') }} style={styles.rowBasic}>
-                <Text style={styles.rowText}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('Signup') }} style={styles.rowBasic}>
-                <Text style={styles.rowText}>Sign Up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('Verify') }} style={styles.rowBasic}>
-                <Text style={styles.rowText}>Verify</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('ForgotPassword') }} style={styles.rowBasic}>
-                <Text style={styles.rowText}>Forgot Password</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('ResetPassword') }} style={styles.rowBasic}>
-                <Text style={styles.rowText}>Reset Password</Text>
-            </TouchableOpacity>
+            {basic.map(item => <TouchableOpacity onPress={() => { navigation.navigate(item.name) }} style={styles.rowBasic} key={item.id}>
+                <Text style={styles.rowText}>{item.label}</Text>
+            </TouchableOpacity>)}
+
             <View style={{backgroundColor: 'white'}}>
                 <Text style={{fontFamily: 'Nunito-Regular', fontSize: 18, color: '#000', marginLeft: 20, paddingVertical: 20}}>Student's Screen</Text>
             </View>
-            <TouchableOpacity onPress={() => { navigation.navigate('SAllContracts') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student All Contracts</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SContract') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Contract</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SNewsfeed') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Newsfeed</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SPostDetails') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Post Details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SFeedback') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student's Feedbacks</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SAllUserPost') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student's All Posts</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SProfile') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SEditProfile') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Edit Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SOthersProfile') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Other's Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SSearch') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Search</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SAnnouncement') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Announcement</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SUpdateInfo') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Update Info</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SSetting') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Setting</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('SUpdatePassword') }} style={styles.rowStudent}>
-                <Text style={styles.rowText}>Student Update Password</Text>
-            </TouchableOpacity>
+            {student.map(item => <TouchableOpacity onPress={() => { navigation.navigate(item.name) }} style={styles.rowStudent} key={item.id}>
+                <Text style={styles.rowText}>{item.label}</Text>
+            </TouchableOpacity>)}
+            
             <View style={{backgroundColor: 'white'}}>
                 <Text style={{fontFamily: 'Nunito-Regular', fontSize: 18, color: '#000', marginLeft: 20, paddingVertical: 20}}>Tutor's Screen</Text>
             </View>
-            <TouchableOpacity onPress={() => { navigation.navigate('TAllContracts') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor All Contracts</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TContract') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Contract</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TNewsfeed') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Newsfeed</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TPostDetails') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Post Details</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TFeedback') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor's Feedbacks</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TAllUserPost') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor's All Posts</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TProfile') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TEditProfile') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Edit Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TOthersProfile') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Other's Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TSearch') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Search</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TAnnouncement') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Announcement</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TRequested') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Requested</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TEnrolled') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Enrolled</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TUpdateInfo') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Update Info</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TSetting') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Setting</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => { navigation.navigate('TUpdatePassword') }} style={styles.rowTutor}>
-                <Text style={styles.rowText}>Tutor Update Password</Text>
-            </TouchableOpacity>
+            {tutor.map(item => <TouchableOpacity onPress={() => { navigation.navigate(item.name) }} style={styles.rowTutor} key={item.id}>
+                <Text style={styles.rowText}>{item.label}</Text>
+            </TouchableOpacity>)}
         </ScrollView>
     )
 }
