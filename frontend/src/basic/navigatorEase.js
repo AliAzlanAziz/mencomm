@@ -7,7 +7,8 @@ const NavigatorEase = ({ navigation }) => {
         {id:2, name: 'Signup', label: 'Sign Up'},
         {id:3, name: 'Verify', label: 'Verify'},
         {id:4, name: 'ForgotPassword', label: 'Forgot Password'},
-        {id:5, name: 'ResetPassword', label: 'Reset Password'}
+        {id:5, name: 'ResetPassword', label: 'Reset Password'},
+        {id:5, name: 'Role', label: 'Roles'},
     ])
 
     const [student, setStudent] = React.useState([
@@ -25,6 +26,9 @@ const NavigatorEase = ({ navigation }) => {
         {id:12, name: 'SUpdateInfo', label: 'Student Update Info'},
         {id:13, name: 'SSetting', label: 'Student Setting'},
         {id:14, name: 'SUpdatePassword', label: 'Student Update Password'},
+        {id:15, name: 'SNotification', label: 'Student Notifications'},
+        {id:16, name: 'SMessages', label: 'Student all Messages'},
+        {id:17, name: 'SChat', label: 'Student specific Chat'},
     ])
 
     const [tutor, setTutor] = React.useState([
@@ -44,6 +48,9 @@ const NavigatorEase = ({ navigation }) => {
         {id:14, name: 'TUpdateInfo', label: 'Tutor Update Info'},
         {id:15, name: 'TSetting', label: 'Tutor Setting'},
         {id:16, name: 'TUpdatePassword', label: 'Tutor Update Password'},
+        {id:17, name: 'TNotification', label: 'Tutor Notifications'},
+        {id:18, name: 'TMessages', label: 'Tutor all Messages'},
+        {id:19, name: 'TChat', label: 'Tutor specific Chat'},
     ])
 
     return (
