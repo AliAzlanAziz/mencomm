@@ -8,7 +8,7 @@ const NavigatorEase = ({ navigation }) => {
         {id:3, name: 'Verify', label: 'Verify'},
         {id:4, name: 'ForgotPassword', label: 'Forgot Password'},
         {id:5, name: 'ResetPassword', label: 'Reset Password'},
-        {id:5, name: 'Role', label: 'Roles'},
+        {id:6, name: 'Role', label: 'Roles'},
     ])
 
     const [student, setStudent] = React.useState([

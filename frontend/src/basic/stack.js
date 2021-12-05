@@ -24,14 +24,14 @@ import SProfile from '../student/profile'
 import SSetting from '../student/setting'
 import SUpdatePassword from '../student/updatePassword'
 import SAnnouncement from '../student/announcement'
-import SNotification from '../student/Notification';
-import SMessages from '../student/Messages';
-import SChat from '../student/Chat';
+import SNotification from '../student/notification';
+import SMessages from '../student/messages';
+import SChat from '../student/chat';
 
 
-import TChat from '../tutor/Chat'; 
-import TMessages from '../tutor/Messages';
-import TNotification from '../tutor/Notification';
+import TChat from '../tutor/chat'; 
+import TMessages from '../tutor/messages';
+import TNotification from '../tutor/notification';
 import TSearch from '../tutor/search'
 import TAllContracts from '../tutor/allContracts'
 import TContract from '../tutor/contract'

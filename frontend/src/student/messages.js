@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, Button,FlatList } from 'react-native'
 import { Container,Card,UserInfo,
     UserImgWrapper,UserImg,UserInfoText,
-    PostTime,MessageText,TextSection, UserName } from '../styles/MessageStyles'
+    PostTime,MessageText,TextSection, UserName } from '../style/student/messageStyles'
 const data = [
     {
         id:'1',
