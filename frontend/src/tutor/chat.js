@@ -1,59 +1,31 @@
-import React,{useState,useEffect,useCallback} from 'react'
-import { StyleSheet, Text, View,Button,ScrollView } from 'react-native'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import { Bubble, GiftedChat, Send } from 'react-native-gifted-chat'
 import  MaterialCommunityIcons  from 'react-native-vector-icons/MaterialCommunityIcons'
 import  FontAwesome  from 'react-native-vector-icons/FontAwesome'
-const TChat = () => {
-    const [messages,setMessages] = useState([]);
-    useEffect(() => {
-        setMessages([
-            {
-                _id:1,
-                text:'Hello Developer',
-                createdAt: new Date(),
-                user:{
-                    _id:2,
-                    name:'React Native',
-                    avatar:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg'
-                },
-            },
-            
-            {
-                _id:2,
-                text:'Hello World',
-                createdAt: new Date(),
-                user:{
-                    _id:1,
-                    name:'React Native',
-                    avatar:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg'
-                },
-            },
 
+const TChat = () => {
+    const [messages,setMessages] = React.useState([]);
+    React.useEffect(() => {
+        setMessages([
+            {_id:1, text:'Hello Developer', createdAt: new Date(), user:{_id:2, name:'React Native', avatar:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg'}, },            
+            {_id:2, text:'Hello World', createdAt: new Date(), user:{_id:1, name:'React Native', avatar:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg' }, },
         ])
     },[]);
 
-    const onSend = useCallback((messages=[]) =>{
-        setMessages(previousMessages => GiftedChat.append(previousMessages,messages))
+    const onSend = React.useCallback((messages=[]) =>{
+        setMessages(previousMessages => GiftedChat.append(previousMessages,messages)) 
     },[]);
-
-
 
     const renderSend = (props) => {
         return(
             <Send {...props}>
                 <View>
-                    <MaterialCommunityIcons
-                     name='send-circle'
-                     style={{marginBottom:5, marginRight:5}}
-                     size={32}
-                    color='#0E9D50'/>
+                    <MaterialCommunityIcons name='send-circle' style={{marginBottom:5, marginRight:5}} size={32} color='#0E9D50'/>
                 </View>
-
             </Send>
         )
     }
-
-
 
     const renderBubble = (props) => {
         return(
@@ -75,7 +47,6 @@ const TChat = () => {
                 color:'#000'
             }
         }}
-
         timeTextStyle={{
             left:{
                 color:'#fff'
@@ -84,7 +55,6 @@ const TChat = () => {
                 color:'#000'
             }
         }}
-
         />
         )
     }

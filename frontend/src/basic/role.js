@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 
 const Role = ({ navigation }) => {
@@ -19,48 +18,27 @@ const Role = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.header}>
-                <Animatable.Image 
-                    animation="bounceIn"
-                    duraton="1500"
-                    source={require('../asset/user-shield-icon-13-256.png')}
-                    style={styles.logo}
-                    resizeMode="stretch"
-                />
+                <Animatable.Image animation="bounceIn" duraton="1500" source={require('../asset/user-shield-icon-13-256.png')} style={styles.logo} resizeMode="stretch"/>
             </View>
-            <Animatable.View 
-                style={[styles.footer, {
-                    backgroundColor: colors.background
-                }]}
-                animation="fadeInUpBig"
-            >
-                <Text style={[styles.title, {
-                    color: colors.text
-                }]}>Select Roles</Text>
+            <Animatable.View style={[styles.footer, { backgroundColor: colors.background }]} animation="fadeInUpBig">
+                <Text style={[styles.title, { color: colors.text}]}>Select Roles</Text>
                 <Text style={styles.text}> Are You a Dedicated Tutor willing to Teach the young minds or Are you a ambitious Student Willing to learn from the best</Text>
                 <View style={styles.button}> 
-                <View style={styles.sbutton}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('#')}>
-                        <LinearGradient
-                            colors={['#016aab', '#0148ab']}
-                            style={styles.signIn}
-                        >
-                            <Text style={styles.textSign}>Student</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
+                    <View style={styles.sbutton}>
+                        <TouchableOpacity onPress={()=>navigation.navigate('Role')}>
+                            <LinearGradient colors={['#016aab', '#0148ab']} style={styles.signIn}>
+                                <Text style={styles.textSign}>Student</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.tbutton}>
+                        <TouchableOpacity onPress={()=>navigation.navigate('Role')}>
+                            <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
+                                <Text style={styles.textSign}>Tutor</Text>
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.tbutton}>
-                    <TouchableOpacity onPress={()=>navigation.navigate('#')}>
-                        <LinearGradient
-                            colors={['#08d4c4', '#01ab9d']}
-                            style={styles.signIn}
-                        >
-                            <Text style={styles.textSign}>Tutor</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View>
-                </View>
-
-
             </Animatable.View>
         </View>
     )

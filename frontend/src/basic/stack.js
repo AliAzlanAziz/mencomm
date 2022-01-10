@@ -652,7 +652,7 @@ const StackNavigator = () => {
                     component={SChat} 
                     options={
                         ({route}) =>({ 
-                        title: route.params.userName, 
+                        title: "Chat", 
                         headerShown:true, 
                         headerStyle: {
                             backgroundColor: '#2D52B0',
@@ -698,7 +698,7 @@ const StackNavigator = () => {
                     component={TChat} 
                     options={
                         ({route}) =>({ 
-                        title: route.params.userName, 
+                        title: "chat", 
                         headerShown:true, 
                         headerStyle: {
                             backgroundColor: '#0E9D50',
