@@ -9,15 +9,11 @@ export default createStyles = (colors) => {
             flex: 1,
             backgroundColor: '#fff'
         },
-        tutionTypeContainer: { 
-            alignItems: 'center'
-        },
         tutionTypeInput: {
             flexDirection: 'row', 
             marginVertical: 20, 
             borderRadius: 5, 
-            elevation: 3, 
-            width: '95%'
+            elevation: 3
         },
         iconLabelWrapper: {
             flexDirection: 'row', 
@@ -33,7 +29,7 @@ export default createStyles = (colors) => {
         },
         dropDownPicker: { 
             marginVertical: 10, 
-            marginLeft: '20%' 
+            marginLeft: '10%'
         },
         scrollView: { 
             paddingHorizontal: 10

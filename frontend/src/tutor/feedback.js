@@ -6,7 +6,9 @@ import {
     Image,
     ScrollView,
     StatusBar,
+    TouchableOpacity
 } from 'react-native'
+import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/feedback'
 
@@ -14,6 +16,7 @@ const TFeedback = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
+    const [isModalVisible, setModalVisible] = React.useState(false)
     const [user, setUser] = React.useState({
         id: 1, 
         name: 'Ali Azlan Aziz', 
@@ -32,7 +35,7 @@ const TFeedback = ({ navigation }) => {
     ])
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
                 <Image source={user.img} style={styles.image}/>
@@ -46,6 +49,9 @@ const TFeedback = ({ navigation }) => {
                         />
                     <Text style={styles.userRatingCount}>{user.rating}</Text>
                 </View>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Entypo name="dots-three-horizontal" color={colors.text} size={30} />
+                </TouchableOpacity>
             </View>
             <View style={styles.cardContainer}>
                 {data.map(item => <View style={styles.card} key={item.id}>
@@ -70,7 +76,7 @@ const TFeedback = ({ navigation }) => {
                         <Text style={styles.cardFeedback}>{item.text}</Text>
                     </View>
                 </View>)}
-            </View>            
+            </View>
         </ScrollView>
     )
 }

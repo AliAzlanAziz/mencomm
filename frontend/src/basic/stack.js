@@ -9,6 +9,7 @@ import Signin from './signin'
 import Verify from './verify'
 import ForgotPassword from './forgotPassword'
 import ResetPassword from './resetPassword'
+import Role from './role'
 
 import SSearch from '../student/search'
 import SAllContracts from '../student/allContracts'
@@ -24,14 +25,8 @@ import SProfile from '../student/profile'
 import SSetting from '../student/setting'
 import SUpdatePassword from '../student/updatePassword'
 import SAnnouncement from '../student/announcement'
-import SNotification from '../student/Notification';
-import SMessages from '../student/Messages';
-import SChat from '../student/Chat';
+import SCreatePost from '../student/createPost'
 
-
-import TChat from '../tutor/Chat'; 
-import TMessages from '../tutor/Messages';
-import TNotification from '../tutor/Notification';
 import TSearch from '../tutor/search'
 import TAllContracts from '../tutor/allContracts'
 import TContract from '../tutor/contract'
@@ -48,17 +43,7 @@ import TUpdatePassword from '../tutor/updatePassword'
 import TAnnouncement from '../tutor/announcement'
 import TRequested from '../tutor/requested'
 import TEnrolled from '../tutor/enrolled'
-import Role from './role'
-import { TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
-const BackButton = () => {
-    return (
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" color={colors.text} size={20}/>
-        </TouchableOpacity>
-    )
-}
+import TCreatePost from '../tutor/createPost'
 
 const Stack = createNativeStackNavigator();
 
@@ -102,7 +87,6 @@ const StackNavigator = () => {
                             fontFamily: 'Nunito-Regular',
                         },
                         headerTintColor: 'white',
-                        // headerLeft: (props) => {}
                     }}/>
                 <Stack.Screen 
                     name="Signup" 
@@ -164,8 +148,6 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
-
-  
                 <Stack.Screen 
                     name="SSearch" 
                     component={SSearch}
@@ -377,6 +359,23 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
+                    name="SCreatePost" 
+                    component={SCreatePost}
+                    options={{ 
+                        title: 'Create Post', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+
+
+                <Stack.Screen 
                     name="TSearch" 
                     component={TSearch}
                     options={{ 
@@ -391,8 +390,6 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
-
-
                 <Stack.Screen 
                     name="TAllContracts" 
                     component={TAllContracts}
@@ -618,112 +615,21 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
-
-<Stack.Screen 
-                    name="SNotification" 
-                    component={SNotification} 
+                <Stack.Screen 
+                    name="TCreatePost" 
+                    component={TCreatePost}
                     options={{ 
-                        title: 'Notifications', 
+                        title: 'Create Post', 
                         headerShown:true, 
                         headerStyle: {
-                            backgroundColor: '#2D52B0',
+                            backgroundColor: '#1CAB5F',
                         },
                         headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
                             color: 'white'
                         },
                         headerTintColor: 'white'
                     }}/>
-                <Stack.Screen 
-                    name="SMessages" 
-                    component={SMessages} 
-                    options={{ 
-                        title: 'Messenger', 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#2D52B0',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    }}/>
-                <Stack.Screen 
-                    name="SChat" 
-                    component={SChat} 
-                    options={
-                        ({route}) =>({ 
-                        title: route.params.userName, 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#2D52B0',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    })}/>
-            
-
-
-            <Stack.Screen 
-                    name="TNotification" 
-                    component={TNotification} 
-                    options={{ 
-                        title: 'Notifications', 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#0E9D50',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    }}/>
-                <Stack.Screen 
-                    name="TMessages" 
-                    component={TMessages} 
-                    options={{ 
-                        title: 'Messenger', 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#0E9D50',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    }}/>
-                <Stack.Screen 
-                    name="TChat" 
-                    component={TChat} 
-                    options={
-                        ({route}) =>({ 
-                        title: route.params.userName, 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#0E9D50',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    })}/>
-
-
-                { <Stack.Screen 
-                    name="Role" 
-                    component={Role}
-                    options={{ 
-                        title: 'Roles', 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#5B1B9B',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    }}/> }
                 </Stack.Navigator>
         </NavigationContainer>
     );

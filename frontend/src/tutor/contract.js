@@ -24,7 +24,7 @@ const TContract = ({ navigation }) => {
     const styles = createStyles(colors)
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
                 <Image source={require('../asset/logo.png')} style={styles.image}/>

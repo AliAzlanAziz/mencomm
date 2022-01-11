@@ -7,20 +7,23 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from 'react-native-animatable'
+import Modal from "react-native-modal"
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Entypo from 'react-native-vector-icons/Entypo'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/newsfeed'
 
 const TNewfeed = ({ navigation }) => {
-    const { colors } = useTheme();
+    const { colors } = useTheme()
     const styles = createStyles(colors)
 
+    const [isModalVisible, setModalVisible] = React.useState(false)
     const [toggleText, setToggleText] = React.useState(false)
     
     const [data, setData] = React.useState([
@@ -40,13 +43,18 @@ const TNewfeed = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
 
-            <ScrollView style={styles.scrollViewContainer}>
+            <ScrollView style={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
                 {data.map(item => <View style={styles.post} key={item.id}>
                     <View style={styles.cardUserInfo}>
                         <Image source={item.img} style={styles.cardAvatar} />
                         <View style={styles.cardNameDate}>
                             <Text style={styles.cardName}>{item.name}</Text>
-                            <Text style={styles.cardDate}>{item.date}</Text>
+                            <View style={{flexDirection: "row"}}>
+                                <Text style={styles.cardDate}>{item.date}</Text>
+                                <TouchableOpacity onPress={() => setModalVisible(true)} style={{marginTop: 5, marginLeft: 10}}>
+                                    <Entypo name="dots-three-vertical" color={colors.text} size={20} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     <View style={styles.postInfoContainer}>
@@ -96,6 +104,18 @@ const TNewfeed = ({ navigation }) => {
                 </View>)
                 }
             </ScrollView>
+            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
+                <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report User</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report Post</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report Both</Text>
+                </TouchableOpacity>
+            </Modal>
 
             <View style={styles.createPostButtonContainer}>
                 <TouchableOpacity onPress={() => navigation.navigate('#')} onLongPress={() => handleLongPress()} style={styles.createPostButton}>

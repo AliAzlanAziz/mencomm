@@ -83,6 +83,17 @@ export default createStyles = (colors) => {
             marginTop: 5,
             marginBottom: 20,
         },
+        modalList: {
+            borderBottomWidth: 1,
+            borderBottomColor: "#f5f5f5",
+            backgroundColor: "#fff", 
+            padding: 20
+        },
+        modalListText: {
+            fontFamily: 'Nunito-Regular',
+            fontSize: 18,
+            color: '#000'
+        },
         textButton: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,

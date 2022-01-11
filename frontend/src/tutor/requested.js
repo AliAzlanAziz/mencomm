@@ -28,7 +28,7 @@ const TRequested = ({ navigation }) => {
     ])
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
 
             {data.map(item => <View style={styles.row} key={item.id}>

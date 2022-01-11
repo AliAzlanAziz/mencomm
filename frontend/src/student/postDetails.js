@@ -9,6 +9,7 @@ import {
     TouchableOpacity
 } from 'react-native'
 import { AirbnbRating } from 'react-native-ratings'
+import Modal from "react-native-modal"
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
@@ -24,6 +25,7 @@ const SPostDetails = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
+    const [isModalVisible, setModalVisible] = React.useState(false)
     const [enrolled, setEnrolled] = React.useState(false)
 
     const [data, setData] = React.useState({
@@ -46,7 +48,7 @@ const SPostDetails = ({ navigation }) => {
     })
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View>
                 <View style={styles.userInfo}>
@@ -61,6 +63,9 @@ const SPostDetails = ({ navigation }) => {
                             />
                         <Text style={styles.userRatingCount}>{data.rating}</Text>
                     </View>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
+                        <Entypo name="dots-three-horizontal" color={colors.text} size={30} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.action}>
                     <AntDesign name="book" color={colors.text} size={20} />
@@ -126,6 +131,18 @@ const SPostDetails = ({ navigation }) => {
                     <Text style={styles.textButton}>Announcments <FontAwesome name="sticky-note-o" color={colors.backgroundColor} size={16}/></Text>
                 </TouchableOpacity>
             </View>
+            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
+                <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report User</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report Post</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report Both</Text>
+                </TouchableOpacity>
+            </Modal>
         </ScrollView>
     )
 }

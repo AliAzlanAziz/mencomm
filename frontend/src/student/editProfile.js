@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { AirbnbRating } from 'react-native-ratings'
 import * as Animatable from 'react-native-animatable';
+import Modal from "react-native-modal"
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -26,6 +27,7 @@ const SEditProfile = ( navigation ) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     
+    const [isModalVisible, setModalVisible] = React.useState(false)
     const [show, setShow] = React.useState(false);
 
     const [data, setData] = React.useState({
@@ -37,7 +39,8 @@ const SEditProfile = ( navigation ) => {
             latitude: ''
         },
         email: 'aliazlan123@mail.com',
-        rating: 4.8
+        rating: 4.8,
+        image: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/ea7a3c32163929.567197ac70bda.png'
     });
 
     const [check, setCheck] = React.useState({
@@ -78,21 +81,48 @@ const SEditProfile = ( navigation ) => {
         ) 
     }
 
+    const takePhotoFromCamera = () => {
+        ImagePicker.openCamera({
+            compressImageMaxWidth: 300,
+            compressImageMaxHeight: 300,
+            cropping: true,
+            compressImageQuality: 0.7
+        }).then(image => {
+            setData({...data, image: image.path})
+            setModalVisible(false)
+        });
+    }
+    
+    const choosePhotoFromLibrary = () => {
+        ImagePicker.openPicker({
+            compressImageMaxWidth: 300,
+            compressImageMaxHeight: 300,
+            cropping: true,
+            compressImageQuality: 0.7
+        }).then(image => {
+            setData({...data, image: image.path})
+            setModalVisible(false)
+        });
+    }
+
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
-                    <Image source={require('../asset/logo.png')} style={styles.image}/>
-                    <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">{data.name}</Text>
-                    <View style={styles.userRating}>
-                        <AirbnbRating
-                            defaultRating={Math.floor(data.rating) === Math.ceil(data.rating) ? Math.floor(data.rating) : Math.ceil(data.rating)}
-                            size={18}
-                            showRating={false}
-                            isDisabled={true}
-                            />
-                        <Text style={styles.userRatingCount}>{data.rating}</Text>
-                    </View>
+                <TouchableOpacity onPress={() => {setModalVisible(true)}}>
+                    <Image source={{uri: data.image}} style={styles.image}/>
+                </TouchableOpacity>
+                <Image source={require('../asset/logo.png')} style={styles.image}/>
+                <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">{data.name}</Text>
+                <View style={styles.userRating}>
+                    <AirbnbRating
+                        defaultRating={Math.floor(data.rating) === Math.ceil(data.rating) ? Math.floor(data.rating) : Math.ceil(data.rating)}
+                        size={18}
+                        showRating={false}
+                        isDisabled={true}
+                        />
+                    <Text style={styles.userRatingCount}>{data.rating}</Text>
+                </View>
             </View>
 
             <View style={styles.userInfoInput}>
@@ -194,6 +224,22 @@ const SEditProfile = ( navigation ) => {
                     <Text style={styles.textSave}>Save   <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </View>
+
+            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
+                <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
+                <View style={styles.modalList}>
+                    <Text style={styles.modalListTextHeader}>Upload Image</Text>
+                </View>
+                <TouchableOpacity style={styles.modalList} onPress={() => takePhotoFromCamera()}>
+                    <Text style={styles.modalListText}>Take Photo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalList} onPress={() => choosePhotoFromLibrary()}>
+                    <Text style={styles.modalListText}>Choose From Library</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.modalList} onPress={() => setModalVisible(false)}>
+                    <Text style={styles.modalListText}>Cancel</Text>
+                </TouchableOpacity>
+            </Modal>
         </ScrollView>
     )
 }

@@ -97,6 +97,23 @@ export default createStyles = (colors) => {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
             color: '#fff'
-        }
+        },
+        modalList: {
+            alignItems: 'center',
+            borderBottomWidth: 1,
+            borderBottomColor: "#f5f5f5",
+            backgroundColor: "#fff", 
+            padding: 20
+        },
+        modalListTextHeader: {
+            fontFamily: 'Nunito-Bold',
+            fontSize: 20,
+            color: '#000'
+        },
+        modalListText: {
+            fontFamily: 'Nunito-Regular',
+            fontSize: 18,
+            color: '#000'
+        },
     })
 }

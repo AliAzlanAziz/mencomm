@@ -47,34 +47,41 @@ const SUpdateInfo = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
-            <View style={styles.tutionTypeContainer}>
-                <View style={styles.tutionTypeInput}>
-                    <View style={styles.iconLabelWrapper}>
-                        <SimpleLineIcons name="home" color={colors.text} size={20} />
-                        <Text style={styles.labelText}>Preferred Tuition Type</Text>
-                    </View>
-                    <View style={styles.dropDownPicker}>
+            <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+                <View style={styles.tutionTypeContainer}>
+                    <View style={styles.tutionTypeInput}>
+                        <View style={styles.iconLabelWrapper}>
+                            <SimpleLineIcons name="home" color={colors.text} size={20} />
+                            <Text style={styles.labelText}>Preferred Tuition Type</Text>
+                        </View>
+                        <View style={styles.dropDownPicker}>
                         <DropDownPicker
-                            containerStyle={{
-                                width: '50%',
-                            }}
-                            textStyle={{
-                                fontFamily: 'Nunito-Regular',
-                            }}
-                            labelStyle={{
-                                fontFamily: 'Nunito-Regular',
-                            }}
-                            open={open}
-                            value={value}
-                            items={items}
-                            setOpen={setOpen}
-                            setValue={setValue}
-                            setItems={setItems}
-                            />
+                                    containerStyle={{
+                                        width: '50%',
+                                    }}
+                                    textStyle={{
+                                        fontFamily: 'Nunito-Regular',
+                                    }}
+                                    labelStyle={{
+                                        fontFamily: 'Nunito-Regular',
+                                    }}
+                                    modalProps={{
+                                        animationType: "fade",
+                                        transparent: false
+                                    }}
+                                    listMode="MODAL"
+                                    modalTitle="Select an item"
+                                    searchable={false}
+                                    open={open}
+                                    value={value}
+                                    items={items}
+                                    setOpen={setOpen}
+                                    setValue={setValue}
+                                    setItems={setItems}
+                                />
+                        </View>
                     </View>
                 </View>
-            </View>
-            <ScrollView style={styles.scrollView}>
                 <View style={styles.InputWrapper}>
                     <Text style={styles.textFooter}>Level Of Education</Text>
                     <View style={styles.action}>

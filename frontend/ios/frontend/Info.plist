@@ -36,9 +36,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationUsageDescription</key>
-	<string>This app needs location access to access user address and its near by users.
-	
-	</string>
+	<string>This app needs location access to access user address and its near by users.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires photo library access.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to take photo.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Nunito-Black.ttf</string>

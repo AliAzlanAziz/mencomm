@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { 
     View, 
     Text, 
@@ -7,21 +7,21 @@ import {
     Platform,
     StatusBar,
     ScrollView,
-} from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import Fontisto from 'react-native-vector-icons/Fontisto';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import RNSingleSelect from "@freakycoder/react-native-single-select";
-import DatePicker from '@react-native-community/datetimepicker';
-import Geolocation from 'react-native-geolocation-service';
-import Geocoder from 'react-native-geocoding';
+} from 'react-native'
+import * as Animatable from 'react-native-animatable'
+import LinearGradient from 'react-native-linear-gradient'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Feather from 'react-native-vector-icons/Feather'
+import Fontisto from 'react-native-vector-icons/Fontisto'
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import RNSingleSelect from "@freakycoder/react-native-single-select"
+import DatePicker from '@react-native-community/datetimepicker'
+import Geolocation from 'react-native-geolocation-service'
+import Geocoder from 'react-native-geocoding'
 import validator from 'validator'
-import { useTheme } from 'react-native-paper';
+import { useTheme } from 'react-native-paper'
 import createStyles from '../style/basic/signup'
-import { ageLimit } from '../utils.js/checkdate';
+import { ageLimit } from '../utils.js/checkdate'
 
 const genderData = [
     {
@@ -35,17 +35,17 @@ const genderData = [
 ]
 
 const Signup = ({ navigation }) => {
-    const { colors } = useTheme();
+    const { colors } = useTheme()
     const styles = createStyles(colors)
 
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = React.useState(false)
 
     const onDateChange = (val) => {
-        const currentDate = val.nativeEvent.timestamp || data.birthday;
-        setShow(Platform.OS === 'ios');
+        const currentDate = val.nativeEvent.timestamp || data.birthday
+        setShow(Platform.OS === 'ios')
         setCheck({...check, birthday: true})
-        setData({...data, birthday: new Date(currentDate)});
-    };
+        setData({...data, birthday: new Date(currentDate)})
+    }
 
     const [check, setCheck] = React.useState({
         firstname: false,
@@ -71,7 +71,7 @@ const Signup = ({ navigation }) => {
             longitude: '',
             latitude: ''
         },
-    });
+    })
 
     const getLocation = () => {
         Geocoder.init("AIzaSyASfv0sgGQ5pQTeT-N0eYn4ius8-S-2Wuk")
@@ -80,7 +80,7 @@ const Signup = ({ navigation }) => {
                 console.log(position)
                 // Geocoder.from(position.coords.latitude, position.coords.longitude)
                 //     .then(json => {
-                //         var addressComponent = json.results[0].address_components[0];
+                //         var addressComponent = json.results[0].address_components[0]
                 //         console.log(addressComponent)
                 //     })
                 //     .catch(error => console.warn(error))
@@ -303,7 +303,7 @@ const Signup = ({ navigation }) => {
                 </ScrollView>
             </Animatable.View>
         </View>
-      );
-};
+      )
+}
   
-export default Signup;
+export default Signup

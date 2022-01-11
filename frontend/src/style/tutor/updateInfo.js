@@ -9,15 +9,11 @@ export default createStyles = (colors) => {
             flex: 1,
             backgroundColor: '#fff'
         },
-        tutionTypeContainer: { 
-            alignItems: 'center'
-        },
         tutionTypeInput: {
             flexDirection: 'row', 
             marginVertical: 20, 
             borderRadius: 5, 
             elevation: 3, 
-            width: '95%'
         },
         iconLabelWrapper: {
             flexDirection: 'row', 
@@ -33,7 +29,7 @@ export default createStyles = (colors) => {
         },
         dropDownPicker: { 
             marginVertical: 10, 
-            marginLeft: '20%' 
+            marginLeft: '10%'
         },
         scrollView: { 
             paddingHorizontal: 10
@@ -44,16 +40,16 @@ export default createStyles = (colors) => {
             borderRadius: 5, 
             elevation:5
         },
-        tutionType: {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            width: '90%',
-            marginHorizontal: 20,
-            marginTop: 20,
-            borderBottomWidth: 2,
-            borderBottomColor: '#f2f2f2',
-            paddingBottom: 20,
-        },
+        // tutionTypeContainer: {
+        //     flexDirection: 'row',
+        //     justifyContent: 'space-between',
+        //     width: '90%',
+        //     marginHorizontal: 20,
+        //     marginTop: 20,
+        //     borderBottomWidth: 2,
+        //     borderBottomColor: '#f2f2f2',
+        //     paddingBottom: 20,
+        // },
         text: {
             fontFamily: 'Nunito-Regular',
             paddingLeft: 10,
@@ -89,9 +85,6 @@ export default createStyles = (colors) => {
             borderBottomWidth: 1,
             borderRadius: 10,
         },
-        button: {
-            marginLeft: 0
-        },
         courseButton: {
             width: '33%',
             height: 40,
@@ -100,6 +93,16 @@ export default createStyles = (colors) => {
             alignItems: 'center',
             borderRadius: 10,
             backgroundColor: '#33C979',
+            marginVertical: 10
+        },
+        sectionButton: {
+            width: '50%',
+            height: 40,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#24BF6D',
             marginVertical: 10
         },
         saveButton: {

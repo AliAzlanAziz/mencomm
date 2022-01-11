@@ -32,7 +32,7 @@ const TFeedback = ({ navigation }) => {
     ])
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
                 <Image source={user.img} style={styles.image}/>

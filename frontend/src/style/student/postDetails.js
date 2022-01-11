@@ -127,6 +127,17 @@ export default createStyles = (colors) => {
             borderRadius: 10,
             backgroundColor: '#4378FF',
         },
+        modalList: {
+            borderBottomWidth: 1,
+            borderBottomColor: "#f5f5f5",
+            backgroundColor: "#fff", 
+            padding: 20
+        },
+        modalListText: {
+            fontFamily: 'Nunito-Regular',
+            fontSize: 18,
+            color: '#000'
+        },
         announcementButtonContainer:{
             flexDirection: 'row',
             justifyContent: 'center',

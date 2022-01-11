@@ -26,7 +26,7 @@ const TProfile = ({navigation}) => {
     })
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfoContainer}>
                 <View style={styles.userInfo}>

@@ -8,18 +8,18 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
-import Modal from "react-native-modal";
+import Modal from "react-native-modal"
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/announcement'
 
 const TAnnouncement = ({ navigation }) => {
-    const { colors } = useTheme();
+    const { colors } = useTheme()
     const styles = createStyles(colors)
 
-    const [isModalVisible, setModalVisible] = React.useState(false);
-    const [height, setHeight] = React.useState(0);
+    const [isModalVisible, setModalVisible] = React.useState(false)
+    const [height, setHeight] = React.useState(0)
     const [data, setData] = React.useState([
         {id: 1, name: 'Dr. Abdul Aziz', date: '12/12/2020', text: 'Adipisicing consequat aliquip quis consequat deserunt dolore. Et duis esse irure do sint tempor occaecat aute voluptate voluptate exercitation cupidatat esse proident. Elit sint quis do sunt minim. Anim culpa dolor elit aliquip adipisicing quis magna. Qui laborum enim proident Lorem ad occaecat et sunt laborum dolore quis. Laboris occaecat ipsum deserunt mollit qui cillum exercitation excepteur consequat occaecat. Nisi fugiat mollit excepteur excepteur nisi veniam pariatur magna deserunt. Laboris nisi id deserunt labore. Dolore proident velit sint qui excepteur duis. Qui culpa anim proident aute velit aute ea laborum ut labore duis nulla do.', img: require('../asset/logo.png') },
         {id: 2, name: 'Dr. Abdul Aziz', date: '12/12/2020', text: 'Adipisicing consequat aliqre. Dolore proident velit sint qui excepteur duis. Qui culpa anim proident aute velit aute ea laborum ut labore duis nulla do.', img: require('../asset/logo.png') },
@@ -36,7 +36,7 @@ const TAnnouncement = ({ navigation }) => {
                 <Text style={styles.announcementText}>Make an announcement to the students...</Text>
             </TouchableOpacity>
             <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
-                <View style={{}}>
+                <View>
                     <StatusBar translucent={true} backgroundColor={colors.text} barStyle="light-content"/>
                     <View style={{marginBottom: 20, alignItems: 'center', justifyContent: 'center', width: '95%', backgroundColor: '#fff', borderRadius: 18}}>
                         <TextInput 

@@ -8,6 +8,7 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
+import Modal from "react-native-modal"
 import Entypo from 'react-native-vector-icons/Entypo'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/othersProfile'
@@ -16,6 +17,7 @@ const TOthersProfile = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
+    const [isModalVisible, setModalVisible] = React.useState(false)
     const [user, setUser] = React.useState({
         id: 1, 
         name: 'Ali Azlan Aziz', 
@@ -34,7 +36,7 @@ const TOthersProfile = ({ navigation }) => {
     ])
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
                 <Image source={user.img} style={styles.image}/>
@@ -48,12 +50,14 @@ const TOthersProfile = ({ navigation }) => {
                         />
                     <Text style={styles.userRatingCount}>{user.rating}</Text>
                 </View>
-            </View>
-            <View style={styles.button}>
                 <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
                     <Text style={styles.textSave}>Message <Entypo name="message" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <Entypo name="dots-three-horizontal" color={colors.text} size={30} />
+                </TouchableOpacity>
             </View>
+            
             <View style={styles.cardContainer}>
                 {data.map(item => <View style={styles.card} key={item.id}>
                     <View style={styles.cardUserInfo}>
@@ -77,7 +81,13 @@ const TOthersProfile = ({ navigation }) => {
                         <Text style={styles.cardFeedback}>{item.text}</Text>
                     </View>
                 </View>)}
-            </View>            
+            </View>
+            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
+                <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
+                <TouchableOpacity style={styles.modalList}>
+                    <Text style={styles.modalListText}>Report User</Text>
+                </TouchableOpacity>
+            </Modal>    
         </ScrollView>
     )
 }
