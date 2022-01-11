@@ -26,7 +26,14 @@ import SSetting from '../student/setting'
 import SUpdatePassword from '../student/updatePassword'
 import SAnnouncement from '../student/announcement'
 import SCreatePost from '../student/createPost'
+import SNotification from '../student/notification';
+import SMessages from '../student/messages';
+import SChat from '../student/chat';
 
+
+import TChat from '../tutor/chat'; 
+import TMessages from '../tutor/messages';
+import TNotification from '../tutor/notification';
 import TSearch from '../tutor/search'
 import TAllContracts from '../tutor/allContracts'
 import TContract from '../tutor/contract'
@@ -620,6 +627,22 @@ const StackNavigator = () => {
                     component={TCreatePost}
                     options={{ 
                         title: 'Create Post', 
+                        title: 'Messenger', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+                <Stack.Screen 
+                    name="SChat" 
+                    component={SChat} 
+                    options={
+                        ({route}) =>({ 
+                        title: "Chat", 
                         headerShown:true, 
                         headerStyle: {
                             backgroundColor: '#1CAB5F',
@@ -629,7 +652,38 @@ const StackNavigator = () => {
                             color: 'white'
                         },
                         headerTintColor: 'white'
-                    }}/>
+                    })}/>
+                <Stack.Screen 
+                    name="TChat" 
+                    component={TChat} 
+                    options={
+                        ({route}) =>({ 
+                        title: "chat", 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#0E9D50',
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    })}/>
+
+
+                { <Stack.Screen 
+                    name="Role" 
+                    component={Role}
+                    options={{ 
+                        title: 'Roles', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#5B1B9B',
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/> }
                 </Stack.Navigator>
         </NavigationContainer>
     );
