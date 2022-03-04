@@ -58,7 +58,7 @@ const SEditProfile = ( navigation ) => {
     };
 
     const getLocation = () => {
-        Geocoder.init("AIzaSyASfv0sgGQ5pQTeT-N0eYn4ius8-S-2Wuk")
+        Geocoder.init("")
         Geolocation.getCurrentPosition(
             (position) => {
                 console.log(position)
