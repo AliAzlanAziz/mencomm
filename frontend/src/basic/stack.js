@@ -155,6 +155,21 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
+                 <Stack.Screen 
+                    name="Role" 
+                    component={Role}
+                    options={{ 
+                        title: 'Roles', 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#5B1B9B',
+                        },
+                        headerTitleStyle: {
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    }}/>
+
                 <Stack.Screen 
                     name="SSearch" 
                     component={SSearch}
@@ -380,6 +395,54 @@ const StackNavigator = () => {
                         },
                         headerTintColor: 'white'
                     }}/>
+                <Stack.Screen 
+                    name="SMessages" 
+                    component={SMessages} 
+                    options={
+                        ({route}) =>({ 
+                        title: "Chat", 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    })}/>
+                <Stack.Screen 
+                    name="SNotification" 
+                    component={SNotification} 
+                    options={
+                        ({route}) =>({ 
+                        title: "Chat", 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    })}/>
+                <Stack.Screen 
+                    name="SChat" 
+                    component={SChat} 
+                    options={
+                        ({route}) =>({ 
+                        title: "Chat", 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#2D52B0',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    })}/>
 
 
                 <Stack.Screen 
@@ -638,8 +701,24 @@ const StackNavigator = () => {
                         headerTintColor: 'white'
                     }}/>
                 <Stack.Screen 
-                    name="SChat" 
-                    component={SChat} 
+                    name="TMessages" 
+                    component={TMessages} 
+                    options={
+                        ({route}) =>({ 
+                        title: "Chat", 
+                        headerShown:true, 
+                        headerStyle: {
+                            backgroundColor: '#1CAB5F',
+                        },
+                        headerTitleStyle: {
+                            fontFamily: 'Nunito-Regular',
+                            color: 'white'
+                        },
+                        headerTintColor: 'white'
+                    })}/>
+                <Stack.Screen 
+                    name="TNotification" 
+                    component={TNotification} 
                     options={
                         ({route}) =>({ 
                         title: "Chat", 
@@ -670,20 +749,7 @@ const StackNavigator = () => {
                     })}/>
 
 
-                { <Stack.Screen 
-                    name="Role" 
-                    component={Role}
-                    options={{ 
-                        title: 'Roles', 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#5B1B9B',
-                        },
-                        headerTitleStyle: {
-                            color: 'white'
-                        },
-                        headerTintColor: 'white'
-                    }}/> }
+               
                 </Stack.Navigator>
         </NavigationContainer>
     );

@@ -112,7 +112,6 @@ const SEditProfile = ( navigation ) => {
                 <TouchableOpacity onPress={() => {setModalVisible(true)}}>
                     <Image source={{uri: data.image}} style={styles.image}/>
                 </TouchableOpacity>
-                <Image source={require('../asset/logo.png')} style={styles.image}/>
                 <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">{data.name}</Text>
                 <View style={styles.userRating}>
                     <AirbnbRating

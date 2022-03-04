@@ -19,7 +19,7 @@ const TNotification = () => {
 
     const renderItem = ({item}) => {
         return(
-            <View style={styles.container}>
+            <View style={styles.listContainer}>
                 <View style={styles.HeaderLeftImageView}>
                     <Image style={styles.HeaderLeftImage} source={{uri:item.image}}/>
                 </View>
@@ -49,15 +49,17 @@ const TNotification = () => {
 export default TNotification
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
+        flex:1,
+        backgroundColor: 'white',
+    },
+    listContainer:{
         flex:1,
         width:'100%',
         height:'100%',
-        padding:15,
+        paddingVertical:15,
         backgroundColor: 'white',
         flexDirection: 'row',
-
-        alignItems: 'center',
     },
     HeaderLeftImage:{
         width:'100%',

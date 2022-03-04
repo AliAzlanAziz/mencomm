@@ -19,7 +19,7 @@ const SNotification = () => {
 
     const renderItem = ({item}) => {
         return(
-            <View style={styles.container}>
+            <View style={styles.listContainer}>
                 <View style={styles.HeaderLeftImageView}>
                     <Image style={styles.HeaderLeftImage} source={{uri:item.image}}/>
                 </View>
@@ -51,15 +51,17 @@ const SNotification = () => {
 export default SNotification
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
+        flex:1,
+        backgroundColor: 'white',
+    },
+    listContainer:{
         flex:1,
         width:'100%',
         height:'100%',
-        padding:15,
+        paddingVertical:15,
         backgroundColor: 'white',
         flexDirection: 'row',
-
-        alignItems: 'center',
     },
     HeaderLeftImage:{
         width:'100%',
@@ -69,7 +71,7 @@ const styles = StyleSheet.create({
     HeaderLeftImageView:{
         width:50,
         height:50,
-        borderRadius:40/2,
+        borderRadius:20,
         marginLeft:15,
     },
     User:{
@@ -78,6 +80,5 @@ const styles = StyleSheet.create({
     },
     Text:{
         color:'black',
-        marginLeft:5,
     }
 })
