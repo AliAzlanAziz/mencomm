@@ -9,12 +9,14 @@ dotenv.config({ path: './src/config/config.env'})
 
 connectDB()
 
+const adminRoute = require('./src/routes/admin')
 const authRoute = require('./src/routes/auth')
 const stdRoute = require('./src/routes/std')
 const ttrRoute = require('./src/routes/ttr')
 
 const app = express()
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 if(process.env.NODE_ENV === 'development') {
@@ -23,6 +25,7 @@ if(process.env.NODE_ENV === 'development') {
 
 app.get('/', (req, res, next) => res.status(200).json({ message: "Server running"} ))
 
+app.use('/api/v1/admin', adminRoute)
 app.use('/api/v1/user', authRoute)
 app.use('/api/v1/std', stdRoute)
 app.use('/api/v1/ttr', ttrRoute)
