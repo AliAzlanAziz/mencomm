@@ -5,7 +5,15 @@ const {
     postCreatePost,
     getAllContracts,
     getContract,
-    getOthersProfile
+    getAllPosts,
+    getPost,
+    getFeedbacks,
+    postCreateFeedback,
+    getAnnouncements,
+    postCreateContract,
+    getUpdateInfo,
+    postUpdateInfo,
+    postSearch
 } = require('../controllers/std')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -17,6 +25,22 @@ router.get('/allcontracts', isAuthenticated, getAllContracts)
 
 router.get('/contract/:id', isAuthenticated, getContract)
 
-// router.get('/othersprofile/:id', isAuthenticated, getOthersProfile)
+router.post('/createcontract', isAuthenticated, postCreateContract)
+
+router.get('/allposts', isAuthenticated, getAllPosts)
+
+router.get('/post/:id', isAuthenticated, getPost)
+
+router.get('/feedbacks', isAuthenticated, getFeedbacks)
+
+router.post('/createfeedback', isAuthenticated, postCreateFeedback)
+
+router.get('/announcements/:id', isAuthenticated, getAnnouncements)
+
+router.get('/updateinfo', isAuthenticated, getUpdateInfo)
+
+router.post('/updateinfo', isAuthenticated, postUpdateInfo)
+
+router.post('/search', isAuthenticated, postSearch)
 
 module.exports = router

@@ -9,6 +9,8 @@ const {
     postUpdatePassword,
     postSwitchRole,
     postEditProfile,
+    postUploadImage,
+    getEditProfile
 } = require('../controllers/auth')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -26,7 +28,10 @@ router.get('/verify/:token', getVerifyToken)
 
 router.post('/switchrole', isAuthenticated, postSwitchRole)
 
-//not implemented
+router.post('/uploadimage', isAuthenticated, postUploadImage)
+
+router.get('/editprofile', isAuthenticated, getEditProfile)
+
 router.post('/editprofile', isAuthenticated, postEditProfile)
 
 module.exports = router
