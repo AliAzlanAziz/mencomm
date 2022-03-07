@@ -11,4 +11,4 @@ build/
 node_modules/
 toJSON/
 npm-debug.log
-config/
+*.env
