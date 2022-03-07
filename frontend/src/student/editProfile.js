@@ -76,7 +76,7 @@ const SEditProfile = ( navigation ) => {
             { 
                 enableHighAccuracy: true, 
                 timeout: 15000, 
-                maximumAge: 10000 
+                maximumAge: 10000
             }
         ) 
     }
