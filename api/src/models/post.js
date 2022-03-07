@@ -32,6 +32,7 @@ const postSchema = mongoose.Schema({
     ],
     capacity: Number,
     description: String,
+    created_on: Date,
     requests: [
         {
             user: { 
@@ -52,6 +53,7 @@ const postSchema = mongoose.Schema({
     ],
     announcements: [
         {
+            _id: mongoose.Schema.Types.ObjectId,
             message: String,
             time: Date
         }

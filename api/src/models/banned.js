@@ -10,11 +10,8 @@ const reportSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    start_time: {
+    banned_on: {
         type: Date
-    },
-    end_time: {
-        type: Date,
     },
     text: {
         type: String

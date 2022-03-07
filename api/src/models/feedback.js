@@ -2,17 +2,12 @@ const mongoose = require('mongoose')
 
 const feedbackSchema = mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
-    tutor: { 
+    contract: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: User,
+        ref: "Contract",
         required: true,
     },
-    student: { 
-        type: mongoose.Schema.Types.ObjectId,
-        ref: User,
-        required: true,
-    },
-    tutor_feedback: {
+    tutor: { //given by ttr
         review: String,
         rating: {
             type: Number,
@@ -20,7 +15,7 @@ const feedbackSchema = mongoose.Schema({
             max: 5
         }
     },
-    student_feedback: {
+    student: { //given by std
         review: String,
         rating: {
             type: Number,
