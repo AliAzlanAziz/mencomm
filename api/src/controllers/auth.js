@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken')
 const mongoose = require("mongoose")
 const { sendmail } = require('../utils/sendMail')
 const User = require('../models/user')
-const uploadCloud = require('../utils/uploadCloud')
+const Tutor = require('../models/tutor')
+const Student = require('../models/student')
+const { cloudinary } = require('../utils/uploadCloud')
 
 module.exports = {
     postRegister: (req, res, next) => {
@@ -21,6 +23,11 @@ module.exports = {
                             error: err,
                         });
                     } else {
+                        if(req.body.gender === "Male"){
+                            let default_image = "https://cdn3.iconfinder.com/data/icons/avatar-set/512/Avatar02-512.png"
+                        }else{
+                            let default_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzidRylMo4h_AvwAK5wKMYwuxBvBHK6HtF2g&usqp=CAU"
+                        }
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
@@ -29,6 +36,7 @@ module.exports = {
                             birthday: req.body.birthday,
                             gender: req.body.gender,
                             location: req.body.location,
+                            avatar_url: default_image
                         });
                         user
                         .save()
@@ -188,7 +196,7 @@ module.exports = {
 
     postSwitchRole: (req, res, next) => {
         const ruser_type = req.body.user_type
-        if(ruser_type != "std" || ruser_type!= "ttr"){
+        if(ruser_type != "std" && ruser_type!= "ttr"){
             return res.status(400).json({
                 message: 'Invalid Input'
             })
@@ -235,10 +243,55 @@ module.exports = {
         })
     },
 
-    postEditProfile: (req, res, next) => {
-        uploadCloud.single('imagefile')
-        
-        User.findByIdAndUpdate(req.id, {avatar_url: req.file.path})
-        res.json({ secure_url: req.file.path })
+    postUploadImage: async (req, res, next) => {
+        const fileStr = req.body.image_data;
+        const uploadResponse = await cloudinary.uploader.upload(fileStr, { folder: "mencomm" });
+        console.log(uploadResponse);
+
+        User.findByIdAndUpdate(req.id, {avatar_url: uploadResponse.secure_url})
+        .exec()
+        .then(user => {
+            if(user._id){
+                return res.status(200).json({ 
+                    message: "Image Uploaded Successfully",
+                    avatar_url: uploadResponse.secure_url
+                })
+            }
+        })
+    },
+
+    getEditProfile: async (req, res, next) => {
+        User.findById(req.id)
+        .exec()
+        .then(user => { 
+            if(user._id){
+                return res.status(200).json({
+                    avatar_url: user.avatar_url,
+                    name: user.name,
+                    email: user.email,
+                    birthday: user.birthday,
+                    location: user.location
+                })
+            }
+        })
+    },
+
+    postEditProfile: async (req, res, next) => {
+        const editProf = {
+            name: req.body.name,
+            birthday: req.body.birthday,
+            location: req.body.location,
+            email: req.body.email
+        }
+
+        User.findByIdAndUpdate(req.id, editProf)
+        .exec()
+        .then(user => { 
+            if(user._id){
+                return res.status(200).json({
+                    message: "Profile Updated Successfully"
+                })
+            }
+        })
     },
 }
