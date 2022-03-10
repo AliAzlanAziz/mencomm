@@ -13,7 +13,8 @@ const {
     postCreateContract,
     getUpdateInfo,
     postUpdateInfo,
-    postSearch
+    postSearch,
+    getOthersProfile
 } = require('../controllers/std')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -43,4 +44,5 @@ router.post('/updateinfo', isAuthenticated, postUpdateInfo)
 
 router.post('/search', isAuthenticated, postSearch)
 
+router.get('/othersprofile/:id',isAuthenticated,getOthersProfile)
 module.exports = router

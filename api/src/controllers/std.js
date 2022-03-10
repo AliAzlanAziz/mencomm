@@ -13,7 +13,7 @@ module.exports = {
         .populate('user')
         .exec()
         .then(std => {
-            if(std._id != null){
+            if(std?._id != null){
                 return res.status(200).json({
                     message: 'Success',
                     name: std?.user?.name,
@@ -23,8 +23,10 @@ module.exports = {
                     image: std?.user?.avatar_url,
                 })
             }else{
+                console.log(std)
                 return res.status(500).json({
-                    message: 'Internal Server Error'
+                    message: 'Internal Server Error',
+                    st:std
                 })
             }
         })
@@ -302,7 +304,7 @@ module.exports = {
         .then(std => {
             if(std._id == null){
                 return res.status(500).json({
-                    message: 'Internal Server Error'
+                    message: 'Internal Server Error',
                 })
             }else{
                 return res.status(200).json({
@@ -412,4 +414,25 @@ module.exports = {
             })
         })
     },
+
+    getOthersProfile: (req, res, next) => {
+        Tutor.findOne({user: req.params.id})
+        .populate('user')
+        .exec()
+        .then(async ttr => {
+            if(ttr?._id != null){
+                const contracts = await Contract.find({tutor:ttr.user._id}).populate("feedback",'student_feedback').populate("student",'name')
+                .select('feedback created_on student')
+                return res.status(200).json({
+                    message: 'Success',
+                    name: ttr.user.name,
+                    rating: ttr.rating,
+                    image: ttr.user?.avatar_url,
+                    id:ttr.user._id,
+                    contracts:contracts
+                })
+            }
+        })
+    },
+
 }
