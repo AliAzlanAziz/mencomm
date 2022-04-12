@@ -12,3 +12,4 @@ node_modules/
 toJSON/
 npm-debug.log
 *.env
+.vscode
