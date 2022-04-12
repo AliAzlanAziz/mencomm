@@ -1,10 +1,12 @@
 const getDistanceBetweenCoords = (lat1, lng1, lat2, lng2, unit = 'Mi') => {
-    if(!lat1 || !lat2 || lng1 || lng2){
+    if(lat1 === undefined || lat2  === undefined || lng1  === undefined || lng2  === undefined){
+        return -1
+    }else if(lat1 === null || lat2  === null || lng1  === null || lng2  === null){
         return -1
     }
 
-    const theta = lng1 - lng2
-    const dist = Math.sin(degToRad(lat1)) * Math.sin(degToRad(lat2)) + Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * Math.cos(deg2rad(theta))
+    let theta = lng1 - lng2
+    let dist = Math.sin(degToRad(lat1)) * Math.sin(degToRad(lat2)) + Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * Math.cos(degToRad(theta))
     dist = Math.acos(dist) 
     dist = radToDeg(dist) 
     dist = dist * 60 * 1.1515
@@ -15,7 +17,7 @@ const getDistanceBetweenCoords = (lat1, lng1, lat2, lng2, unit = 'Mi') => {
         case 'Km' : dist = dist * 1.609344; 
     }
 
-    return (round(dist, 2)); 
+    return Math.round(dist, 2); 
 }
 
 const degToRad = (degrees) => {

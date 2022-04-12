@@ -4,7 +4,9 @@ module.exports = {
     sendmail: function(receiver, subject, message){
         // Step 1=
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true, 
             auth: {
                 user: process.env.EMAIL || 'abc@gmail.com',
                 pass: process.env.GMAIL_PASSWORD || '1234'
@@ -25,7 +27,7 @@ module.exports = {
         // Step 3
         transporter.sendMail(mailOptions, (error, data) => {
             if(error){
-                return error 
+                return error
             }
         });
     }
