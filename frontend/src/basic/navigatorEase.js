@@ -56,7 +56,7 @@ const NavigatorEase = ({ navigation }) => {
     ])
 
     return (
-        <ScrollView style={{backgroundColor: '#fff'}}>
+        <ScrollView style={{backgroundColor: '#fff'}} showsVerticalScrollIndicator={false}>
             <View style={{backgroundColor: 'white'}}>
                 <Text style={{fontFamily: 'Nunito-Regular', fontSize: 18, color: '#000', marginLeft: 20, paddingVertical: 20}}>Basic Screen</Text>
             </View>

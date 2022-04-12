@@ -32,15 +32,15 @@ const TRequested = ({ navigation }) => {
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
 
             {data.map(item => <View style={styles.row} key={item.id}>
-                <TouchableOpacity style={styles.nameImageContainer}>
+                <TouchableOpacity style={styles.nameImageContainer} activeOpacity={0.7}>
                     <Image source={{ uri: item.image }} style={styles.pic}/>
                     <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
                 </TouchableOpacity>
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.acceptButton}>
+                    <TouchableOpacity style={styles.acceptButton} activeOpacity={0.7}>
                         <Text style={styles.buttonText}>Accept</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.rejectButton}>
+                    <TouchableOpacity style={styles.rejectButton} activeOpacity={0.7}>
                         <Text style={styles.buttonText}>Reject</Text>
                     </TouchableOpacity>
                 </View>

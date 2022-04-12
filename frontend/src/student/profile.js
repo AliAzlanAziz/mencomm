@@ -2,11 +2,9 @@ import React from 'react'
 import {
     Text,
     View,
-    TextInput,
     Image,
     ScrollView,
     StatusBar,
-    TouchableOpacity
 } from 'react-native'
 import { AirbnbRating } from 'react-native-ratings'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';

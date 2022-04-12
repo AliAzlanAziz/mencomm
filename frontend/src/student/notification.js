@@ -7,7 +7,7 @@ import {
     Image
  } from 'react-native'
 
-const SNotification = () => {
+const SNotification = ({ navigation }) => {
     const [data,setData]= React.useState([
         {id:'1', from:'Tom', Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/cute-kitten-in-nature-picture-id502888545', date:'12-9-2021', time:'10:00 PM' },
         {id:'2', from:'Mohit', Action:'Requested to join classroom', image:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg', date:'12-9-2021', time:'10:00 PM' },

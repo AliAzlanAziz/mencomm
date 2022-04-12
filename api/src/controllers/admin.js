@@ -55,11 +55,15 @@ module.exports = {
                         return res.status(403).json({
                             message: "Incorrect credentials"
                         })
-                    }else{
+                    }else if (result){
                         const token = jwt.sign({ id: admin[0]._id }, process.env.SECRET_KEY)
                         return res.status(200).json({
                             message: "logged in successfully",
                             token: token
+                        })
+                    }else{
+                        return res.status(403).json({
+                            message: "Incorrect credentials"
                         })
                     }
                 })

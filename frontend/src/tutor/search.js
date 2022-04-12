@@ -15,7 +15,7 @@ import Modal from "react-native-modal";
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/search'
 
-const TSearch = () => {
+const TSearch = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -65,7 +65,7 @@ const TSearch = () => {
 
             <View style={styles.buttonContainer}>
                 <View style={styles.filterButton}>
-                    <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.saveButton}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.saveButton} activeOpacity={0.7}>
                         <Text style={styles.textButton}>Filter <AntDesign name="filter" color={colors.backgroundColor} size={20}/></Text>
                     </TouchableOpacity>
                 </View>
@@ -78,11 +78,11 @@ const TSearch = () => {
                     <Text style={styles.modalListTextHeader}>Apply Filters</Text>
                 </View>
                 <View style={styles.modalList}>
-                    <TouchableOpacity style={styles.modalListRatingButton} onPress={() => data.rate > 0 ? setData({...data, rate: data.rate-1}) : null}>
+                    <TouchableOpacity style={styles.modalListRatingButton} onPress={() => data.rate > 0 ? setData({...data, rate: data.rate-1}) : null} activeOpacity={0.7}>
                         <Entypo name="minus" color={"#000"} size={25}/>
                     </TouchableOpacity>
                     <Text style={styles.modalListText}>Rating: {data.rate}</Text>
-                    <TouchableOpacity style={styles.modalListRatingButton} onPress={() => data.rate < 5 ? setData({...data, rate: data.rate+1}) : null}>
+                    <TouchableOpacity style={styles.modalListRatingButton} onPress={() => data.rate < 5 ? setData({...data, rate: data.rate+1}) : null} activeOpacity={0.7}>
                         <Entypo name="plus" color={"#000"} size={22}/>
                     </TouchableOpacity>
                 </View>
@@ -146,11 +146,11 @@ const TSearch = () => {
                         keyboardType="numeric"
                     />
                 </View>
-                <TouchableOpacity style={styles.modalList}>
+                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
                     <Text style={styles.modalListText}>Nearbies <Ionicons name="location-outline" color={colors.text} size={20}/></Text>
                 </TouchableOpacity>
                 <View style={styles.modalList}>
-                    <TouchableOpacity style={styles.doneButton} onPress={() => setModalVisible(false)}>
+                    <TouchableOpacity style={styles.doneButton} onPress={() => setModalVisible(false)} activeOpacity={0.7}>
                         <Text style={styles.doneButtonText}>Done</Text>
                     </TouchableOpacity>
                 </View>

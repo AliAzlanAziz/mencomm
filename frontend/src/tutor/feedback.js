@@ -49,7 +49,7 @@ const TFeedback = ({ navigation }) => {
                         />
                     <Text style={styles.userRatingCount}>{user.rating}</Text>
                 </View>
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                <TouchableOpacity onPress={() => setModalVisible(true)} activeOpacity={0.7}>
                     <Entypo name="dots-three-horizontal" color={colors.text} size={30} />
                 </TouchableOpacity>
             </View>

@@ -13,7 +13,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import createStyles from '../style/basic/forgotPassword'
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -101,7 +101,7 @@ const ForgotPassword = () => {
                 }
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}onPress={() => {}}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}onPress={() => {}}>
                         <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.button}>
                             <Text style={styles.buttonText}>Next</Text>
                         </LinearGradient>

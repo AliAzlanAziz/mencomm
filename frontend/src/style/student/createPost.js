@@ -1,5 +1,5 @@
 import {
-    Platform,
+    Dimensions,
     StyleSheet,
 } from 'react-native';
 
@@ -175,5 +175,9 @@ export default createStyles = (colors) => {
             fontFamily: 'Nunito-Regular',
             color: colors.text
         },
+        map: {
+            width: Dimensions.get("window").width,
+            height: Dimensions.get("window").height
+        }
     })
 }

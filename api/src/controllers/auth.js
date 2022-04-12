@@ -14,20 +14,15 @@ module.exports = {
         .then(user => {
             if(user.length >= 1){
                 return res.status(409).json({
-                    message: 'Email already in use by some other user'
+                    message: 'Email already in use.'
                 });
             } else {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     if (err) {
                         return res.status(500).json({
-                            error: err,
+                            message: err,
                         });
                     } else {
-                        if(req.body.gender === "Male"){
-                            let default_image = "https://cdn3.iconfinder.com/data/icons/avatar-set/512/Avatar02-512.png"
-                        }else{
-                            let default_image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzidRylMo4h_AvwAK5wKMYwuxBvBHK6HtF2g&usqp=CAU"
-                        }
                         const user = new User({
                             _id: new mongoose.Types.ObjectId(),
                             email: req.body.email,
@@ -36,12 +31,11 @@ module.exports = {
                             birthday: req.body.birthday,
                             gender: req.body.gender,
                             location: req.body.location,
-                            avatar_url: default_image
+                            user_type: ''
                         });
                         user
                         .save()
                         .then(result => {
-                            // console.log(result);
                             const reciever = req.body.email
                             const subject = 'Verify Account'
                             const token = jwt.sign({ email: req.body.email }, process.env.SECRET_KEY) 
@@ -56,7 +50,7 @@ module.exports = {
                         .catch(err => {
                             console.log(err);
                             res.status(500).json({
-                                error: err
+                                message: err
                             });
                         });
                     }
@@ -70,29 +64,22 @@ module.exports = {
         .exec()
         .then(user => { 
             if(user.length >= 1){
-                if(user[0]?.verified != true){
-                    return res.status(403).json({
-                        message: "Verify Account First!"
-                    })
-                }
-
                 bcrypt.compare(req.body.password, user[0].password, async function(err, result) {
-                    if(err){
+                    if(err || !result){
                         return res.status(403).json({
                             message: "Incorrect credentials"
+                        })
+                    }else if(user[0]?.verified != true){
+                        return res.status(403).json({
+                            message: "Verify Account First!"
                         })
                     }else if (result){
                         await User.findOneAndUpdate({email: req.body.email}, {last_login: new Date()})
 
-                        const token = jwt.sign({ id: user[0]._id }, process.env.SECRET_KEY)
+                        const token = jwt.sign({ id: user[0]._id }, process.env.SECRET_KEY, )
                         return res.status(200).json({
                             message: "logged in successfully",
                             token: token
-                        })
-                    }
-                    else{
-                        return res.status(403).json({
-                            message: "Incorrect credentials"
                         })
                     }
                 })
@@ -111,12 +98,13 @@ module.exports = {
             if(user.length >= 1){
                 const reciever = req.body.email
                 const subject = 'Reset Password'
-                const token = jwt.sign({ email: req.body.email }, process.env.SECRET_KEY, { expiresIn: '12h' }) 
-                const message = `Reset Token is: ${token} (Valid only for limited time)`
+                const token = jwt.sign({ email: req.body.email }, process.env.SECRET_KEY, { expiresIn: '1h' }) 
+                const url = `http://connec.com/resetpassword/${token}`
+                const message = `Reset link: <a href="${url}">Click to reset password</a>`
                 
                 sendmail(reciever, subject, message)
                 return res.status(200).json({
-                    message: "Link Sent!",
+                    message: "Link sent to recover password!",
                 });
             }else{
                 return res.status(404).json({
@@ -129,18 +117,26 @@ module.exports = {
     postResetPassword: (req, res, next) => {
         const hash = bcrypt.hashSync(req.body.password, 10)
 
-        User.findOneAndUpdate({email: req.body.email}, {password: hash})
-        .exec()
-        .then(user => {
-            if(user.email != null){
-                return res.status(200).json({
-                    message: "Password Reset!",
-                });
-            }else{
-                return res.status(500).json({
-                    message: "Internal Server Error",
-                });
+        jwt.verify(req.params.resettoken, process.env.SECRET_KEY, (error, decode) => {
+            if(error){
+                return res.status(401).json({
+                    message: 'Invalid Token'
+                })
             }
+
+            User.findOneAndUpdate({email: decode.email}, {password: hash})
+            .exec()
+            .then(user => {
+                if(user.email != null){
+                    return res.status(200).json({
+                        message: "Password Reset!",
+                    });
+                }else{
+                    return res.status(500).json({
+                        message: "Internal Server Error",
+                    });
+                }
+            })
         })
     },
 
@@ -249,20 +245,30 @@ module.exports = {
     },
 
     postUploadImage: async (req, res, next) => {
-        const fileStr = req.body.image_data;
-        const uploadResponse = await cloudinary.uploader.upload(fileStr, { folder: "mencomm" });
-        console.log(uploadResponse);
+        try{
+            let image_data = req.body.image_data;
+            let data = 'data:' + image_data.mime + ';base64,' + image_data.data 
 
-        User.findByIdAndUpdate(req.id, {avatar_url: uploadResponse.secure_url})
-        .exec()
-        .then(user => {
-            if(user._id){
-                return res.status(200).json({ 
-                    message: "Image Uploaded Successfully",
-                    avatar_url: uploadResponse.secure_url
-                })
-            }
-        })
+            const uploadResponse = await cloudinary.uploader.upload(data, { 
+                folder: "mencomm",
+            });
+            // console.log(uploadResponse);
+
+            User.findByIdAndUpdate(req.id, {avatar_url: uploadResponse.secure_url})
+            .exec()
+            .then(user => {
+                if(user._id){
+                    return res.status(200).json({ 
+                        message: "Image Uploaded Successfully",
+                    })
+                }
+            })
+        }catch(error){
+            // console.log(error)
+            return res.status(500).json({ 
+                message: error,
+            })
+        }
     },
 
     getEditProfile: async (req, res, next) => {
@@ -296,6 +302,74 @@ module.exports = {
                 return res.status(200).json({
                     message: "Profile Updated Successfully"
                 })
+            }
+        })
+    },
+
+    getProfile: async (req, res, next) => {
+        User.findById(req.id)
+        .exec()
+        .then(user => { 
+            if(user._id){
+                if(user?.user_type == 'std'){
+                    Student.findOne({user: user._id}).exec()
+                    .then(std => {
+                        return res.status(200).json({
+                            name: user.name,
+                            email: user.email,
+                            gender: user.gender,
+                            birthday: user.birthday,
+                            location: user.location,
+                            verified: user.verified,
+                            last_login: user.last_login,
+                            user_type: user.user_type,
+                            avatar_url: user.avatar_url,
+                            info: {
+                                grade: std?.info?.grade || "",
+                                course: std?.info?.course || []
+                            },
+                            rating: std?.rating || 0,
+                            tuition_type: std?.tuition_type || ""
+                        })
+                    })
+                }else if(user?.user_type == 'ttr'){
+                    Tutor.findOne({user: user._id}).exec()
+                    .then(ttr => {
+                        return res.status(200).json({
+                            name: user.name,
+                            email: user.email,
+                            gender: user.gender,
+                            birthday: user.birthday,
+                            location: user.location,
+                            verified: user.verified,
+                            last_login: user.last_login,
+                            user_type: user.user_type,
+                            avatar_url: user.avatar_url,
+                            info: {
+                                grade: ttr?.info?.grade || [],
+                                course: ttr?.info?.course || []
+                            },
+                            rating: ttr?.rating || 0
+                        })
+                    })
+                }else{
+                    return res.status(200).json({
+                        name: user.name,
+                        email: user.email,
+                        gender: user.gender,
+                        birthday: user.birthday,
+                        location: user.location,
+                        verified: user.verified,
+                        last_login: user.last_login,
+                        user_type: user.user_type,
+                        avatar_url: user.avatar_url,
+                        info: {
+                            grade: '',
+                            course: ''
+                        },
+                        rating: 0
+                    })
+                }
             }
         })
     },

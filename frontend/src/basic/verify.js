@@ -8,8 +8,9 @@ import {
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Verify = () => {
+const Verify = ({ navigation }) => {
     const email = "K180357@gmail.com"
+    
     return (
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>

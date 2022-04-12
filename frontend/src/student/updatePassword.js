@@ -12,7 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import createStyles from '../style/student/updatePassword'
 
-const SUpdatePassword = () => {
+const SUpdatePassword = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -86,7 +86,7 @@ const SUpdatePassword = () => {
                         autoCapitalize="none"
                         onChangeText={() => {}}
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                    <TouchableOpacity onPress={updateSecureTextEntry} activeOpacity={0.7}>
                         {data.secureTextEntry ? 
                             <Feather name="eye-off" color="grey" size={20}/>
                             :
@@ -105,7 +105,7 @@ const SUpdatePassword = () => {
                         autoCapitalize="none"
                         onChangeText={(val) => handlePasswordChange(val)}
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                    <TouchableOpacity onPress={updateSecureTextEntry} activeOpacity={0.7}>
                         {data.secureTextEntry ? 
                             <Feather name="eye-off" color="grey" size={20}/>
                             :
@@ -130,7 +130,7 @@ const SUpdatePassword = () => {
                         onChangeText={(val) => handleConfirmPasswordChange(val)}
                         onEndEditing={(e)=> handlePasswordMatch(e.nativeEvent.text)}
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry} >
+                    <TouchableOpacity onPress={updateSecureTextEntry} activeOpacity={0.7}>
                         {data.secureTextEntry ? 
                             <Feather name="eye-off" color="grey" size={20} />
                             :
@@ -145,7 +145,7 @@ const SUpdatePassword = () => {
                 }
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <TouchableOpacity style={styles.button} onPress={() => {}} activeOpacity={0.7}>
                         <LinearGradient colors={['#2D52B0', '#4D7CF2']} style={styles.button}>
                             <Text style={styles.buttonText}>Reset Password</Text>
                         </LinearGradient>

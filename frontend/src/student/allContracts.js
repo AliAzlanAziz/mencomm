@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import styles from '../style/student/allContracts'
 
-const SAllContracts = () => {
+const SAllContracts = ({ navigation }) => {
     const [data, setData] = React.useState([
         {id:1,  name: "Mark Doe gasgsag asgag gasg asga",    status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar7.png"},
         {id:2,  name: "Clark Man",   status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar6.png"} ,
@@ -25,7 +25,7 @@ const SAllContracts = () => {
 
     const renderItem = ({item}) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('SStack', { screen: 'SContract' })}>
                 <View style={styles.row}>
                     <Image source={{ uri: item.image }} style={styles.pic} />
                     <View>
@@ -52,7 +52,8 @@ const SAllContracts = () => {
                 keyExtractor = {(item) => {
                     return item.id;
                 }}
-                renderItem={renderItem}/>
+                renderItem={renderItem}
+                />
         </View>
     );
 }

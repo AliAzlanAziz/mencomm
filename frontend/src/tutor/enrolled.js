@@ -32,11 +32,11 @@ const TEnrolled = ({ navigation }) => {
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
 
             {data.map(item => <View style={styles.row} key={item.id}>
-                <TouchableOpacity style={styles.nameImageContainer}>
+                <TouchableOpacity style={styles.nameImageContainer} activeOpacity={0.7}>
                     <Image source={{ uri: item.image }} style={styles.pic}/>
                     <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} activeOpacity={0.7}>
                     <Text style={styles.buttonText}>Cancel</Text>
                 </TouchableOpacity>
             </View>)}

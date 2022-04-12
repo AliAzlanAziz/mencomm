@@ -12,7 +12,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useTheme } from 'react-native-paper';
 import createStyles from '../style/basic/resetPassword'
 
-const ResetPassword = () => {
+const ResetPassword = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
@@ -86,7 +86,7 @@ const ResetPassword = () => {
                         autoCapitalize="none"
                         onChangeText={(val) => handlePasswordChange(val)}
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={updateSecureTextEntry}>
                         {data.secureTextEntry ? 
                             <Feather name="eye-off" color="grey" size={20}/>
                             :
@@ -111,7 +111,7 @@ const ResetPassword = () => {
                         onChangeText={(val) => handleConfirmPasswordChange(val)}
                         onEndEditing={(e)=> handlePasswordMatch(e.nativeEvent.text)}
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry} >
+                    <TouchableOpacity activeOpacity={0.7} onPress={updateSecureTextEntry} >
                         {data.secureTextEntry ? 
                             <Feather name="eye-off" color="grey" size={20} />
                             :
@@ -126,7 +126,7 @@ const ResetPassword = () => {
                 }
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={() => {}}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button} onPress={() => {}}>
                         <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.button}>
                             <Text style={styles.buttonText}>Reset Password</Text>
                         </LinearGradient>

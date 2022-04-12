@@ -32,7 +32,7 @@ const TAnnouncement = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
-            <TouchableOpacity style={styles.announcementContainer} onPress={() => setModalVisible(true)}>
+            <TouchableOpacity style={styles.announcementContainer} onPress={() => setModalVisible(true)} activeOpacity={0.7}>
                 <Text style={styles.announcementText}>Make an announcement to the students...</Text>
             </TouchableOpacity>
             <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
@@ -51,10 +51,10 @@ const TAnnouncement = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.enrollButton}>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.enrollButton} activeOpacity={0.7}>
                         <Text style={styles.textButton}>Post <Ionicons name="ios-arrow-up-circle-outline" color={colors.backgroundColor} size={20}/></Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelButton}>
+                    <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.cancelButton} activeOpacity={0.7}>
                         <Text style={styles.textButton}>Cancel <Entypo name="circle-with-cross" color={colors.backgroundColor} size={18}/></Text>
                     </TouchableOpacity>
                 </View>

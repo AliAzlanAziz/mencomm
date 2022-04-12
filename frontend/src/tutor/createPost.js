@@ -251,13 +251,13 @@ const TCreatePost = ({ navigation }) => {
                             })}
                         onEndEditing={() => setCheck({...check, location: true})}
                     />
-                    <TouchableOpacity onPress={() => getLocation()}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => getLocation()}>
                         <Ionicons name="location-outline" color={colors.text} size={20}/>
                     </TouchableOpacity>
                 </View>
 
                 <Text style={styles.textFooterBirthday}>Start Date*</Text>
-                <TouchableOpacity onPress={() => setShowDatePicker(!showDatePicker)} style={styles.actionBirthday}>
+                <TouchableOpacity onPress={() => setShowDatePicker(!showDatePicker)} style={styles.actionBirthday} activeOpacity={0.7}>
                     <Fontisto name="date" color={colors.text} size={20}/>
                     <Text style={styles.textInputBirthday}>Start Date</Text>
                     <Text style={styles.textOutputBirthday}>{data.startDate.toISOString().split('T')[0]}</Text>
@@ -313,14 +313,14 @@ const TCreatePost = ({ navigation }) => {
                         setValue={setDayValue}
                         setItems={setDayChoices}
                     />
-                    <TouchableOpacity onPress={() => addToSchedule()} style={styles.actionBirthday}>
+                    <TouchableOpacity onPress={() => addToSchedule()} style={styles.actionBirthday} activeOpacity={0.7}>
                         <Text style={{...styles.textFooterTime, color:"#000", marginLeft: 20}}>
                            Add to schedule
                         </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                    <TouchableOpacity onPress={() => setShowStartTimePicker(!showStartTimePicker)} style={styles.actionBirthday}>
+                    <TouchableOpacity onPress={() => setShowStartTimePicker(!showStartTimePicker)} style={styles.actionBirthday} activeOpacity={0.7}>
                         <Text style={styles.textFooterTime}>
                             {
                                 check.startTime === true ? startTime.toTimeString().split(':')[0]+':'+startTime.toTimeString().split(':')[1] : 'Tap here to select start time'
@@ -328,7 +328,7 @@ const TCreatePost = ({ navigation }) => {
                         </Text>
                     </TouchableOpacity>
                     <Text style={{fontSize: 18, marginTop: 10}}>-</Text>
-                    <TouchableOpacity onPress={() => setShowEndTimePicker(!showEndTimePicker)} style={styles.actionBirthday}>
+                    <TouchableOpacity onPress={() => setShowEndTimePicker(!showEndTimePicker)} style={styles.actionBirthday} activeOpacity={0.7}>
                         <Text style={styles.textFooterTime}>
                             {
                                 check.endTime === true ? endTime.toTimeString().split(':')[0]+':'+endTime.toTimeString().split(':')[1] : 'Tap here to select end time'
@@ -379,7 +379,7 @@ const TCreatePost = ({ navigation }) => {
                 </View>
             
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity onPress={() => {}} style={styles.signupButton}>
+                    <TouchableOpacity onPress={() => {}} style={styles.signupButton} activeOpacity={0.7}>
                         <LinearGradient colors={['#1E8950', '#1CAB5F']} style={styles.signupButton}>
                             <Text style={styles.textSignin}>Create Post</Text>
                         </LinearGradient>

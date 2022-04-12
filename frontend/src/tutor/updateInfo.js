@@ -146,7 +146,7 @@ const TUpdateInfo = ({ navigation }) => {
                         <View style={styles.InputWrapper} key={i_index}>
                             <View style={{flexDirection: "row", justifyContent:"space-between"}}>
                                 <Text style={styles.textFooter}>Level Of Education</Text>
-                                <TouchableOpacity onPress={ () => removeSection(item[0]) }>
+                                <TouchableOpacity onPress={ () => removeSection(item[0]) } activeOpacity={0.7}>
                                     <Entypo name="cross" color='#E05656' size={25} />
                                 </TouchableOpacity>
                             </View>
@@ -170,7 +170,7 @@ const TUpdateInfo = ({ navigation }) => {
                                         <View style={styles.action} key={e_index}>
                                             <AntDesign name="book" color={colors.text} size={20} />
                                             <Text style={styles.text}>{e_index+1}. {element}</Text>
-                                            <TouchableOpacity onPress={ () =>  removeCourse(item[0], element) }>
+                                            <TouchableOpacity onPress={ () =>  removeCourse(item[0], element) } activeOpacity={0.7}>
                                                 <Entypo name="cross" color='#E05656' size={20} />
                                             </TouchableOpacity>
                                         </View>
@@ -192,7 +192,7 @@ const TUpdateInfo = ({ navigation }) => {
                             </View>
                             {   
                                 focus === item[0]? (
-                                    <TouchableOpacity onPress={() => addCourse(item[0])} style={styles.courseButton}>
+                                    <TouchableOpacity onPress={() => addCourse(item[0])} style={styles.courseButton} activeOpacity={0.7}>
                                         <Text style={styles.textSave}>Add Course <FontAwesome name="plus" color={colors.backgroundColor} size={16}/></Text>
                                     </TouchableOpacity>
                                 ) : null
@@ -214,12 +214,12 @@ const TUpdateInfo = ({ navigation }) => {
                             defaultValue={sectionGrade}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => addSection()} style={styles.sectionButton}>
+                    <TouchableOpacity onPress={() => addSection()} style={styles.sectionButton} activeOpacity={0.7}>
                         <Text style={styles.textSave}>Add New Section <FontAwesome name="plus" color={colors.backgroundColor} size={16}/></Text>
                     </TouchableOpacity>
                 </View>
             
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton} activeOpacity={0.7}>
                     <Text style={styles.textSave}>Save <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </ScrollView>

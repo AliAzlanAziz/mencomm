@@ -50,10 +50,10 @@ const SOthersProfile = ({ navigation }) => {
                         />
                     <Text style={styles.userRatingCount}>{user.rating}</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('SStack', { screen: 'SChat' })} style={styles.saveButton}>
                     <Text style={styles.textSave}>Message <Entypo name="message" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setModalVisible(true)} style={{marginTop: 5, marginLeft: 10}}>
+                <TouchableOpacity activeOpacity={0.5} onPress={() => setModalVisible(true)} style={{marginLeft: 10}}>
                     <Entypo name="dots-three-horizontal" color={colors.text} size={20} />
                 </TouchableOpacity>
             </View>
@@ -82,8 +82,8 @@ const SOthersProfile = ({ navigation }) => {
                 </View>)}
             </View>
             <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
-                <StatusBar translucent={true} backgroundColor={"#2D52B0"} barStyle="light-content"/>
-                <TouchableOpacity style={styles.modalList}>
+                {/* <StatusBar translucent={true} backgroundColor={"#2D52B0"} barStyle="light-content"/> */}
+                <TouchableOpacity activeOpacity={0.7} style={styles.modalList}>
                     <Text style={styles.modalListText}>Report User</Text>
                 </TouchableOpacity>
             </Modal>   

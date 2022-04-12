@@ -7,7 +7,7 @@ import {
     Image
 } from 'react-native'
 
-const TNotification = () => {
+const TNotification = ({ navigation }) => {
     const [data,setData]= React.useState([
         {id:'1', from:'Tom', Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/cute-kitten-in-nature-picture-id502888545', date:'12-9-2021', time:'10:00 PM' },
         {id:'2', from:'Mohit', Action:'Requested to join classroom', image:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg', date:'12-9-2021', time:'10:00 PM' },
@@ -23,12 +23,12 @@ const TNotification = () => {
                 <View style={styles.HeaderLeftImageView}>
                     <Image style={styles.HeaderLeftImage} source={{uri:item.image}}/>
                 </View>
-                <View style={{marginLeft:10}}>
+                <View style={styles.userInfo}>
                     <View style={{flexDirection:'row'}}>
                         <Text style={styles.User}> {item.from} </Text>
                         <Text style={styles.Text}> {item.Action} </Text>
                     </View>
-                    <Text style={{color:'#64676B'}}>{item.time} </Text>
+                    <Text style={styles.time}>{item.time} </Text>
                 </View>
             </View>
         );
@@ -57,9 +57,10 @@ const styles = StyleSheet.create({
         flex:1,
         width:'100%',
         height:'100%',
-        paddingVertical:15,
+        paddingVertical:10,
         backgroundColor: 'white',
         flexDirection: 'row',
+        marginTop:3
     },
     HeaderLeftImage:{
         width:'100%',
@@ -72,12 +73,19 @@ const styles = StyleSheet.create({
         borderRadius:40/2,
         marginLeft:15,
     },
+    userInfo: {
+        marginLeft:5, 
+        marginTop: 5
+    },
     User:{
         color:'#0E9D50',
         fontSize:15
     },
+    time: {
+        color:'#64676B',
+        marginLeft: 5
+    },
     Text:{
         color:'black',
-        marginLeft:5,
     }
 })

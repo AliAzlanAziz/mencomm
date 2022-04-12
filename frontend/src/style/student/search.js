@@ -96,5 +96,114 @@ export default createStyles = (colors) => {
             color: '#fff',
             fontSize: 18,
         },
+        listContainer:{
+            flex:1,
+            width:'90%',
+            height:'100%',
+            backgroundColor: 'white',
+            alignSelf: 'center'
+        },
+        HeaderLeftImage:{
+            width:'100%',
+            height:'100%',
+            borderRadius:50,
+        },
+        HeaderLeftImageView:{
+            width:50,
+            height:50,
+            borderRadius:20,
+            marginLeft:15,
+        },
+        User:{
+            color:'#000',
+            fontSize: 16,
+            marginTop: 5,
+            marginLeft: 5 
+        },
+        scrollViewContainer: {
+            marginBottom: 60
+        },
+        post: {
+            flex: 1, 
+            width:'100%', 
+            marginBottom: 10,
+            borderTopWidth: 1, 
+            borderBottomWidth: 1, 
+            borderRadius:5, 
+            borderColor: '#C9CED3'
+        },
+        postInfoContainer: {
+            borderTopWidth: 1, 
+            borderColor: '#DCE2E9'
+        },
+        postInfo: {
+            marginLeft: 10, 
+            marginTop: 10
+        },
+        detailsText : {
+            borderTopWidth: 1, 
+            borderColor: '#DCE2E9'
+        },
+        cardUserInfo: {
+            flexDirection: 'row', 
+            width: '95%'
+        },
+        cardAvatar: {
+            height:50, 
+            width: 50, 
+            borderRadius: 50, 
+            margin: 10
+        },
+        cardNameDate: {
+            flex: 1,
+            flexDirection: 'row', 
+            justifyContent: 'space-between',
+            marginTop: 15,
+        },
+        cardName: {
+            fontFamily: 'Nunito-Regular',
+            fontSize: 18, 
+            color: '#000'
+        },
+        cardDate: {
+            fontFamily: 'Nunito-Regular',
+            fontSize: 14, 
+            color: '#000',
+            marginTop: 4,
+        },
+        action: {
+            flexDirection: 'row',
+            marginHorizontal: 10,
+            marginBottom: 10,
+            borderBottomWidth: 1,
+            borderBottomColor: '#f2f2f2',
+            paddingBottom: 5,
+        },
+        text: {
+            fontFamily: 'Nunito-Regular',
+            paddingLeft: 10,
+            marginTop: 2,
+            width: '85%',
+            color: colors.text
+        },
+        seeDetailsLinkContainer : {
+            borderTopWidth: 1, 
+            borderColor: '#DCE2E9'
+        },
+        seeDetailsLink: {
+            marginLeft: 40
+        },
+        seeDetailsText: {
+            fontFamily: 'Nunito-Bold',
+            margin: 10,
+            fontSize: 12,
+            color: '#4378FF'
+        },
+        people: {
+            fontFamily: 'Nunito-Bold',
+            fontSize: 16,
+            color: "#000",
+            marginVertical: 15
+        }
     })
 }

@@ -26,7 +26,7 @@ const Splash = ({ navigation }) => {
                 <Text style={styles.title}>Welcome to the MenComm App</Text>
                 <Text style={styles.text}>Sign in with account</Text>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.navigate('NavigatorEase')}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('Signup')}>
                         <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.buttonContainer}>
                             <Text style={styles.textButton}>Get Started</Text>
                             <MaterialIcons name="navigate-next" color="#fff" size={20}/>

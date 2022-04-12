@@ -136,7 +136,7 @@ const Signin = ({navigation}) => {
                         autoCapitalize="none"
                         onChangeText={(val) => handlePasswordChange(val)}
                     />
-                    <TouchableOpacity onPress={updateSecureTextEntry}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={updateSecureTextEntry}>
                         {data.secureTextEntry ? 
                             <Feather 
                                 name="eye-off"
@@ -157,19 +157,18 @@ const Signin = ({navigation}) => {
                         <Text style={styles.errorMsg}>Password must be 8 characters long.</Text>
                     </Animatable.View>
                 }
-              
   
-                <TouchableOpacity onPress={() => navigation.navigate('forgotpassword')}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('ForgotPassword')}>
                     <Text style={styles.forgetPasswordLink}>Forgot password?</Text>
                 </TouchableOpacity>
                 <View style={styles.button}>
-                    <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.signIn} onPress={() => navigation.navigate('Role')}>
                         <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signIn}>
                             <Text style={styles.textSignIn}>Sign In</Text>
                         </LinearGradient>
                     </TouchableOpacity>
     
-                    <TouchableOpacity onPress={() => navigation.navigate('Signup')} style={styles.signUpButton}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('Signup')} style={styles.signUpButton}>
                         <Text style={styles.textSignUp}>Sign Up</Text>
                     </TouchableOpacity>
                 </View>

@@ -97,23 +97,6 @@ export default createStyles = (colors) => {
             fontFamily: 'Nunito-Regular',
             fontSize: 18,
             color: '#000'
-        },
-        createPostButtonContainer: {
-            justifyContent: 'flex-end', 
-            alignItems: 'flex-end'
-        },
-        createPostButton: {
-            position: 'absolute'
-        },
-        infoMsg: {
-            fontSize: 12, 
-            fontFamily: 'Nunito-Bold',
-            color: '#00A0FF',
-            marginRight: 10,
-        },
-        plusIcon: {
-            marginRight: 10, 
-            marginBottom: 80
         }
     })
 }

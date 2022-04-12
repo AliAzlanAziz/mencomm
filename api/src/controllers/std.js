@@ -4,8 +4,14 @@ const Tutor = require('../models/tutor')
 const Student = require('../models/student')
 const Post = require('../models/post')
 const Contract = require('../models/contract')
-const Feedback = require("../models/feedback")
+const Message = require('../models/message')
+const Report = require('../models/report')
+const ContentBasedRecommender = require('content-based-recommender')
 const { getDistanceBetweenCoords } = require("../utils/distance")
+const recommender = new ContentBasedRecommender({
+    minScore: 0.2,
+    maxSimilarDocs: 25
+})
 
 module.exports = {
     getProfile: (req, res, next) => {
@@ -37,16 +43,16 @@ module.exports = {
             _id: new mongoose.Types.ObjectId(),
             user_type: "std",
             createdBy: req.id,
-            course: req.body.coursename,
+            course: req.body.course,
             fee: req.body.fee,
             grade: req.body.grade,
-            tuition_type: req.body.tuitiontype,
+            tuition_type: req.body.tuition_type,
             location: req.body.location,
-            start_date: req.body.startdate,
-            capacity: req.body.capacity,
+            start_date: req.body.start_date,
             schedule: req.body.schedule,
             description: req.body.description,
-            created_on: new Date()
+            created_on: new Date(),
+            content: `${req.body.course} ${req.body.grade} ${req?.body?.tuition_type} ${req.body?.location?.address} ${req.body?.description}`
         })
 
         post
@@ -94,15 +100,15 @@ module.exports = {
         Contract.findById(req.params.id)
         .populate("post")
         .populate("tutor")
-        .populate("feedback")
         .exec()
         .then(cont => {
-            Tutor.findOne({user: cont?.tutor})
+            Tutor.findOne({user: cont?.tutor?._id})
             .populate('user')
             .exec()
             .then(ttr => {
                 return res.status(200).json({
                     id: cont?._id,
+                    userId: cont?.tutor?._id,
                     name: cont?.tutor?.name,
                     avatar_url: cont?.tutor?.avatar_url,
                     rating: ttr?.rating,
@@ -110,14 +116,14 @@ module.exports = {
                     grade: cont?.post?.grade,
                     tuition_type: cont?.post?.tuition_type,
                     fee: cont?.post?.fee,
-                    address: cont?.post?.location.address,
+                    address: cont?.post?.location?.address || '',
                     start_date: cont?.post?.start_date,
                     schedule: cont?.post?.schedule,
-                    fbid: cont?.feedback?._id,
-                    ttr_review: cont?.feedback?.tutor?.review,
-                    ttr_rating: cont?.feedback?.tutor?.rating,
-                    std_review: cont?.feedback?.student?.review,
-                    std_rating: cont?.feedback?.student?.rating,
+                    created_on: cont?.created_on,
+                    ttr_review: cont?.ttr_feedback?.review || '',
+                    ttr_rating: cont?.ttr_feedback?.rating,
+                    std_review: cont?.std_feedback?.review || '',
+                    std_rating: cont?.std_feedback?.rating,
                 })
             })
         })
@@ -132,6 +138,7 @@ module.exports = {
             posts.forEach(item => {
                 result.push({
                     id: item?._id,
+                    userId: item?.createdBy?._id,
                     name: item?.createdBy?.name,
                     avatar_url: item?.createdBy?.avatar_url,
                     created_on: item?.created_on,
@@ -160,22 +167,36 @@ module.exports = {
             Tutor.findOne({user: post.createdBy})
             .exec()
             .then(ttr => {
-                return res.status(200).json({
-                    id: post?._id,
-                    name: post?.createdBy?.name,
-                    avatar_url: post?.createdBy?.avatar_url,
-                    rating: ttr?.rating,
-                    created_on: post?.created_on,
-                    course: post?.course,
-                    grade: post?.grade,
-                    tuition_type: post?.tuition_type,
-                    fee: post?.fee,
-                    address: post?.location?.address,
-                    start_date: post?.start_date,
-                    description: post?.description,
-                    capacity: post?.capacity,
-                    schedule: post?.schedule,
-                    description: post?.description
+                let isAccepted = false
+                let isRequested = false
+                Post.find({_id: req.params.id, "requests.user": req.id})
+                .then(pst => {
+                    if(pst[0]?._id ){
+                        pst[0].requests.find(item => {
+                            if(item.user.toString() == req.id){
+                                isAccepted = item.isAccepted
+                            }
+                        })
+                        isRequested = true
+                    }
+                    return res.status(200).json({
+                        id: post?._id,
+                        userId: post?.createdBy?._id,
+                        name: post?.createdBy?.name,
+                        avatar_url: post?.createdBy?.avatar_url || '',
+                        rating: ttr?.rating || 0,
+                        created_on: post?.created_on,
+                        course: post?.course,
+                        grade: post?.grade,
+                        tuition_type: post?.tuition_type || '',
+                        fee: post?.fee,
+                        address: post?.location?.address || '',
+                        start_date: post?.start_date || '',
+                        description: post?.description || '',
+                        schedule: post?.schedule || [],
+                        isAccepted: isAccepted,
+                        isRequested: isRequested
+                    })
                 })
             })
         })
@@ -184,59 +205,102 @@ module.exports = {
     getFeedbacks: (req, res, next) => {
         Contract.find({ student: req.id })
         .populate("tutor")
-        .populate("student")
-        .populate("feedback")
         .exec()
         .then(conts => {
             let result = []
             conts.forEach(item => {
                 result.push({
-                    _id: item?.feedback?._id,
-                    tutor: item?.tutor?.name,
+                    id: item?.feedback?._id,
+                    name: item?.tutor?.name,
                     avatar_url: item?.tutor?.avatar_url,
-                    review: item?.feedback?.tutor?.review,
-                    rating: item?.feedback?.tutor?.rating,
+                    review: item?.ttr_feedback?.review,
+                    rating: item?.ttr_feedback?.rating,
+                    created_on: item?.created_on
                 })
             })
 
-            Student.findOne({user: req.id})
-            .exec()
-            .then(std => {
+            return res.status(200).json({
+                message: result.length + ' feedbacks retreived',
+                data: result
+            })
+        })
+    },
+
+    postCreateFeedback: async (req, res, next) => {
+        const std_feedback = {
+            review: req.body.review,
+            rating: req.body.rating
+        }
+
+        Contract.findByIdAndUpdate(req.body.contractId, {std_feedback: std_feedback})
+        .then(async cont => {
+            if(cont._id == null || cont._id == undefined){
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                })
+            }
+
+            const conts = await Contract.find({tutor: req.body.userId})
+            if(conts[0]._id == null || conts[0]._id == undefined){
+                return res.status(500).json({
+                    message: 'Internal Server Error'
+                })
+            }
+            
+            const rateObj = conts.reduce((acc, item) => {
+                if(item?.std_feedback?.rating > 0){
+                    acc['rating'] = acc['rating'] + item?.std_feedback?.rating
+                    acc['count'] = acc['count'] + 1
+                }
+                return acc
+            }, { rating: 0, count: 0})
+
+            Tutor.findOneAndUpdate({user: req.body.userId}, {rating: rateObj.rating/rateObj.count})
+            .then(ttr => {
+                if(ttr._id == null || ttr._id == undefined){
+                    return res.status(500).json({
+                        message: 'Internal Server Error'
+                    })
+                }
+
                 return res.status(200).json({
-                    name: conts[0]?.student?.name,
-                    avatar_url: conts[0]?.student?.avatar_url,
-                    rating: std?.rating,
-                    data: result
+                    message: 'Feedback updated successfully'
                 })
             })
         })
     },
 
-    postCreateFeedback: (req, res, next) => {
-        const stdfb = {
-            _id: req.body.fbid || new mongoose.Types.ObjectId(),
-            contract: req.body.contractid,
-            student: {
-                review: req.body.std_review,
-                rating: req.body.std_rating
-            }
+    postEnroll: (req, res, next) => {
+        const request = {
+            user: req.id,
+            isAccepted: false,
+            time_requested: new Date(),
+            time_accepted: null
         }
 
-        Feedback.findOneAndUpdate({_id: stdfb._id}, stdfb, { upsert: true, new: true, setDefaultsOnInsert: true })
-        .exec()
-        .then(fb => {
-            Contract.findByIdAndUpdate(req.body.contractid, {feedback: fb._id})
-            .exec()
-            .then(cont => {
-                if(fb._id == null || cont._id == null){
-                    return res.status(500).json({
-                        message: 'Internal Server Error'
-                    })
-                }else{
-                    return res.status(200).json({
-                        message: 'Feedback Updated Successfully'
-                    })
+        Post.findByIdAndUpdate(req.params.id, {$push: {requests: request}})
+        .then(post => {
+            return res.status(200).json({
+                message: 'Requested to enroll successfully'
+            })
+        })
+    },
+
+    postCancelEnroll: (req, res, next) => {
+        Post
+        .findByIdAndUpdate(
+            req.params.id,
+            {$pull:
+                { requests: 
+                    {
+                        user: req.id
+                    }
                 }
+            }
+        )
+        .then(post => {
+            return res.status(200).json({
+                message: 'Cancelled request to enroll'
             })
         })
     },
@@ -247,9 +311,10 @@ module.exports = {
         .exec()
         .then(post => {
             return res.status(200).json({
+                id: post?.createdBy?._id,
                 name: post?.createdBy?.name,
                 avatar_url: post?.createdBy?.avatar_url,
-                data: post?.announcements
+                data: post?.announcements,
             })
         })
     },
@@ -278,18 +343,6 @@ module.exports = {
         });
     },
 
-    getUpdateInfo: (req, res, next) => {
-        Student.findOne({student: req.id})
-        .exec()
-        .then(std => {
-            return res.status(200).json({
-                grade: std?.info?.grade,
-                course: std?.info?.course,
-                tuition_type: std?.tuition_type
-            })
-        })
-    },
-
     postUpdateInfo: (req, res, next) => {
         const stdinfo = {
             info: {
@@ -314,43 +367,35 @@ module.exports = {
         })
     },
 
-    postSearch: async (req, res, next) => {
-        let ttrQuery = {}
-        let postQuery = { user_type: "ttr" }
+    postSearchPeople: async (req, res, next) => {
+        let ttrQuery= {}
         
-        if(req.body.rating != -1){
-            ttrQuery.rating = req.body.rating
-        }
-        if(req.body.tuition_type != "-1"){
-            postQuery.tuition_type = req.body.tuition_type
-        }
-        if(req.body.grade != "-1"){
-            ttrQuery.grade = req.body.grade
-            postQuery.grade = req.body.grade
-        }
-        if(req.body.minfee != -1 && req.body.maxfee != -1){
-            postQuery.fee = { '$gte': req.body.minfee, '$lte': req.body.maxfee}
-        }else if(req.body.minfee != -1){
-            postQuery.fee = { '$gte': req.body.minfee }
-        }else if(req.body.maxfee != -1){
-            postQuery.fee = { '$lte': req.body.maxfee }
-        }
+        ttrQuery.rating = { '$gte': req.body.rating }
+        ttrQuery = { ...ttrQuery, 'info.grade': { '$regex': req.body.grade, '$options': 'ix'} }
+
         const ttrs_result = new Array()
-        const posts_result = new Array()
         
         const { location } = await User.findById(req.id)
 
         Tutor.find(ttrQuery)
-        .populate("user")
-        .exec()
+        .populate('user')
         .then(ttrs => {
             ttrs.forEach(item => {
-                if(req.body.nearbies != false){
-                    const lat1 = item?.user?.location?.latitude
-                    const lng1 = item?.user?.location?.longitude
-                    const dist = getDistanceBetweenCoords(lat1, lng1, location.latitude, location.longitude, "Km")
-                
-                    if(dist <= 2 && dist != -1 ){
+                if(item?.user?.name?.toLowerCase()?.includes(req?.body?.name?.toLowerCase())){
+                    if(req.body.nearbies !== false){
+                        const lat1 = item?.user?.location?.latitude
+                        const lng1 = item?.user?.location?.longitude
+                        const dist = getDistanceBetweenCoords(lat1, lng1, location.latitude, location.longitude, "Km")
+                    
+                        if(dist <= 5 && dist !== -1){
+                            ttrs_result.push({
+                                _id: item?.user?._id,
+                                name: item?.user?.name,
+                                avatar_url: item?.user?.avatar_url,
+                                rating: item?.rating,
+                            })
+                        }
+                    }else{
                         ttrs_result.push({
                             _id: item?.user?._id,
                             name: item?.user?.name,
@@ -358,21 +403,35 @@ module.exports = {
                             rating: item?.rating,
                         })
                     }
-                }else{
-                    ttrs_result.push({
-                        _id: item?.user?._id,
-                        name: item?.user?.name,
-                        avatar_url: item?.user?.avatar_url,
-                        rating: item?.rating,
-                    })
                 }
             })
 
-            Post.find(postQuery)
-            .populate("createdBy")
-            .exec()
-            .then(posts => {
-                posts.forEach(item => {
+            return res.status(200).json({
+                message: ttrs_result.length + " tutors returned.",
+                tutors: ttrs_result,
+            })
+        })
+    },
+
+    postSearchPost: async (req, res, next) => {
+        let postQuery = { user_type: "ttr" }
+        
+        if(req.body.tuition_type != ''){
+            postQuery.tuition_type = req.body.tuition_type 
+        }
+        postQuery = { ...postQuery, 'grade': { '$regex': req.body.grade, '$options': 'ix'} }
+        postQuery = { ...postQuery, 'course': { '$regex': req.body.course, '$options': 'ix'} }
+        postQuery.fee = { '$gte': req.body.minfee, '$lte': req.body.maxfee}
+        
+        const posts_result = new Array()
+        
+        const { location } = await User.findById(req.id)
+
+        Post.find(postQuery)
+        .populate("createdBy")
+        .then(posts => {
+            posts.forEach(item => {
+                if(item?.createdBy?.name?.toLowerCase()?.includes(req?.body?.name?.toLowerCase())){
                     if(req.body.nearbies != false){
                         const lat1 = item?.location?.latitude
                         const lng1 = item?.location?.longitude
@@ -381,7 +440,7 @@ module.exports = {
                         if(dist <= 2 && dist != -1 ){
                             posts_result.push({
                                 _id: item?._id,
-                                userid: item?.createdBy?._id,
+                                userId: item?.createdBy?._id,
                                 name: item?.createdBy?.name,
                                 avatar_url: item?.createdBy?.avatar_url,
                                 created_on: item?.created_on,
@@ -394,7 +453,7 @@ module.exports = {
                     }else{
                         posts_result.push({
                             _id: item?._id,
-                            userid: item?.createdBy?._id,
+                            userId: item?.createdBy?._id,
                             name: item?.createdBy?.name,
                             avatar_url: item?.createdBy?.avatar_url,
                             created_on: item?.created_on,
@@ -404,13 +463,12 @@ module.exports = {
                             description: item?.description
                         })
                     }
-                }) 
+                }
+            }) 
 
-                return res.status(200).json({
-                    message: ttrs_result.length + " tutors returned & " + posts_result.length + " posts returned",
-                    tutors: ttrs_result,
-                    posts: posts_result
-                })
+            return res.status(200).json({
+                message: posts_result.length + " posts returned.",
+                posts: posts_result
             })
         })
     },
@@ -421,18 +479,213 @@ module.exports = {
         .exec()
         .then(async ttr => {
             if(ttr?._id != null){
-                const contracts = await Contract.find({tutor:ttr.user._id}).populate("feedback",'student_feedback').populate("student",'name')
-                .select('feedback created_on student')
-                return res.status(200).json({
-                    message: 'Success',
-                    name: ttr.user.name,
-                    rating: ttr.rating,
-                    image: ttr.user?.avatar_url,
-                    id:ttr.user._id,
-                    contracts:contracts
+                Contract.find({tutor: req.params.id})
+                .populate('student')
+                .then(conts => {
+                    let contracts = []
+                    conts.forEach(item => {
+                        contracts.push({
+                            id: item?._id,
+                            name: item?.student?.name,
+                            avatar_url: item?.student?.avatar_url || '',
+                            created_on: item?.created_on,
+                            review: item?.std_feedback?.review || '',
+                            rating: item?.std_feedback?.rating || 0
+                        })
+                    })
+                    return res.status(200).json({
+                        user: {
+                            name: ttr?.user?.name,
+                            rating: ttr?.rating || 0,
+                            avatar_url: ttr?.user?.avatar_url || '',
+                            id: ttr?.user?._id,
+                        },
+                        contracts: contracts
+                    })
+                })
+            }else{
+                return res.status(404).json({
+                    message: 'Not found'
                 })
             }
         })
     },
 
+    getNewsfeed: async (req, res, next) => {
+        const user = await User.aggregate([
+            { $match: { _id: new mongoose.Types.ObjectId(req.id) } },
+            {
+                $project: {
+                    "_id": 0,
+                    "id": "$_id",
+                    "content": 1
+                }
+            },
+        ]);
+        const raw_posts = await Post.aggregate([
+            { $match: { user_type: 'ttr' } },
+            {
+                $project: {
+                    "_id": 0,
+                    "id": "$_id",
+                    "createdBy": 1,
+                    "course": 1,
+                    "grade": 1,
+                    "fee": 1,
+                    "created_on": 1,
+                    "content": 1
+                }
+            },
+        ]);
+        const posts = await Post.populate(raw_posts, {path: 'createdBy', select: 'name avatar_url _id'})
+        posts.push(user[0])
+        const postMap = posts.reduce((acc, post) => {
+            acc[post.id] = post
+            
+            return acc
+        }, {})
+
+        recommender.train(posts)
+        delete raw_posts //free memory
+        delete posts //free memory
+
+        const similarDocuments = recommender.getSimilarDocuments(req.id, 0, 25)
+        let result = similarDocuments.map(item => ({
+            id: postMap[item.id]?.id,
+            userId: postMap[item.id]?.createdBy?._id,
+            name: postMap[item.id]?.createdBy?.name,
+            avatar_url: postMap[item.id]?.createdBy?.avatar_url,
+            created_on: postMap[item.id]?.created_on,
+            course: postMap[item.id]?.course,
+            grade: postMap[item.id]?.grade,
+            // tuition_type: postMap[item.id]?.tuition_type,
+            fee: postMap[item.id]?.fee,
+            // address: postMap[item.id]?.location?.address,
+            // start_date: postMap[item.id]?.start_date,
+            // description: postMap[item.id]?.description
+        }))
+        // console.log(result)
+
+        return res.status(200).json({
+            message: result.length + " posts returned",
+            data: result
+        })
+    },
+
+    getChatList: async (req, res, next) => {
+        let to = await Message.aggregate(
+            [
+                // Matching pipeline, similar to find
+                {
+                    $match: {
+                        to: new mongoose.Types.ObjectId(req.id)
+                    }
+                },
+                // Sorting pipeline
+                { 
+                    $sort: { 
+                        time: -1 
+                    } 
+                },
+                // Grouping pipeline
+                {
+                    $group: {
+                        "_id": "$from",
+                        text: {
+                            "$first": "$text" 
+                        },
+                        time: {
+                            "$first": "$time" 
+                        }
+                    }
+                },
+                // Project pipeline, similar to select
+                {
+                     "$project": { 
+                        "_id": 0,
+                        "from": "$_id",
+                        "text": 1,
+                        "time": 1
+                    }
+                }
+            ]
+        )
+
+        let from = await Message.aggregate(
+            [
+                // Matching pipeline, similar to find
+                { 
+                    $match: { 
+                        from: new mongoose.Types.ObjectId(req.id)
+                    }
+                },
+                // Sorting pipeline
+                { 
+                    $sort: { 
+                        time: -1 
+                    } 
+                },
+                // Grouping pipeline
+                {
+                    $group: {
+                        "_id": "$to",
+                        text: {
+                            "$first": "$text" 
+                        },
+                        time: {
+                            "$first": "$time" 
+                        }
+                    }
+                },
+                // Project pipeline, similar to select
+                {
+                     "$project": { 
+                        "_id": 0,
+                        "from": "$_id",
+                        "text": 1,
+                        "time": 1
+                    }
+                }
+            ]
+        )
+        
+        console.log([...to, ...from])
+    },
+
+    postMessage: (req, res, next) => {
+        const message = new Message({
+            to: req.body.userId,
+            from: req.id,
+            text: req.body.text,
+            time: new Date()
+        })
+
+        message.save()
+        .then(msg => {
+            if(msg._id){
+                return res.status(200).json({
+                    message: 'Message sent!'
+                })
+            }
+        })
+    },
+
+    postReport: (req, res, next) => {
+        const report = new Report({
+            reporter: req.id,
+            reported_user: req.body.userId,
+            reported_post: req.body.postId,
+            description: req.body.description,
+            time: new Date()
+        })
+
+        report.save()
+        .then(msg => {
+            if(msg._id){
+                return res.status(200).json({
+                    message: 'Reported'
+                })
+            }
+        })
+    },
 }

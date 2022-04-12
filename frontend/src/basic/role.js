@@ -25,14 +25,14 @@ const Role = ({ navigation }) => {
                 <Text style={styles.text}> Are You a Dedicated Tutor willing to Teach the young minds or Are you a ambitious Student Willing to learn from the best</Text>
                 <View style={styles.button}> 
                     <View style={styles.sbutton}>
-                        <TouchableOpacity onPress={()=>navigation.navigate('Role')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate('STab', { screen: 'SNewsfeed' })}>
                             <LinearGradient colors={['#016aab', '#0148ab']} style={styles.signIn}>
                                 <Text style={styles.textSign}>Student</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.tbutton}>
-                        <TouchableOpacity onPress={()=>navigation.navigate('Role')}>
+                        <TouchableOpacity activeOpacity={0.7} onPress={()=>navigation.navigate('TTab', { screen: 'TNewsfeed' })}>
                             <LinearGradient colors={['#08d4c4', '#01ab9d']} style={styles.signIn}>
                                 <Text style={styles.textSign}>Tutor</Text>
                             </LinearGradient>

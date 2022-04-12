@@ -104,7 +104,7 @@ const SUpdateInfo = ({ navigation }) => {
                             <View style={styles.action} key={index}>
                                 <AntDesign name="book" color={colors.text} size={20} />
                                 <Text style={styles.text}>{index+1}. {item}</Text>
-                                <TouchableOpacity onPress={ () => removeCourse(item) }>
+                                <TouchableOpacity onPress={ () => removeCourse(item) } activeOpacity={0.7}>
                                     <Entypo name="cross" color='#E05656' size={25} />
                                 </TouchableOpacity>
                             </View>
@@ -124,12 +124,12 @@ const SUpdateInfo = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => addCourse()} style={styles.courseButton}>
+                    <TouchableOpacity onPress={() => addCourse()} style={styles.courseButton} activeOpacity={0.7}>
                         <Text style={styles.textSave}>Add Course <FontAwesome name="plus" color={colors.backgroundColor} size={16}/></Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
+                    <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton} activeOpacity={0.7}>
                         <Text style={styles.textSave}>Save <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                     </TouchableOpacity>
                 </View>

@@ -74,7 +74,7 @@ const Signup = ({ navigation }) => {
     })
 
     const getLocation = () => {
-        Geocoder.init("")
+        Geocoder.init("") //AIzaSyASfv0sgGQ5pQTeT-N0eYn4ius8-S-2Wuk
         Geolocation.getCurrentPosition(
             (position) => {
                 console.log(position)
@@ -104,7 +104,7 @@ const Signup = ({ navigation }) => {
                 <Text style={styles.textHeader}>Sign Up Now!</Text>
             </View>
             <Animatable.View animation="fadeInUpBig" style={styles.footer} >
-                <ScrollView>
+                <ScrollView showsVerticalScrollIndicator={false}>
                     <Text style={styles.textFooter}>First Name*</Text>
                     <View style={styles.action}>
                         <FontAwesome name="user-o" color={colors.text} size={20}/>
@@ -175,6 +175,7 @@ const Signup = ({ navigation }) => {
                             darkMode={false}
                             width={365}
                             menuBarContainerHeight={100}
+                            searchEnabled={false}
                         />
                     </View>
                     {check.gender && (
@@ -184,7 +185,6 @@ const Signup = ({ navigation }) => {
                             <Text style={styles.errorMsg}>Select from the given options</Text>
                         </Animatable.View>
                     )}
-
 
                     <Text style={styles.textFooter}>Location</Text>
                     <View style={styles.action}>

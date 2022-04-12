@@ -23,7 +23,7 @@ import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/editProfile'
 import { ageLimit } from '../utils.js/checkdate';
 
-const SEditProfile = ( navigation ) => {
+const SEditProfile = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     
@@ -109,7 +109,7 @@ const SEditProfile = ( navigation ) => {
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
-                <TouchableOpacity onPress={() => {setModalVisible(true)}}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => {setModalVisible(true)}}>
                     <Image source={{uri: data.image}} style={styles.image}/>
                 </TouchableOpacity>
                 <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">{data.name}</Text>
@@ -150,7 +150,7 @@ const SEditProfile = ( navigation ) => {
                     </Animatable.View>
                 )}
 
-                <TouchableOpacity onPress={() => setShow(!show)} style={styles.actionBirthday}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => setShow(!show)} style={styles.actionBirthday}>
                     <Fontisto name="date" color={colors.text} size={20}/>
                     <Text style={styles.textInputBirthday}>Your Birthday</Text>
                     <Text style={styles.textOutputBirthday}>{ (data.birthday.toISOString().split('T')[0] !== new Date().toISOString().split('T')[0]) ? data.birthday.toISOString().split('T')[0] : null}</Text>
@@ -184,7 +184,7 @@ const SEditProfile = ( navigation ) => {
                             })}
                         defaultValue={data.location.address}
                     />
-                    <TouchableOpacity onPress={() => getLocation()}>
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => getLocation()}>
                         <Ionicons name="location-outline" color={colors.text} size={20}/>
                     </TouchableOpacity>
                 </View>
@@ -219,7 +219,7 @@ const SEditProfile = ( navigation ) => {
             </View>
 
             <View style={styles.button}>
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('#')} style={styles.saveButton}>
                     <Text style={styles.textSave}>Save   <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </View>
@@ -229,13 +229,13 @@ const SEditProfile = ( navigation ) => {
                 <View style={styles.modalList}>
                     <Text style={styles.modalListTextHeader}>Upload Image</Text>
                 </View>
-                <TouchableOpacity style={styles.modalList} onPress={() => takePhotoFromCamera()}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.modalList} onPress={() => takePhotoFromCamera()}>
                     <Text style={styles.modalListText}>Take Photo</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} onPress={() => choosePhotoFromLibrary()}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.modalList} onPress={() => choosePhotoFromLibrary()}>
                     <Text style={styles.modalListText}>Choose From Library</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} onPress={() => setModalVisible(false)}>
+                <TouchableOpacity activeOpacity={0.7} style={styles.modalList} onPress={() => setModalVisible(false)}>
                     <Text style={styles.modalListText}>Cancel</Text>
                 </TouchableOpacity>
             </Modal>

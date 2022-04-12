@@ -70,7 +70,7 @@ const SAllUserPost = ({ navigation }) => {
                             <View style={styles.action}>
                                 <Ionicons name="location-outline" color={colors.text} size={20}/>
                                 <Text style={styles.text} numberOfLines={2} ellipsizeMode="tail">{item.address}</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity activeOpacity={0.7}>
                                     <FontAwesome name="map-o" color={colors.text} size={20}/>
                                 </TouchableOpacity>
                             </View>
@@ -87,7 +87,7 @@ const SAllUserPost = ({ navigation }) => {
                         </View>
                         <View style={styles.seeDetailsLinkContainer}>
                             <View style={styles.seeDetailsLink}>
-                                <TouchableOpacity onPress={() => navigation.navigate('#')}>
+                                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('TStack', { screen: 'TPostDetails' })}>
                                     <Text style={styles.seeDetailsText}>See Details</Text>
                                 </TouchableOpacity>
                             </View>

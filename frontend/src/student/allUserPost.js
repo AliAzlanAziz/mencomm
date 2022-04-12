@@ -21,8 +21,6 @@ const SAllUserPost = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
-    const [toggleText, setToggleText] = React.useState(false)
-    
     const [data, setData] = React.useState([
         {id:1, img: require('../asset/astronaut.png'), name: 'Dr. Abdul Aziz', date: '12/12/2020', course: 'Object Oriented Programming', grade: 'Under Grad', tuitionType: 'Home Tuition', fee: '10000 PKR', address: 'R-442, Sector-8, North Karachi, North Karachi, North Karachi, Karachi, Pakistan', start_date: '18th Dec 2020, Wednesday', desc: 'Et ut elit duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipisicing non elit.'},
         {id:2, img: require('../asset/astronaut.png'), name: 'Dr. Abdul Aziz', date: '12/12/2020', course: 'Object Oriented Programming', grade: 'Under Grad', tuitionType: 'Home Tuition', fee: '10000 PKR', address: 'R-442, Sector-8, North Karachi, Karachi, Pakistan', start_date: '18th Dec 2020, Wednesday', desc: 'Et ut elit duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipisicing duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipis non elit.'},
@@ -30,11 +28,6 @@ const SAllUserPost = ({ navigation }) => {
         {id:4, img: require('../asset/astronaut.png'), name: 'Dr. Abdul Aziz', date: '12/12/2020', course: 'Object Oriented Programming', grade: 'Under Grad', tuitionType: 'Home Tuition', fee: '10000 PKR', address: 'R-442, Sector-8, North Karachi, Karachi, Pakistan', start_date: '18th Dec 2020, Wednesday', desc: 'Et ut elit duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipisicing non elit.'},
         {id:5, img: require('../asset/astronaut.png'), name: 'Dr. Abdul Aziz', date: '12/12/2020', course: 'Object Oriented Programming', grade: 'Under Grad', tuitionType: 'Home Tuition', fee: '10000 PKR', address: 'R-442, Sector-8, North Karachi, Karachi, Pakistan', start_date: '18th Dec 2020, Wednesday', desc: 'Et ut elit duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipis duis aute est. Et culpa ad culpa sit. Cillum non eiusmod voluptate officia pariatur minim voluptate cupidatat aliqua ex magna amet excepteur. Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipis Non eu velit enim quis aute commodo laboris voluptate id exercitation duis. In in irure sit commodo occaecat mollit laboris ea consectetur ut proident. Culpa tempor laborum elit voluptate aute laborum cupidatat et reprehenderit. Dolore cupidatat et et sint voluptate adipisicing non elit.'},
     ])
-
-    const handleLongPress =  () => {
-        setToggleText(true)
-        setTimeout(() => {setToggleText(false)}, 10000)
-    }
 
     return (
         <View style={styles.container}>
@@ -70,7 +63,7 @@ const SAllUserPost = ({ navigation }) => {
                             <View style={styles.action}>
                                 <Ionicons name="location-outline" color={colors.text} size={20}/>
                                 <Text style={styles.text} numberOfLines={2} ellipsizeMode="tail">{item.address}</Text>
-                                <TouchableOpacity>
+                                <TouchableOpacity activeOpacity={0.7}>
                                     <FontAwesome name="map-o" color={colors.text} size={20}/>
                                 </TouchableOpacity>
                             </View>
@@ -87,7 +80,7 @@ const SAllUserPost = ({ navigation }) => {
                         </View>
                         <View style={styles.seeDetailsLinkContainer}>
                             <View style={styles.seeDetailsLink}>
-                                <TouchableOpacity onPress={() => navigation.navigate('#')}>
+                                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('SStack', { screen: 'SPostDetails' })}>
                                     <Text style={styles.seeDetailsText}>See Details</Text>
                                 </TouchableOpacity>
                             </View>

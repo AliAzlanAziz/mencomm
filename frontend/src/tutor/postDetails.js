@@ -63,7 +63,7 @@ const TPostDetails = ({ navigation }) => {
                             />
                         <Text style={styles.userRatingCount}>{data.rating}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => setModalVisible(true)}>
+                    <TouchableOpacity onPress={() => setModalVisible(true)} activeOpacity={0.7}>
                         <Entypo name="dots-three-horizontal" color={colors.text} size={30} />
                     </TouchableOpacity>
                 </View>
@@ -86,7 +86,7 @@ const TPostDetails = ({ navigation }) => {
                 <View style={styles.action}>
                     <Ionicons name="location-outline" color={colors.text} size={20}/>
                     <Text style={styles.text}>{data.address}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.7}>
                         <FontAwesome name="map-o" color={colors.text} size={20}/>
                     </TouchableOpacity>
                 </View>
@@ -115,27 +115,27 @@ const TPostDetails = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.tutorButtonContainer}>
-                <TouchableOpacity onPress={() =>  navigation.navigate('#')} style={styles.reqButton}>
+                <TouchableOpacity onPress={() =>  navigation.navigate('TStack', { screen: 'TRequested' })} style={styles.reqButton} activeOpacity={0.7}>
                     <Text style={styles.textButton}>Requests <AntDesign name="exclamationcircleo" color={colors.backgroundColor} size={18}/></Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.enrollButton}>
+                <TouchableOpacity onPress={() =>navigation.navigate('TStack', { screen: 'TEnrolled' })} style={styles.enrollButton} activeOpacity={0.7}>
                     <Text style={styles.textButton}>Enrolled <MaterialCommunityIcons name="location-enter" color={colors.backgroundColor} size={18}/></Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.announcementButtonContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('Announcement')} style={styles.announcementButton}>
+                <TouchableOpacity onPress={() => navigation.navigate('TStack', { screen: 'TAnnouncement'})} style={styles.announcementButton} activeOpacity={0.7}>
                     <Text style={styles.textButton}>Announcments <FontAwesome name="sticky-note-o" color={colors.backgroundColor} size={16}/></Text>
                 </TouchableOpacity>
             </View>
             <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
                 <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
-                <TouchableOpacity style={styles.modalList}>
+                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
                     <Text style={styles.modalListText}>Report User</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList}>
+                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
                     <Text style={styles.modalListText}>Report Post</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList}>
+                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
                     <Text style={styles.modalListText}>Report Both</Text>
                 </TouchableOpacity>
             </Modal>

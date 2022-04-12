@@ -2,18 +2,16 @@ import React from 'react'
 import {
     Text,
     View,
-    TextInput,
     Image,
     ScrollView,
     StatusBar,
-    TouchableOpacity
 } from 'react-native'
 import { AirbnbRating } from 'react-native-ratings'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/profile'
 
-const TProfile = ({navigation}) => {
+const TProfile = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     

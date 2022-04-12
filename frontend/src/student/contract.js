@@ -73,7 +73,7 @@ const SContract = ({ navigation }) => {
                 <Text style={styles.text} numberOfLines={2} ellipsizeMode="tail">
                     R-442 Sector 8, North Karachi
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity activeOpacity={0.7}>
                     <FontAwesome name="map-o" color={colors.text} size={20}/>
                 </TouchableOpacity>
             </View>
@@ -142,12 +142,12 @@ const SContract = ({ navigation }) => {
                     onChangeText={() => {}}
                 />
             <View style={styles.button}>
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('#')} style={styles.saveButton}>
                     <Text style={styles.textButton}>Done   <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.cancelButtonContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.cancelButton}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('#')} style={styles.cancelButton}>
                     <Text style={styles.textButton}>Cancel <Entypo name="circle-with-cross" color={colors.backgroundColor} size={18}/></Text>
                 </TouchableOpacity>
             </View>

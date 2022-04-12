@@ -8,10 +8,23 @@ export default createStyles = (colors) => {
             flex: 1, 
             backgroundColor: '#fff'
         },
-        settingsIcon: {
-            alignSelf: 'center', 
-            marginTop: 20, 
-            marginBottom: 20
+        userInfo: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 5,
+            marginBottom: 10
+        },
+        image: {
+            height: 100, 
+            width: 100, 
+            borderRadius: 50, 
+            marginTop: 20
+        },
+        name: {
+            fontFamily: 'Nunito-Regular',
+            marginTop: 5, 
+            fontSize: 18, 
+            color: '#000'
         },
         rowFirst: {
             flexDirection: 'row', 
@@ -34,6 +47,12 @@ export default createStyles = (colors) => {
             fontSize: 18, 
             fontFamily: 'Nunito-Regular', 
             marginLeft: 10
-        }
+        },
+        image: {
+            height: 50, 
+            width: 50, 
+            borderRadius: 50, 
+            marginTop: 20
+        },
     })
 }

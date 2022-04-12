@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import styles from '../style/tutor/allContracts'
 
-const TAllContracts = () => {
+const TAllContracts = ({ navigation }) => {
     const [data, setData] = React.useState([
         {id:1,  name: "Mark Doe gasgsag asgag gasg asga",    status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar7.png"},
         {id:2,  name: "Clark Man",   status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar6.png"} ,
@@ -25,7 +25,7 @@ const TAllContracts = () => {
 
     const renderItem = ({item}) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('TStack', { screen: 'TContract' })} activeOpacity={0.7}>
                 <View style={styles.row}>
                     <Image source={{ uri: item.image }} style={styles.pic} />
                     <View>
