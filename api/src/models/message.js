@@ -9,7 +9,8 @@ const messageSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    text: String
+    text: String,
+    time: Date
 })
 
 module.exports = mongoose.model('Message', messageSchema)

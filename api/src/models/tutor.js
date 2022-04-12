@@ -5,12 +5,10 @@ const tutorSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    info: [
-        {
-            grade: String,
-            course: [ String ]
-        }
-    ],
+    info: {
+        grade: [ String ],
+        course: [ String ]
+    },
     rating: {
         type: Number,
         mix: 0,

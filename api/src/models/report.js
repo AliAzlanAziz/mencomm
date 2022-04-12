@@ -6,17 +6,16 @@ const reportSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    reported: {
+    reported_user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    text: {
-        type: String
+    reported_post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
     },
-    time: {
-        type: Date,
-        default: new Date.now()
-    }
+    description: String,
+    time: Date,
 })
 
 module.exports = mongoose.model('Report', reportSchema)

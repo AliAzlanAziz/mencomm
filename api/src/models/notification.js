@@ -19,7 +19,6 @@ const notificationSchema = mongoose.Schema({
     },
     time: {
         type: Date,
-        default: new Date.now()
     },
     is_read: {
         type: Boolean,

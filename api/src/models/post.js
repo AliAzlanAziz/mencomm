@@ -1,7 +1,10 @@
 const mongoose = require('mongoose')
 
 const postSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        alias: 'id'
+    },
     user_type: { 
         type: String,
         required: true
@@ -11,16 +14,25 @@ const postSchema = mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    fee: Number,
-    grade: String,
-    course: String,
-    tuition_type: String,
-    location: {
+    fee: {
+        type: Number,
+        required: true
+    }, 
+    grade: {
+        type: String,
+        required: true
+    }, //feature
+    course: {
+        type: String,
+        required: true
+    }, //feature
+    tuition_type: String, //feature
+    location: { //feature for nearbies
         address: String,
         longitude: Number,
         latitude: Number
     },
-    start_date:{
+    start_date: { 
         type: Date
     },
     schedule: [
@@ -30,10 +42,9 @@ const postSchema = mongoose.Schema({
             end_time: Date,
         }
     ],
-    capacity: Number,
     description: String,
-    created_on: Date,
-    requests: [
+    created_on: Date, //could be a feature
+    requests: [ //could be a feature
         {
             user: { 
                 type: mongoose.Schema.Types.ObjectId,
@@ -54,10 +65,11 @@ const postSchema = mongoose.Schema({
     announcements: [
         {
             _id: mongoose.Schema.Types.ObjectId,
-            message: String,
+            description: String,
             time: Date
         }
-    ]
+    ],
+    content: String
 })
 
 module.exports = mongoose.model('Post', postSchema)

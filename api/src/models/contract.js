@@ -17,15 +17,25 @@ const contractSchema = mongoose.Schema({
         ref: "Post",
         required: true,
     },
-    feedback: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Feedback"
+    ttr_feedback: { //given by ttr
+        review: String,
+        rating: {
+            type: Number,
+            required: true,
+            mix: 0,
+            max: 5
+        }
+    },
+    std_feedback: { //given by std
+        review: String,
+        rating: {
+            type: Number,
+            required: true,
+            mix: 0,
+            max: 5
+        }
     },
     created_on: Date,
-    confirmed: {
-        type: Boolean,
-        default: false
-    },
 })
 
 module.exports = mongoose.model('Contract', contractSchema)

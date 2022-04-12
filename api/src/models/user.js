@@ -1,11 +1,14 @@
 const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        alias: 'id'
+    },
     name: {
         type: String,
         required: true,
-        min: 2,
+        min: 1,
         max: 256
     },
     email: { 
@@ -42,7 +45,8 @@ const userSchema = mongoose.Schema({
     },
     avatar_url: {
         type: String
-    }
+    },
+    content: String
 })
 
 module.exports = mongoose.model('User', userSchema)
