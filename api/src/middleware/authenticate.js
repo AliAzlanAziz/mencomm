@@ -24,7 +24,7 @@ module.exports = {
                 User.findById(decode.id)
                 .exec()
                 .then(user => {
-                    if(user._id != null){
+                    if(user && user._id != null){
                         req.id = decode.id
                         return next()
                     }else{
@@ -48,7 +48,7 @@ module.exports = {
             Admin.findById(decode.id)
             .exec()
             .then(user => {
-                if(user._id != null){
+                if(user && user._id != null){
                     req.id = decode.id
                     return next()
                 }else{
