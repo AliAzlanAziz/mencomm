@@ -11,9 +11,7 @@ export default createStyles = (colors) => {
         },
         tutionTypeInput: {
             flexDirection: 'row', 
-            marginVertical: 20, 
-            borderRadius: 5, 
-            elevation: 3
+            marginVertical: 10, 
         },
         iconLabelWrapper: {
             flexDirection: 'row', 
@@ -22,9 +20,9 @@ export default createStyles = (colors) => {
         },
         labelText: {
             fontFamily: 'Nunito-Regular',
-            fontSize: 16, 
-            color: '#000', 
-            marginTop: 2, 
+            fontSize: 16,
+            color: '#000',
+            marginTop: 2,
             marginLeft: 5
         },
         dropDownPicker: { 
@@ -35,10 +33,12 @@ export default createStyles = (colors) => {
             paddingHorizontal: 10
         },
         InputWrapper: {
-            marginVertical: 10, 
             padding: 10, 
-            borderRadius: 5, 
-            elevation:5
+        },
+        infoMsg: {
+            fontFamily: 'Nunito-Regular',
+            color: '#3048B2',
+            fontSize: 14,
         },
         tutionType: {
             flexDirection: 'row',
@@ -74,7 +74,7 @@ export default createStyles = (colors) => {
             marginTop: 10,
             borderBottomWidth: 1,
             borderBottomColor: '#f2f2f2',
-            paddingBottom: 5
+            paddingBottom: 10
         },
         textInput: {
             fontFamily: 'Nunito-Regular',

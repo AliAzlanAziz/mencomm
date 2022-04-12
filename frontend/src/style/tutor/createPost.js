@@ -1,5 +1,4 @@
 import {
-    Platform,
     StyleSheet,
 } from 'react-native';
 
@@ -7,10 +6,12 @@ export default createStyles = (colors) => {
     return StyleSheet.create({
         container: {
             flex: 1, 
-            backgroundColor: '#fff'
+            backgroundColor: '#fff',
+            alignItems: 'center',
         },
         scrollView: {
-            paddingHorizontal: 20,
+            width: '98%',
+            paddingHorizontal: 15,
             paddingVertical: 10,
         },
         textFooter: {
@@ -37,6 +38,7 @@ export default createStyles = (colors) => {
         },
         tutionTypeContainer: {
             flexDirection: 'row',
+            justifyContent: 'space-between',
             borderBottomWidth: 1,
             borderBottomColor: "#f5f5f5",
             backgroundColor: "#fff",
@@ -98,32 +100,24 @@ export default createStyles = (colors) => {
             fontFamily: 'Nunito-Regular',
             color: '#3048B2',
             fontSize: 14,
+            marginLeft: 10
         },
         buttonContainer: {
             alignItems: 'center',
-            marginVertical: 20
+            marginBottom: 80,
+            marginTop: 10,
         },
         signupButton: {
-            width: '100%',
-            height: 50,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10
         },
-        signinButton: {
-            width: '100%',
-            height: 50,
-            justifyContent: 'center',
-            alignItems: 'center',
-            borderRadius: 10,
-            borderColor: '#5B1B9B',
-            borderWidth: 1,
-            marginTop: 15
-        },
         textSignin: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
-            color: '#fff'
+            color: '#fff',
+            paddingVertical: 12,
+            paddingHorizontal: 20
         },
         textSignup: {
             fontFamily: 'Nunito-Bold',
@@ -160,6 +154,10 @@ export default createStyles = (colors) => {
             marginLeft: 150,
             fontFamily: 'Nunito-Regular'
         },
+        animatedText: {
+            marginTop: 3,
+            width:'90%', 
+        },
         scheduleList: {
             marginTop: 10,
             paddingBottom: 10,
@@ -169,11 +167,18 @@ export default createStyles = (colors) => {
         scheduleListItem: {
             flexDirection:'row', 
             justifyContent:'space-between', 
-            marginTop: 3
+            marginTop: 5
         },
         scheduleListItemText: {
             fontFamily: 'Nunito-Regular',
             color: colors.text
         },
+        buttonSchedule: {
+            borderWidth: 1,
+            borderColor: '#E05656',
+            backgroundColor: '#E05656',
+            fontFamily: 'Nunito-Regular',
+            borderRadius: 10
+        }
     })
 }

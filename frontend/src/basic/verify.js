@@ -8,9 +8,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const Verify = ({ navigation }) => {
-    const email = "K180357@gmail.com"
-    
+const Verify = ({ navigation, route }) => {
     return (
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
@@ -22,7 +20,7 @@ const Verify = ({ navigation }) => {
                     color="#000"
                     size={50}
                     style={styles.icon} />
-                <Text style={styles.text}>A verification email has been sent to {email} Please verify the account first.</Text>
+                <Text style={styles.text}>A verification email has been sent to {route.params.email}.{'\n'}Please verify the account first.</Text>
             </Animatable.View>
         </View>
     )
@@ -40,16 +38,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-        paddingHorizontal: 20,
-        paddingVertical: 20,
+        borderRadius: 30,
+        padding: 20
     },
     text: {
         fontFamily: 'Nunito-Regular',
-        fontSize: 25,
+        fontSize: 22,
         marginTop: 10
     },
 })

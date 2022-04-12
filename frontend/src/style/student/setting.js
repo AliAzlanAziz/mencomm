@@ -14,12 +14,6 @@ export default createStyles = (colors) => {
             marginTop: 5,
             marginBottom: 10
         },
-        image: {
-            height: 100, 
-            width: 100, 
-            borderRadius: 50, 
-            marginTop: 20
-        },
         name: {
             fontFamily: 'Nunito-Regular',
             marginTop: 5, 
@@ -49,8 +43,8 @@ export default createStyles = (colors) => {
             marginLeft: 10
         },
         image: {
-            height: 50, 
-            width: 50, 
+            height: 70, 
+            width: 70, 
             borderRadius: 50, 
             marginTop: 20
         },

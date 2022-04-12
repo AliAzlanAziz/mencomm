@@ -19,9 +19,11 @@ import DatePicker from '@react-native-community/datetimepicker'
 import Geolocation from 'react-native-geolocation-service'
 import Geocoder from 'react-native-geocoding'
 import validator from 'validator'
+import axios from 'axios';
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/basic/signup'
-import { ageLimit } from '../utils.js/checkdate'
+import { ageLimit } from '../utils/checkdate'
+import { auth } from '../global/url'
 
 const genderData = [
     {
@@ -39,6 +41,10 @@ const Signup = ({ navigation }) => {
     const styles = createStyles(colors)
 
     const [show, setShow] = React.useState(false)
+    const [signedUP, setSignedUp] = React.useState(false)
+    const [errMsg, setErrMsg] = React.useState('')
+    const [error, setError] = React.useState(false)
+    let SignedUpTimer
 
     const onDateChange = (val) => {
         const currentDate = val.nativeEvent.timestamp || data.birthday
@@ -46,32 +52,58 @@ const Signup = ({ navigation }) => {
         setCheck({...check, birthday: true})
         setData({...data, birthday: new Date(currentDate)})
     }
-
+    
     const [check, setCheck] = React.useState({
-        firstname: false,
-        birthday: false,
-        gender: false,
-        email: false,
-        password: false,
-        confirmPassword: false,
+        firstname: true,
+        birthday: true,
+        gender: true,
+        email: true,
+        password: true,
+        confirmPassword: true,
         secureTextEntry: true,
-        location: false
+        location: true
     })
 
+    // const [check, setCheck] = React.useState({
+    //     firstname: false,
+    //     birthday: false,
+    //     gender: false,
+    //     email: false,
+    //     password: false,
+    //     confirmPassword: false,
+    //     secureTextEntry: true,
+    //     location: false
+    // })
+
     const [data, setData] = React.useState({
-        firstname: '',
-        lastname: '',
-        birthday: new Date(),
-        gender: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
+        firstname: 'Ali',
+        lastname: 'Azlan',
+        birthday: new Date("1999-12-16"),
+        gender: 'Male',
+        email: 'aliazlan2002@gmail.com',
+        password: 'jhonscott',
+        confirmPassword: 'jhonscott',
         location: {
-            address: '',
+            address: 'North Karachi, Sector 8, R-442',
             longitude: '',
             latitude: ''
         },
     })
+
+    // const [data, setData] = React.useState({
+    //     firstname: '',
+    //     lastname: '',
+    //     birthday: new Date(),
+    //     gender: '',
+    //     email: '',
+    //     password: '',
+    //     confirmPassword: '',
+    //     location: {
+    //         address: '',
+    //         longitude: '',
+    //         latitude: ''
+    //     },
+    // })
 
     const getLocation = () => {
         Geocoder.init("") //AIzaSyASfv0sgGQ5pQTeT-N0eYn4ius8-S-2Wuk
@@ -97,6 +129,64 @@ const Signup = ({ navigation }) => {
         ) 
     }
 
+    const handleSignUp = async () => {
+        try {
+            if(check.firstname && check.birthday && check.gender && check.email && check.password) {
+                const email = data.email
+                const res = await axios({
+                    url: `${auth}/register`,
+                    method: 'post',
+                    data: data
+                })
+
+                if(res.status == 201){
+                    setSignedUp(true)
+                    setCheck({
+                        firstname: false,
+                        birthday: false,
+                        gender: false,
+                        email: false,
+                        password: false,
+                        confirmPassword: false,
+                        secureTextEntry: true,
+                        location: false
+                    })
+                    setData({
+                        firstname: '',
+                        lastname: '',
+                        birthday: new Date(),
+                        gender: '',
+                        email: '',
+                        password: '',
+                        confirmPassword: '',
+                        location: {
+                            address: '',
+                            longitude: '',
+                            latitude: ''
+                        },
+                    })
+                    SignedUpTimer = setTimeout(() => {
+                        setSignedUp(false)
+                        navigation.navigate('Verify', {email: email})
+                    }, 3000);
+                }
+            }
+        } catch (error) {
+            setErrMsg(error.response.data.message)
+            setError(true)
+            SignedUpTimer = setTimeout(() => {
+                setError(false)
+                setErrMsg('')
+            }, 3000);
+        }
+    }
+
+    React.useEffect(() => {
+        return () => {
+            clearInterval(SignedUpTimer)
+        }
+    })
+
     return (
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
@@ -115,6 +205,7 @@ const Signup = ({ navigation }) => {
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, firstname: val})}
                             onEndEditing={() => setCheck({...check, firstname: true})}
+                            value={data.firstname}
                         />
                         {validator.isLength(data.firstname, {min:2}) ? 
                             <Animatable.View animation="bounceIn" >
@@ -139,6 +230,7 @@ const Signup = ({ navigation }) => {
                             style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, lastname: val})}
+                            value={data.lastname}
                         />
                         {validator.isLength(data.lastname, {min:1}) ? 
                             <Animatable.View animation="bounceIn">
@@ -176,6 +268,7 @@ const Signup = ({ navigation }) => {
                             width={365}
                             menuBarContainerHeight={100}
                             searchEnabled={false}
+                            value={data.gender}
                         />
                     </View>
                     {check.gender && (
@@ -202,6 +295,7 @@ const Signup = ({ navigation }) => {
                                         address: val
                                     }
                                 })}
+                            value={data?.location?.address}
                         />
                         <TouchableOpacity onPress={() => getLocation()}>
                             <Ionicons name="location-outline" color={colors.text} size={20}/>
@@ -216,8 +310,9 @@ const Signup = ({ navigation }) => {
                             placeholderTextColor="#666666"
                             style={styles.textInput}
                             autoCapitalize="none"
-                            onChangeText={(val) => setData({...data, email: val})}
+                            onChangeText={(val) => setData({...data, email: validator.trim(val)})}
                             onEndEditing={() => setCheck({...check, email: true})}
+                            value={data.email}
                         />
                         {check.email && (
                             validator.isEmail(data.email) ? 
@@ -241,13 +336,14 @@ const Signup = ({ navigation }) => {
                         <TextInput 
                             placeholder="Your Password"
                             placeholderTextColor="#666666"
-                            secureTextEntry={check.secureTextEntry ? true : false}
+                            secureTextEntry={check.secureTextEntry}
                             style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, password: val})}
                             onEndEditing={() => setCheck({...check, password: true})}
+                            value={data.password}
                         />
-                        <TouchableOpacity onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}>
+                        <TouchableOpacity activeOpacity={0.5} onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}>
                         {check.secureTextEntry ? 
                             <Feather name="eye-off" color="grey" size={20}/>
                             :
@@ -268,18 +364,19 @@ const Signup = ({ navigation }) => {
                         <TextInput 
                             placeholder="Confirm Password"
                             placeholderTextColor="#666666"
-                            secureTextEntry={check.secureTextEntry ? true : false}
+                            secureTextEntry={check.secureTextEntry}
                             style={styles.textInput}
                             autoCapitalize="none"
                             onChangeText={(val) => setData({...data, confirmPassword: val})}
                             onEndEditing={() => setCheck({...check, confirmPassword: true})}
+                            value={data.confirmPassword}
                         />
                         <TouchableOpacity onPress={() => setCheck({ ...check, secureTextEntry: !check.secureTextEntry })}>
-                            {check.secureTextEntry ? 
-                                <Feather name="eye-off" color="grey" size={20}/>
-                                :
-                                <Feather name="eye" color="grey" size={20}/>
-                            }
+                        {check.secureTextEntry ? 
+                            <Feather name="eye-off" color="grey" size={20}/>
+                            :
+                            <Feather name="eye" color="grey" size={20}/>
+                        }
                         </TouchableOpacity>
                     </View>
                     {check.confirmPassword && (
@@ -289,9 +386,19 @@ const Signup = ({ navigation }) => {
                             <Text style={styles.errorMsg}>Passwords do not match.</Text>
                         </Animatable.View>
                     )}
-                
+                    {signedUP && 
+                        <Animatable.View animation="fadeInLeft" duration={500}>
+                            <Text style={styles.infoMsg}>Successfully Signed Up.</Text>
+                        </Animatable.View>
+                    }
+                    {error && 
+                        <Animatable.View animation="fadeInLeft" duration={500}>
+                            <Text style={styles.errorMsg}>{errMsg}</Text>
+                        </Animatable.View>
+                    }
+
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Newsfeed')} style={styles.signupButton}>
+                        <TouchableOpacity onPress={() => handleSignUp()} style={styles.signupButton}>
                             <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.signupButton}>
                                     <Text style={styles.textSignin}>Sign Up</Text>
                             </LinearGradient>

@@ -9,10 +9,14 @@ export default createStyles = (colors) => {
             flex: 1,
             backgroundColor: '#fff'
         },
+        userInfoContainer: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: 10,
+        },
         userInfo: {
             justifyContent: 'center',
             alignItems: 'center',
-            marginBottom: 10
         },
         image: {
             height: 100, 
@@ -40,9 +44,7 @@ export default createStyles = (colors) => {
         action: {
             flexDirection: 'row',
             marginHorizontal: 10,
-            marginBottom: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: '#f2f2f2',
+            marginBottom: 15,
             paddingBottom: 5,
         },
         schedule: {
@@ -50,9 +52,7 @@ export default createStyles = (colors) => {
             marginHorizontal: 10,
         },
         scheduleList: {
-            paddingBottom: 10,
-            borderBottomWidth: 1,
-            borderBottomColor: '#f2f2f2',
+            marginBottom: 15,
             width:'85%', 
             marginLeft:40
         },

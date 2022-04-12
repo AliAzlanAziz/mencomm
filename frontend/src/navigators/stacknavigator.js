@@ -1,5 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, LinkingOptions } from '@react-navigation/native'
 
 import Splash from '../basic/splash'
 import NavigatorEase from '../basic/navigatorEase'
@@ -50,9 +51,13 @@ import TRequested from '../tutor/requested'
 import TEnrolled from '../tutor/enrolled'
 import TCreatePost from '../tutor/createPost'
 
+import Map from '../components/map'
+
 import { StdTabNavigator, TtrTabNavigator } from '../navigators/tabnavigator'
 
 const Stack = createNativeStackNavigator();
+
+import { AuthContext } from '../context/authContext';
 
 const BasicStackNavigator = () => {
     return (
@@ -63,6 +68,21 @@ const BasicStackNavigator = () => {
                 options={{ 
                     title: 'MenComm', 
                     headerShown:false 
+                }}/>
+            <Stack.Screen 
+                name="Role" 
+                component={Role}
+                options={{ 
+                    title: 'Roles', 
+                    headerShown:true, 
+                    headerStyle: {
+                        backgroundColor: '#5B1B9B',
+                    },
+                    headerTitleStyle: {
+                        fontFamily: 'Nunito-Regular',
+                        color: 'white',
+                    },
+                    headerTintColor: 'white'
                 }}/>
             {/* <Stack.Screen 
                 name="NavigatorEase"
@@ -143,7 +163,7 @@ const BasicStackNavigator = () => {
                 name="ResetPassword" 
                 component={ResetPassword}
                 options={{ 
-                    title: 'Reset', 
+                    title: 'Reset Password', 
                     headerShown:true, 
                     headerStyle: {
                         backgroundColor: '#5B1B9B',
@@ -154,21 +174,6 @@ const BasicStackNavigator = () => {
                     },
                     headerTintColor: 'white'
                 }}/>
-                <Stack.Screen 
-                    name="Role" 
-                    component={Role}
-                    options={{ 
-                        title: 'Roles', 
-                        headerShown:true, 
-                        headerStyle: {
-                            backgroundColor: '#5B1B9B',
-                        },
-                        headerTitleStyle: {
-                            fontFamily: 'Nunito-Regular',
-                            color: 'white',
-                        },
-                        headerTintColor: 'white'
-                    }}/>
         </Stack.Navigator>
     );
 };
@@ -192,6 +197,27 @@ const StdStackNavigator = () => {
                     headerTintColor: 'white'
                 }}/> */}
             <Stack.Screen 
+                name="Map" 
+                component={Map}
+                options={{ 
+                    headerShown: false,
+                }}/>
+            <Stack.Screen 
+                name="Role" 
+                component={Role}
+                options={{ 
+                    title: 'Roles', 
+                    headerShown:true, 
+                    headerStyle: {
+                        backgroundColor: '#2D52B0',
+                    },
+                    headerTitleStyle: {
+                        fontFamily: 'Nunito-Regular',
+                        color: 'white',
+                    },
+                    headerTintColor: 'white'
+                }}/>
+            <Stack.Screen 
                 name="SAllContracts" 
                 component={SAllContracts}
                 options={{ 
@@ -207,7 +233,7 @@ const StdStackNavigator = () => {
                     headerTintColor: 'white'
                 }}/>
             <Stack.Screen 
-                name="SContract" 
+                name="SContract"
                 component={SContract}
                 options={{ 
                     title: 'Contract', 
@@ -406,7 +432,7 @@ const StdStackNavigator = () => {
                 component={SMessages} 
                 options={
                     ({route}) =>({ 
-                    title: "Chat", 
+                    title: "Messages", 
                     headerShown:true, 
                     headerStyle: {
                         backgroundColor: '#2D52B0',
@@ -438,7 +464,7 @@ const StdStackNavigator = () => {
                 component={SChat} 
                 options={
                     ({route}) =>({ 
-                    title: "Chat", 
+                    title: route.params.userName, 
                     headerShown:true, 
                     headerStyle: {
                         backgroundColor: '#2D52B0',
@@ -456,7 +482,7 @@ const StdStackNavigator = () => {
 const TtrStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{headerShown: true}}>
-            <Stack.Screen 
+            {/* <Stack.Screen 
                 name="TSearch" 
                 component={TSearch}
                 options={{ 
@@ -468,6 +494,21 @@ const TtrStackNavigator = () => {
                     headerTitleStyle: {
                         fontFamily: 'Nunito-Regular',
                         color: 'white'
+                    },
+                    headerTintColor: 'white'
+                }}/> */}
+            <Stack.Screen 
+                name="Role" 
+                component={Role}
+                options={{ 
+                    title: 'Roles', 
+                    headerShown:true, 
+                    headerStyle: {
+                        backgroundColor: '#1CAB5F',
+                    },
+                    headerTitleStyle: {
+                        fontFamily: 'Nunito-Regular',
+                        color: 'white',
                     },
                     headerTintColor: 'white'
                 }}/>
@@ -716,7 +757,7 @@ const TtrStackNavigator = () => {
                 component={TMessages} 
                 options={
                     ({route}) =>({ 
-                    title: "Chat", 
+                    title: "Messages", 
                     headerShown:true, 
                     headerStyle: {
                         backgroundColor: '#1CAB5F',
@@ -732,7 +773,7 @@ const TtrStackNavigator = () => {
                 component={TNotification} 
                 options={
                     ({route}) =>({ 
-                    title: "Chat", 
+                    title: "Notification", 
                     headerShown:true, 
                     headerStyle: {
                         backgroundColor: '#1CAB5F',
@@ -763,14 +804,45 @@ const TtrStackNavigator = () => {
 };
 
 const MainNavigator = () => {
+    const deepLinking = {
+        prefixes: ['https://connec.com', 'connec://',  ],
+        config: {
+            screens:{
+                Basic: {
+                    screens: {
+                        ResetPassword: {
+                            path: 'resetpassword/:resettoken'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    const { loggedIn, profileUpdated, userType } = React.useContext(AuthContext)
+
     return (
-        <Stack.Navigator screenOptions={{headerShown: false}}>
-            <Stack.Screen name="basicMain" component={BasicStackNavigator} />
-            <Stack.Screen name="STab" component={StdTabNavigator} />
-            <Stack.Screen name="SStack" component={StdStackNavigator} />
-            <Stack.Screen name="TTab" component={TtrTabNavigator} />
-            <Stack.Screen name="TStack" component={TtrStackNavigator} />
-        </Stack.Navigator>
+        <NavigationContainer linking={deepLinking}>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+                {loggedIn && !profileUpdated && userType != "" ? 
+                    <>
+                        {userType === "0" ? 
+                            <>
+                                <Stack.Screen name="STab" component={StdTabNavigator}/>
+                                <Stack.Screen name="SStack" component={StdStackNavigator}/>
+                            </>
+                            :
+                            <>
+                                <Stack.Screen name="TTab" component={TtrTabNavigator}/>
+                                <Stack.Screen name="TStack" component={TtrStackNavigator}/>
+                            </>
+                        }
+                    </>
+                    :
+                    <Stack.Screen name="Basic" component={BasicStackNavigator}/>
+                }
+            </Stack.Navigator>
+        </NavigationContainer>
     )
 }
 

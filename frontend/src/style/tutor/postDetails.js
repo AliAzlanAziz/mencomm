@@ -9,10 +9,14 @@ export default createStyles = (colors) => {
             flex: 1,
             backgroundColor: '#fff'
         },
-        userInfo: {
+        userInfoContainer: {
             justifyContent: 'center',
             alignItems: 'center',
             marginBottom: 10
+        },
+        userInfo: {
+            justifyContent: 'center',
+            alignItems: 'center',
         },
         image: {
             height: 100, 

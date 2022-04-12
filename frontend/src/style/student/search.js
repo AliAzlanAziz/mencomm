@@ -15,26 +15,59 @@ export default createStyles = (colors) => {
             borderRadius: 15,
             elevation: 2
         },
-        buttonContainer: {
+        filterButtonContainer: {
             width: '90%', 
             alignSelf: 'center'
         },
-        filterButton: {
-            marginTop: 10,
+        buttonContainer: {
+            flexDirection: 'row',
+            margin: 10,
+            justifyContent: 'center'
         },
         textButton: {
             fontFamily: 'Nunito-Bold',
             fontSize: 18,
             color: '#000',
         },
-        saveButton: {
-            width: '40%',
+        selectedTextButton: {
+            fontFamily: 'Nunito-Bold',
+            fontSize: 18,
+            color: '#fff',
+        },
+        errorMsg: {
+            fontFamily: 'Nunito-Regular',
+            color: '#FF0000',
+            fontSize: 14,
+        },
+        twoButton: {
+            width: '20%',
             height: 40,
+            marginLeft: 10,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 10,
             backgroundColor: '#fff',
             elevation: 2
+        },
+        selectedButton: {
+            width: '20%',
+            height: 40,
+            marginLeft: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 10,
+            backgroundColor: '#2D52B0',
+            elevation: 2
+        },
+        filterButton: {
+            width: '40%',
+            height: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 10,
+            borderRadius: 10,
+            backgroundColor: '#fff',
+            elevation: 2,
         },
         modalList: {
             flexDirection: 'row',
@@ -99,7 +132,6 @@ export default createStyles = (colors) => {
         listContainer:{
             flex:1,
             width:'90%',
-            height:'100%',
             backgroundColor: 'white',
             alignSelf: 'center'
         },
@@ -126,7 +158,7 @@ export default createStyles = (colors) => {
         post: {
             flex: 1, 
             width:'100%', 
-            marginBottom: 10,
+            marginBottom: 20,
             borderTopWidth: 1, 
             borderBottomWidth: 1, 
             borderRadius:5, 

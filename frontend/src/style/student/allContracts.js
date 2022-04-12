@@ -53,5 +53,16 @@ export default styles = StyleSheet.create({
         fontWeight: '300',
         color: '#151515',
         fontSize: 13
+    },
+    noItemsContainer: {
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginTop: 20
+    },
+    noItemsText: {
+        fontFamily: 'Nunito-Regular',
+        marginLeft: 10,
+        color: '#000',
+        fontSize: 18,
     }
 });

@@ -50,7 +50,7 @@ export default createStyles = (colors) => {
             flex: 1,
             flexDirection: 'row', 
             justifyContent: 'space-between',
-            marginTop: 15,
+            marginTop: 20,
         },
         cardName: {
             fontFamily: 'Nunito-Regular',
@@ -61,7 +61,6 @@ export default createStyles = (colors) => {
             fontFamily: 'Nunito-Regular',
             fontSize: 14, 
             color: '#000',
-            marginTop: 4,
         },
         action: {
             flexDirection: 'row',

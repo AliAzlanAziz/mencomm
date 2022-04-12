@@ -7,35 +7,50 @@ import {
     FlatList,
     StatusBar,
 } from 'react-native';
+import axios from 'axios'
 import styles from '../style/student/allContracts'
+import { std } from '../global/url'
+import { AuthContext } from '../context/authContext'
 
-const SAllContracts = ({ navigation }) => {
-    const [data, setData] = React.useState([
-        {id:1,  name: "Mark Doe gasgsag asgag gasg asga",    status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar7.png"},
-        {id:2,  name: "Clark Man",   status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar6.png"} ,
-        {id:3,  name: "Jaden Boor",  status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar5.png"} ,
-        {id:4,  name: "Srick Tree",  status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar4.png"} ,
-        {id:5,  name: "Erick Doe",   status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar3.png"} ,
-        {id:6,  name: "Francis Doe", status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar2.png"} ,
-        {id:8,  name: "Matilde Doe", status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar1.png"} ,
-        {id:9,  name: "John Doe",    status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar4.png"} ,
-        {id:10, name: "Fermod Doe",  status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar7.png"} ,
-        {id:11, name: "Danny Doe",   status:"Object Oriented Programming", price:"10000 PKR", date:'01/12/2021', image:"https://bootdey.com/img/Content/avatar/avatar1.png"},
-    ])
+const TAllContracts = ({ navigation }) => {
+    const { token } = React.useContext(AuthContext)
+
+    const [data, setData] = React.useState([])
+
+    const getAllContracts = async () => {
+        try {
+            const res = await axios({
+                url: `${std}/allcontracts`,
+                method: 'get',
+                headers: {
+                    token: token,
+                }
+            })
+            if(res.status == 200){
+                setData(res.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        getAllContracts();
+    }, []);
 
     const renderItem = ({item}) => {
         return (
-            <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('SStack', { screen: 'SContract' })}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('SStack', { screen: 'SContract', params: { id: item.id }})}>
                 <View style={styles.row}>
-                    <Image source={{ uri: item.image }} style={styles.pic} />
+                    <Image source={{ uri: item.avatar_url }} style={styles.pic} />
                     <View>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
-                            <Text style={styles.dateText}>{item.date}</Text>
+                            <Text style={styles.dateText}>{new Date(item.start_date).toLocaleDateString()}</Text>
                         </View>
                         <View style={styles.msgContainer}>
-                            <Text style={styles.subjectText} numberOfLines={1} ellipsizeMode="tail">{item.status}</Text>
-                            <Text style={styles.prcText}>{item.price}</Text>
+                            <Text style={styles.subjectText} numberOfLines={1} ellipsizeMode="tail">{item.course}</Text>
+                            <Text style={styles.prcText}>{item.fee}</Text>
                         </View>
                     </View>
                 </View>
@@ -46,16 +61,23 @@ const SAllContracts = ({ navigation }) => {
     return(
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
-            <FlatList 
-                extraData={data}
-                data={data}
-                keyExtractor = {(item) => {
-                    return item.id;
-                }}
-                renderItem={renderItem}
-                />
+            {
+                data.length > 0 ?
+                    <FlatList 
+                        extraData={data}
+                        data={data}
+                        keyExtractor = {(item) => {
+                            return item.id;
+                        }}
+                        renderItem={renderItem}
+                    />
+                :
+                    <View style={styles.noItemsContainer}>
+                        <Text style={styles.noItemsText}>No contracts to show</Text>
+                    </View>
+            }
         </View>
     );
 }
 
-export default SAllContracts
+export default TAllContracts

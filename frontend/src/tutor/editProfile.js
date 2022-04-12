@@ -24,7 +24,7 @@ import Geocoder from 'react-native-geocoding';
 import validator from 'validator'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/editProfile'
-import { ageLimit } from '../utils.js/checkdate';
+import { ageLimit } from '../utils/checkdate';
 
 const TEditProfile = ({ navigation }) => {
     const { colors } = useTheme();
@@ -256,7 +256,7 @@ const TEditProfile = ({ navigation }) => {
             </View>
 
             <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
-                <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
+                <StatusBar translucent={true} backgroundColor={"#000"} barStyle="light-content"/>
                 <View style={styles.modalList}>
                     <Text style={styles.modalListTextHeader}>Upload Image</Text>
                 </View>

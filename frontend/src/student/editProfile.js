@@ -11,6 +11,7 @@ import {
 import { AirbnbRating } from 'react-native-ratings'
 import * as Animatable from 'react-native-animatable';
 import Modal from "react-native-modal"
+import ImagePicker from 'react-native-image-crop-picker';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -19,28 +20,43 @@ import DatePicker from '@react-native-community/datetimepicker';
 import Geolocation from 'react-native-geolocation-service';
 import Geocoder from 'react-native-geocoding';
 import validator from 'validator'
+import axios from 'axios';
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/editProfile'
-import { ageLimit } from '../utils.js/checkdate';
+import { ageLimit } from '../utils/checkdate';
+import { auth } from '../global/url'
+import { AuthContext } from '../context/authContext'
+
+const createFormData = (image) => {
+    const data = new FormData();
+  
+    data.append('image_data', {
+      name: `${Date.now()}`,
+      type: image.type,
+      uri: Platform.OS === 'ios' ? image.path.replace('file://', '') : image.path,
+    })
+
+    return data;
+};
 
 const SEditProfile = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
     
+    const { profile, setProfileUpdated, token } = React.useContext(AuthContext)
+
+    const [success, setSuccess] = React.useState(false)
+    const [successMsg, setSuccessMsg] = React.useState('')
+    const [error, setError] = React.useState(false)
+    const [errMsg, setErrMsg] = React.useState('')
     const [isModalVisible, setModalVisible] = React.useState(false)
     const [show, setShow] = React.useState(false);
 
     const [data, setData] = React.useState({
-        name: 'Dr. Abdul Aziz',
-        birthday: new Date('1994-12-03T11:11:06.279Z'),
-        location: {
-            address: 'R-442, Sector-8, North Karachi, Karachi, Pakistan',
-            longitude: '',
-            latitude: ''
-        },
-        email: 'aliazlan123@mail.com',
-        rating: 4.8,
-        image: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/ea7a3c32163929.567197ac70bda.png'
+        name: profile.name,
+        birthday: new Date(profile.birthday),
+        location: profile.location,
+        email: profile.email,
     });
 
     const [check, setCheck] = React.useState({
@@ -49,6 +65,7 @@ const SEditProfile = ({ navigation }) => {
         email: false,
         location: false
     })
+    let ProfileEdited
 
     const onDateChange = (val) => {
         const currentDate = val.nativeEvent.timestamp || data.birthday;
@@ -86,10 +103,15 @@ const SEditProfile = ({ navigation }) => {
             compressImageMaxWidth: 300,
             compressImageMaxHeight: 300,
             cropping: true,
-            compressImageQuality: 0.7
+            compressImageQuality: 0.7,
+            includeBase64: true,
+            mediaType: 'photo'
         }).then(image => {
-            setData({...data, image: image.path})
+            // console.log(image)
+            uploadImage(image)
             setModalVisible(false)
+        }).catch(error => {
+            console.log(error)
         });
     }
     
@@ -98,29 +120,105 @@ const SEditProfile = ({ navigation }) => {
             compressImageMaxWidth: 300,
             compressImageMaxHeight: 300,
             cropping: true,
-            compressImageQuality: 0.7
+            compressImageQuality: 0.7,
+            includeBase64: true,
+            mediaType: 'photo'
         }).then(image => {
-            setData({...data, image: image.path})
+            // console.log(image)
+            uploadImage(image)
             setModalVisible(false)
+        }).catch(error => {
+            console.log(error)
         });
     }
+
+    const handleSave = async () => {
+        try {
+            if(check.name || check.birthday || check.email || check.location) {
+                const res = await axios({
+                    url: `${auth}/editprofile`,
+                    method: 'post',
+                    headers: {
+                        token: token
+                    },
+                    data: data
+                })
+
+                if(res.status == 200){
+                    setCheck({
+                        name: false,
+                        birthday: false,
+                        email: false,
+                        location: false
+                    })
+                    setProfileUpdated(true)
+                    setSuccess(true)
+                    setSuccessMsg(res.data.message)
+
+                    ProfileEdited = setTimeout(() => {
+                        setSuccess(false)
+                        setSuccessMsg('')
+                    }, 3000);
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const uploadImage = async (image) => {
+        try {
+            if(!image.path) throw new Error('Cannot upload image!');
+            const res = await axios({
+                url: `${auth}/uploadimage`,
+                method: 'post',
+                headers: {
+                    token: token,
+                },
+                data: {image_data: image},
+            })
+            if(res.status == 200){
+                setProfileUpdated(true)
+                setSuccessMsg('Image uploaded successfully');
+                setSuccessMsg(true);
+                ProfileEdited = setTimeout(() => {
+                    setSuccessMsg(false)
+                    setSuccessMsg('');
+                }, 3000);
+            }
+        } catch (err) {
+            // console.error(err);
+            setErrMsg('Something went wrong!')
+            setError(true)
+            ProfileEdited = setTimeout(() => {
+                setError(false)
+                setErrMsg('')
+            }, 3000);
+        }
+    };
+
+    React.useEffect(() => {
+        return () => {
+            clearInterval(ProfileEdited)
+        }
+    })
 
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.userInfo}>
                 <TouchableOpacity activeOpacity={0.7} onPress={() => {setModalVisible(true)}}>
-                    <Image source={{uri: data.image}} style={styles.image}/>
+                    <Image source={{uri: profile.avatar_url}} style={styles.image}/>
                 </TouchableOpacity>
-                <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">{data.name}</Text>
+                <Text style={styles.name} numberOfLines={3} ellipsizeMode="tail">{profile.name}</Text>
                 <View style={styles.userRating}>
                     <AirbnbRating
-                        defaultRating={Math.floor(data.rating) === Math.ceil(data.rating) ? Math.floor(data.rating) : Math.ceil(data.rating)}
+                        defaultRating={Math.floor(profile.rating) === Math.ceil(profile.rating) ? Math.floor(profile.rating) : Math.ceil(profile.rating)}
                         size={18}
                         showRating={false}
                         isDisabled={true}
                         />
-                    <Text style={styles.userRatingCount}>{data.rating}</Text>
+                    <Text style={styles.userRatingCount}>{profile.rating > 0 ? profile.rating : ''}</Text>
                 </View>
             </View>
 
@@ -216,16 +314,26 @@ const SEditProfile = ({ navigation }) => {
                         <Text style={styles.infoMsg}>Remember, If you change your email then you will be logout and will be required to verify your email to login again.</Text>
                     </Animatable.View>
                 )}
+                {success && 
+                    <Animatable.View animation="fadeInLeft" duration={500}>
+                        <Text style={styles.infoMsg}>{successMsg}</Text>
+                    </Animatable.View>
+                }
+                {error && 
+                    <Animatable.View animation="fadeInLeft" duration={500}>
+                        <Text style={styles.errorMsg}>{errMsg}</Text>
+                    </Animatable.View>
+                }
             </View>
 
             <View style={styles.button}>
-                <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('#')} style={styles.saveButton}>
+                <TouchableOpacity activeOpacity={0.7} onPress={() => handleSave()} style={styles.saveButton}>
                     <Text style={styles.textSave}>Save   <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </View>
 
             <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
-                <StatusBar translucent={true} backgroundColor={"#1CAB5F"} barStyle="light-content"/>
+                <StatusBar translucent={true} backgroundColor={"#000"} barStyle="light-content"/>
                 <View style={styles.modalList}>
                     <Text style={styles.modalListTextHeader}>Upload Image</Text>
                 </View>

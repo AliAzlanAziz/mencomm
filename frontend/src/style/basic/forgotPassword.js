@@ -63,6 +63,11 @@ export default createStyles = (colors) => {
             alignItems: 'center',
             marginTop: 30
         },
+        infoMsg: {
+            fontFamily: 'Nunito-Regular',
+            color: '#3048B2',
+            fontSize: 14,
+        },
         button: {
             width: '100%',
             height: 50,

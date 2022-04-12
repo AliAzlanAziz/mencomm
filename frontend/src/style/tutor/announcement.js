@@ -76,7 +76,7 @@ export default createStyles = (colors) => {
             height:50, 
             width: 50, 
             borderRadius: 50, 
-            margin: 10
+            margin: 10,
         },
         cardNameDate: {
             flex: 1,

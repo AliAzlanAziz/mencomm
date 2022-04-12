@@ -173,7 +173,7 @@ const TtrTabNavigator = () => {
                     borderTopStartRadius: 16,
                     borderTopEndRadius: 16,
                     elevation: 10,
-                    backgroundColor: "#79E9AD"
+                    backgroundColor: "#09E9A0"
                 } 
             }}
             >

@@ -5,55 +5,70 @@ import {
     TouchableOpacity, 
     TextInput,
     StatusBar
-} from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import { useTheme } from 'react-native-paper';
+} from 'react-native'
+import * as Animatable from 'react-native-animatable'
+import LinearGradient from 'react-native-linear-gradient'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Feather from 'react-native-vector-icons/Feather'
+import validator from 'validator'
+import axios from 'axios'
+import { useTheme } from 'react-native-paper'
 import createStyles from '../style/basic/forgotPassword'
+import { auth } from '../global/url'
 
 const ForgotPassword = ({ navigation }) => {
-    const { colors } = useTheme();
+    const { colors } = useTheme()
     const styles = createStyles(colors)
 
+    const [success, setSuccess] = React.useState(false)
+    const [successMsg, setSuccessMsg] = React.useState('')
+    const [error, setError] = React.useState(false)
+    const [errMsg, setErrMsg] = React.useState('')
     const [data, setData] = React.useState({
-        email: '',
-        check_textInputChange: false,
-        isValidUser: true,
+        email: 'aliazlan2002@gmail.com',
     })
+    const [check, setCheck] = React.useState({
+        email: true,
+    })
+    // const [data, setData] = React.useState({
+    //     email: '',
+    // })
+    // const [check, setCheck] = React.useState({
+    //     email: false,
+    // })
+    let recoverTimer
 
-    const textInputChange = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                email: val,
-                check_textInputChange: true,
-                isValidUser: true
-            });
-        } else {
-            setData({
-                ...data,
-                email: val,
-                check_textInputChange: false,
-                isValidUser: false
-            });
+    const handleRecoverPassword = async () => {
+        try {
+            const res = await axios({
+                url: `${auth}/resetlink`,
+                method: 'post',
+                data: data
+            })
+            if(res.status == 200){
+                //set user info context
+                setSuccessMsg(res.data.message)
+                setSuccess(true)
+                recoverTimer = setTimeout(() => {
+                    setSuccess(false)
+                    setSuccessMsg('')
+                }, 3000)
+            }
+        } catch (error) {
+            setErrMsg(error?.response?.data?.message)
+            setError(true)
+            recoverTimer = setTimeout(() => {
+                setError(false)
+                setErrMsg('')
+            }, 3000)
         }
-    }
+    } 
 
-    const handleValidUser = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                isValidUser: true
-            });
-        } else {
-            setData({
-                ...data,
-                isValidUser: false
-            });
+    React.useEffect(() => {
+        return () => {
+            clearInterval(recoverTimer)
         }
-    }
+    })
 
     return (
         <View style={styles.container}>
@@ -74,34 +89,38 @@ const ForgotPassword = ({ navigation }) => {
                         placeholderTextColor="#666666"
                         style={styles.textInput}
                         autoCapitalize="none"
-                        onChangeText={(val) => textInputChange(val)}
-                        onEndEditing={(e)=>handleValidUser(e.nativeEvent.text)}
+                        onChangeText={(val) => setData({...data, email: validator.trim(val)})}
+                        onEndEditing={() => setCheck({...check, email: true})}
+                        value={data.email}
                     />
-                    {data.check_textInputChange ? 
-                        <Animatable.View
-                            animation="bounceIn"
-                        >
-                            <Feather 
-                                name="check-circle"
-                                color="green"
-                                size={20}
-                            />
+                    {check.email && (
+                        validator.isEmail(data.email) ? 
+                        <Animatable.View animation="bounceIn" >
+                            <Feather name="check-circle" color="green" size={20} />
                         </Animatable.View>
-                    : null}
+                        : null
+                    )}
                 </View>
-                {data.isValidUser ? null : 
+                {check.email && (
+                    validator.isEmail(data.email) ? null 
+                    : 
                     <Animatable.View animation="fadeInLeft" duration={500}>
                         <Text style={styles.errorMsg}>Email must be in proper format.</Text>
                     </Animatable.View>
-                }
-                {data.isValidUser ? null : 
+                )}
+                {error > 0 && 
                     <Animatable.View animation="fadeInLeft" duration={500}>
-                        <Text style={styles.errorMsg}>No user found</Text>
+                        <Text style={styles.errorMsg}>{errMsg}</Text>
+                    </Animatable.View>
+                }
+                {success > 0 && 
+                    <Animatable.View animation="fadeInLeft" duration={500}>
+                        <Text style={styles.infoMsg}>{successMsg}</Text>
                     </Animatable.View>
                 }
 
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity activeOpacity={0.7} style={styles.button}onPress={() => {}}>
+                    <TouchableOpacity activeOpacity={0.7} style={styles.button}onPress={() => handleRecoverPassword()}>
                         <LinearGradient colors={['#5B1B9B', '#7063AD']} style={styles.button}>
                             <Text style={styles.buttonText}>Next</Text>
                         </LinearGradient>
@@ -109,7 +128,7 @@ const ForgotPassword = ({ navigation }) => {
                 </View>
             </Animatable.View>
         </View>
-      );
-};
+      )
+}
   
 export default ForgotPassword

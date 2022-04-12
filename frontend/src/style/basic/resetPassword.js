@@ -55,6 +55,16 @@ export default createStyles = (colors) => {
             color: colors.text,
             fontFamily: 'Nunito-Regular'
         },
+        infoMsg: {
+            fontFamily: 'Nunito-Regular',
+            color: '#3048B2',
+            fontSize: 14,
+        },
+        forgetPasswordLink:{
+            fontFamily: 'Nunito-Regular',
+            color: '#5B1B9B', 
+            marginTop:15
+        },
         errorMsg: {
             fontFamily: 'Nunito-Regular',
             color: '#FF0000',

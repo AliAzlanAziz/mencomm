@@ -9,18 +9,33 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import LottieView from 'lottie-react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Authenticating from '../loading/authenticating'
 import { useTheme } from '@react-navigation/native';
 import createStyles from '../style/basic/splash'
+import { AuthContext } from '../context/authContext'
 
 const Splash = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
+    const { loading } = React.useContext(AuthContext)
+    const [speed, setSpeed] = React.useState(0.7)
+
+    if(loading){
+        return <Authenticating />
+    }
+
     return(
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <View style={styles.header}>
-                <LottieView source={require('../asset/75992-online-classes.json')} autoPlay loop/>
+                <LottieView 
+                    source={require('../asset/75992-online-classes.json')} 
+                    onAnimationFinish={()=> setSpeed(0)}
+                    speed={speed}
+                    loop={false}
+                    autoPlay
+                    />
             </View>
             <Animatable.View style={styles.footer} animation="fadeInUpBig">
                 <Text style={styles.title}>Welcome to the MenComm App</Text>

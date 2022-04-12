@@ -8,218 +8,227 @@ import {
     TouchableOpacity,
     StatusBar,
 } from 'react-native'
+import * as Animatable from 'react-native-animatable';
 import DropDownPicker from 'react-native-dropdown-picker';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
+import axios from 'axios';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/updateInfo'
+import { ttr } from '../global/url'
+import { AuthContext } from '../context/authContext'
 
 const TUpdateInfo = ({ navigation }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
-    const [focus, setFocus] = React.useState("");
-    const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState(null);
-    const [items, setItems] = React.useState([
-        {label: 'Home Tuition', value: 'hometuition'},
-        {label: "Tutor's Home", value: 'tutorshome'},
-        {label: "Academy", value: 'academy'}
-    ]);
-    const [GCdict, setGCDict] = React.useState({ "Matric": [ "Maths", "Urdu"], "HSC-I": [ "Maths", "Urdu"] })
-    const [courseName, setCourseName] = React.useState("")
+    const { profile, token, setProfileUpdated } = React.useContext(AuthContext)
+
+    const [success, setSuccess] = React.useState(false)
+    const [successMsg, setSuccessMsg] = React.useState(false)
+    const [gradeInfo, setGradeInfo] = React.useState(false)
+    const [courseInfo, setCourseInfo] = React.useState(false)
+
+    const [grade, setGrade] = React.useState(profile?.info?.grade)
     const [gradeName, setGradeName] = React.useState("")
-    const [sectionGrade, setSectionGrade] = React.useState("")
+    const [course, setCourse] = React.useState(profile?.info?.course)
+    const [courseName, setCourseName] = React.useState("")
+    let gradeTimer, courseTimer, infoUpdated
 
-    const removeSection = (item) => {
-        const newGCdict = {}
-        for(const key in GCdict){
-            if(key !== item){
-                newGCdict[key] = GCdict[key]
-            }
-        }
-        setGCDict(newGCdict)
-    }
-
-    const removeCourse = (item, element) => {
-        const newGCdict = {}
-        let newCourse
-        for(const key in GCdict){
-            if(key !== item){
-                newGCdict[key] = GCdict[key]
-            }else{
-                newCourse = GCdict[key].filter(f_item => f_item!==element)
-                newGCdict[key] = newCourse
-            }
-        }
-        setGCDict(newGCdict)
-    }
-
-    const addCourse = (item) => {
-        const newGCdict = {}
-        let newCourse
-        if(courseName !== ""){
-            for(const key in GCdict){
-                if(key !== item){
-                    newGCdict[key] = GCdict[key]
-                }else{
-                    newCourse = [...GCdict[key], courseName]
-                    newGCdict[key] = newCourse
-                }
-            }
-            setCourseName("")
-            setGCDict(newGCdict)
+    const handleGradeInfo = (item) => {
+        if(!gradeInfo){
+            setGradeInfo(true)
+            gradeTimer = setTimeout(() => setGradeInfo(false), 5000)
         }
     }
 
-    const addGrade = (item) => {
-        const newGCdict = {}
-        let newCourse
+    const handleCourseInfo = (item) => {
+        if(!courseInfo){
+            setCourseInfo(true)
+            courseTimer = setTimeout(() => setCourseInfo(false), 5000)
+        }
+    }
+
+    const removeGrade = (item) => {
+        const newGrade = grade.filter( gradeItem => gradeItem !== item )
+        setGrade(newGrade)
+        // console.log(course)
+    }
+
+    const addGrade = () => {
         if(gradeName !== ""){
-            for(const key in GCdict){
-                if(key !== item){
-                    newGCdict[key] = GCdict[key]
-                }else{
-                    newCourse = [...GCdict[key], gradeName]
-                    newGCdict[gradeName] = newCourse
-                }
-            }
+            setGrade([...grade, gradeName])
             setGradeName("")
-            console.log(newGCdict)
-            setGCDict(newGCdict)
+            // console.log(course)
         }
     }
 
-    const addSection = () => {
-        const newGCdict = {}
-        if(sectionGrade !== ""){
-            for(const key in GCdict){
-                newGCdict[key] = GCdict[key]
-            }
-            newGCdict[sectionGrade] = []
-            setSectionGrade("")
-            setGCDict(newGCdict)
+    const removeCourse = (item) => {
+        const newCourse = course.filter( courseItem => courseItem !== item )
+        setCourse(newCourse)
+        // console.log(course)
+    }
+
+    const addCourse = () => {
+        if(courseName !== ""){
+            setCourse([...course, courseName])
+            setCourseName("")
+            // console.log(course)
         }
     }
+
+    const isInfoUpdate = () => {
+        if(course.length != profile?.info?.course.length) return true
+        if(grade.length != profile?.info?.grade.length) return true
+
+        for(let i=0 ; i<course.length ; i++){
+            if(course[i] != profile?.info?.course[i]){
+                return true
+            }
+        }
+        for(let i=0 ; i<grade.length ; i++){
+            if(grade[i] != profile?.info?.grade[i]){
+                return true
+            }
+        }
+    }
+
+    const handleUpdate = async () => {
+        if(!isInfoUpdate()) return;
+        try {
+            const res = await axios({
+                url: `${ttr}/updateinfo`,
+                method: 'post',
+                headers: {
+                    token: token
+                },
+                data: {
+                    grade,
+                    course,
+                }
+            })
+
+            if(res.status == 200){
+                setProfileUpdated(true)
+                setSuccess(true)
+                setSuccessMsg(res.data.message)
+
+                infoUpdated = setTimeout(() => {
+                    setSuccess(false)
+                    setSuccessMsg('')
+                }, 3000);
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    React.useEffect(() => {
+        return () => {
+            clearInterval(gradeTimer)
+            clearInterval(courseTimer)
+            clearTimeout(infoUpdated)
+        }
+    })
 
     return (
         <View style={styles.container}>
             <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
             <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-                <View style={styles.tutionTypeContainer}>
-                    <View style={styles.tutionTypeInput}>
-                        <View style={styles.iconLabelWrapper}>
-                            <SimpleLineIcons name="home" color={colors.text} size={20} />
-                            <Text style={styles.labelText}>Preferred Tuition Type</Text>
-                        </View>
-                        <View style={styles.dropDownPicker}>
-                            <DropDownPicker
-                                containerStyle={{
-                                    width: '50%',
-                                }}
-                                textStyle={{
-                                    fontFamily: 'Nunito-Regular',
-                                }}
-                                labelStyle={{
-                                    fontFamily: 'Nunito-Regular',
-                                }}
-                                modalProps={{
-                                    animationType: "fade",
-                                    transparent: false
-                                }}
-                                listMode="MODAL"
-                                modalTitle="Select an item"
-                                searchable={false}
-                                open={open}
-                                value={value}
-                                items={items}
-                                setOpen={setOpen}
-                                setValue={setValue}
-                                setItems={setItems}
-                            />
-                        </View>
+                <View style={styles.InputWrapper}>
+                    <View style={{marginVertical: 3, flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style={styles.textFooter}>Grade/Level</Text>
+                        <TouchableOpacity onPress={ () => handleGradeInfo() } activeOpacity={0.7}>
+                            <Ionicons name="card-outline" color='#000' size={16} style={{marginLeft: 5, marginTop: 3}}/>
+                        </TouchableOpacity>
                     </View>
-                </View>
-                {
-                    Object.entries(GCdict).map( (item, i_index) => (
-                        <View style={styles.InputWrapper} key={i_index}>
-                            <View style={{flexDirection: "row", justifyContent:"space-between"}}>
-                                <Text style={styles.textFooter}>Level Of Education</Text>
-                                <TouchableOpacity onPress={ () => removeSection(item[0]) } activeOpacity={0.7}>
+                    {
+                    gradeInfo &&
+                        <Animatable.View animation="fadeInRight" duration={1000}>
+                            <Text style={styles.infoMsg}>Add the grades/level you teach. Atmost 5.</Text>
+                        </Animatable.View>
+                    }
+                    {
+                        grade.map( (item, index) => (
+                            <View style={styles.action} key={index}>
+                                <AntDesign name="book" color={colors.text} size={20} />
+                                <Text style={styles.text}>{index+1}. {item}</Text>
+                                <TouchableOpacity onPress={ () => removeGrade(item) } activeOpacity={0.7}>
                                     <Entypo name="cross" color='#E05656' size={25} />
                                 </TouchableOpacity>
                             </View>
-                            <View style={styles.action}>
-                                <SimpleLineIcons name="graduation" color={colors.text} size={20} />
-                                <TextInput 
-                                    placeholder="Level of Education"
-                                    placeholderTextColor="#666666"
-                                    style={styles.textInput}
-                                    multiline={true}
-                                    autoCapitalize="none"
-                                    onChangeText={(val) => setGradeName(val)}
-                                    onEndEditing={() => addGrade(item[0])}
-                                    defaultValue={item[0]}
-                                />
-                            </View>
-                            <View style={styles.InputWrapper}>
-                                <Text style={styles.textFooter}>Courses</Text>
-                                {
-                                    item[1].map( (element, e_index) => (
-                                        <View style={styles.action} key={e_index}>
-                                            <AntDesign name="book" color={colors.text} size={20} />
-                                            <Text style={styles.text}>{e_index+1}. {element}</Text>
-                                            <TouchableOpacity onPress={ () =>  removeCourse(item[0], element) } activeOpacity={0.7}>
-                                                <Entypo name="cross" color='#E05656' size={20} />
-                                            </TouchableOpacity>
-                                        </View>
-                                    ))
-                                }
-                                <View style={styles.action}>
-                                    <AntDesign name="book" color={colors.text} size={20} />
-                                    <TextInput 
-                                        placeholder="Course Name"
-                                        placeholderTextColor="#666666"
-                                        style={styles.textInput}
-                                        multiline={true}
-                                        autoCapitalize="none"
-                                        defaultValue={courseName}
-                                        onChangeText={(val) => setCourseName(val)}
-                                        onPressIn={ () => setFocus(item[0]) }
-                                    />
-                                </View>
-                            </View>
-                            {   
-                                focus === item[0]? (
-                                    <TouchableOpacity onPress={() => addCourse(item[0])} style={styles.courseButton} activeOpacity={0.7}>
-                                        <Text style={styles.textSave}>Add Course <FontAwesome name="plus" color={colors.backgroundColor} size={16}/></Text>
-                                    </TouchableOpacity>
-                                ) : null
-                            }
-                        </View>
-                    ))
-                }
-                <View style={styles.InputWrapper}>
-                    <Text style={styles.textFooter}>Level Of Education</Text>
+                        ))
+                    }
                     <View style={styles.action}>
                         <SimpleLineIcons name="graduation" color={colors.text} size={20} />
                         <TextInput 
-                            placeholder="Level of Education"
+                            placeholder="Grade/Level"
                             placeholderTextColor="#666666"
                             style={styles.textInput}
                             multiline={true}
                             autoCapitalize="none"
-                            onChangeText={(val) => setSectionGrade(val)}
-                            defaultValue={sectionGrade}
+                            defaultValue={gradeName}
+                            onChangeText={(val) => setGradeName(val)}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => addSection()} style={styles.sectionButton} activeOpacity={0.7}>
-                        <Text style={styles.textSave}>Add New Section <FontAwesome name="plus" color={colors.backgroundColor} size={16}/></Text>
-                    </TouchableOpacity>
+                    <View style={styles.button}>
+                        <TouchableOpacity onPress={() => addGrade()} style={styles.courseButton} activeOpacity={0.7}>
+                            <Text style={styles.textSave}>Add Grade <FontAwesome name="plus" color={colors.backgroundColor} size={14}/></Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            
-                <TouchableOpacity onPress={() => navigation.navigate('#')} style={styles.saveButton} activeOpacity={0.7}>
+                
+                <View style={styles.InputWrapper}>
+                    <View style={{marginVertical: 3, flexDirection: 'row', alignItems: 'center'}}>
+                        <Text style={styles.textFooter}>Courses</Text>
+                        <TouchableOpacity onPress={ () => handleCourseInfo() } activeOpacity={0.7}>
+                            <Ionicons name="card-outline" color='#000' size={16} style={{marginLeft: 5, marginTop: 3}}/>
+                        </TouchableOpacity>
+                    </View>
+                    {
+                    courseInfo &&
+                        <Animatable.View animation="fadeInRight" duration={1000}>
+                            <Text style={styles.infoMsg}>Add the courses you teach. Atmost 5.</Text>
+                        </Animatable.View>
+                    }
+                    {
+                        course.map( (item, index) => (
+                            <View style={styles.action} key={index}>
+                                <AntDesign name="book" color={colors.text} size={20} />
+                                <Text style={styles.text}>{index+1}. {item}</Text>
+                                <TouchableOpacity onPress={ () => removeCourse(item) } activeOpacity={0.7}>
+                                    <Entypo name="cross" color='#E05656' size={25} />
+                                </TouchableOpacity>
+                            </View>
+                        ))
+                    }
+                    <View style={styles.action}>
+                        <AntDesign name="book" color={colors.text} size={20} />
+                        <TextInput 
+                            placeholder="Course Name"
+                            placeholderTextColor="#666666"
+                            style={styles.textInput}
+                            multiline={true}
+                            autoCapitalize="none"
+                            defaultValue={courseName}
+                            onChangeText={(val) => setCourseName(val)}
+                            />
+                    </View>
+                    <View style={styles.button}>
+                        <TouchableOpacity onPress={() => addCourse()} style={styles.courseButton} activeOpacity={0.7}>
+                            <Text style={styles.textSave}>Add Course <FontAwesome name="plus" color={colors.backgroundColor} size={14}/></Text>
+                        </TouchableOpacity>
+                    </View>
+                    {success && 
+                        <Animatable.View animation="fadeInLeft" duration={500}>
+                            <Text style={styles.infoMsg}>{successMsg}</Text>
+                        </Animatable.View>
+                    }
+                </View>
+                
+                <TouchableOpacity onPress={handleUpdate} style={styles.saveButton} activeOpacity={0.7}>
                     <Text style={styles.textSave}>Save <FontAwesome name="save" color={colors.backgroundColor} size={20}/></Text>
                 </TouchableOpacity>
             </ScrollView>

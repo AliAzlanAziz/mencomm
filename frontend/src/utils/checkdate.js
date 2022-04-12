@@ -1,5 +1,3 @@
-import validator from 'validator'
-
 const minAge = 13;
 const maxAge = 80;
 
