@@ -9,16 +9,28 @@ const {
     getPost,
     getFeedbacks,
     postCreateFeedback,
+    postEnroll,
+    postCancelEnroll,
     getAnnouncements,
     postCreateContract,
-    getUpdateInfo,
     postUpdateInfo,
-    postSearch,
-    getOthersProfile
+    postSearchPeople,
+    postSearchPost,
+    getOthersProfile,
+    getNewsfeed,
+    getChatList,
+    postMessage,
+    postReport
 } = require('../controllers/std')
 const { isAuthenticated } = require('../middleware/authenticate')
 
 router.get('/profile', isAuthenticated, getProfile)
+
+router.get('/othersprofile/:id', isAuthenticated, getOthersProfile)
+
+router.get('/allposts', isAuthenticated, getAllPosts)
+
+router.get('/post/:id', isAuthenticated, getPost)
 
 router.post('/createpost', isAuthenticated, postCreatePost)
 
@@ -28,21 +40,28 @@ router.get('/contract/:id', isAuthenticated, getContract)
 
 router.post('/createcontract', isAuthenticated, postCreateContract)
 
-router.get('/allposts', isAuthenticated, getAllPosts)
-
-router.get('/post/:id', isAuthenticated, getPost)
-
 router.get('/feedbacks', isAuthenticated, getFeedbacks)
 
 router.post('/createfeedback', isAuthenticated, postCreateFeedback)
 
-router.get('/announcements/:id', isAuthenticated, getAnnouncements)
+router.post('/enroll/:id', isAuthenticated, postEnroll)
 
-router.get('/updateinfo', isAuthenticated, getUpdateInfo)
+router.post('/cancelenroll/:id', isAuthenticated, postCancelEnroll)
+
+router.get('/announcements/:id', isAuthenticated, getAnnouncements)
 
 router.post('/updateinfo', isAuthenticated, postUpdateInfo)
 
-router.post('/search', isAuthenticated, postSearch)
+router.post('/searchpeople', isAuthenticated, postSearchPeople)
 
-router.get('/othersprofile/:id',isAuthenticated,getOthersProfile)
+router.post('/searchpost', isAuthenticated, postSearchPost)
+
+router.get('/newsfeed', isAuthenticated, getNewsfeed)
+
+router.get('/chatlist', isAuthenticated, getChatList)
+
+router.post('/sendmessage', isAuthenticated, postMessage)
+
+router.post('/postreport', isAuthenticated, postReport)
+
 module.exports = router

@@ -12,13 +12,27 @@ const {
     getAnnouncements,
     postAnnouncement,
     postCreateContract,
-    getUpdateInfo,
     postUpdateInfo,
-    postSearch
+    getOthersProfile,
+    postSearchPeople,
+    postSearchPost,
+    getNewsfeed,
+    getRequests,
+    postAcceptRequest,
+    postRejectEnroll,
+    getEnrolls,
+    postMessage,
+    postReport
 } = require('../controllers/ttr')
 const { isAuthenticated } = require('../middleware/authenticate')
 
 router.get('/profile', isAuthenticated, getProfile)
+
+router.get('/othersprofile/:id', isAuthenticated, getOthersProfile)
+
+router.get('/allposts', isAuthenticated, getAllPosts)
+
+router.get('/post/:id', isAuthenticated, getPost)
 
 router.post('/createpost', isAuthenticated, postCreatePost)
 
@@ -26,9 +40,15 @@ router.get('/allcontracts', isAuthenticated, getAllContracts)
 
 router.get('/contract/:id', isAuthenticated, getContract)
 
-router.get('/allposts', isAuthenticated, getAllPosts)
+router.post('/createcontract', isAuthenticated, postCreateContract)
 
-router.get('/post/:id', isAuthenticated, getPost)
+router.get('/requests/:id', isAuthenticated, getRequests)
+
+router.post('/acceptrequest', isAuthenticated, postAcceptRequest)
+
+router.get('/enrolls/:id', isAuthenticated, getEnrolls)
+
+router.post('/rejectenroll', isAuthenticated, postRejectEnroll)
 
 router.get('/feedbacks', isAuthenticated, getFeedbacks)
 
@@ -36,14 +56,18 @@ router.post('/createfeedback', isAuthenticated, postCreateFeedback)
 
 router.get('/announcements/:id', isAuthenticated, getAnnouncements)
 
-router.post('/createannouncement/:id', isAuthenticated, postAnnouncement)
-
-router.post('/createcontract', isAuthenticated, postCreateContract)
-
-router.get('/updateinfo', isAuthenticated, getUpdateInfo)
+router.post('/createannouncement', isAuthenticated, postAnnouncement)
 
 router.post('/updateinfo', isAuthenticated, postUpdateInfo)
 
-router.post('/search', isAuthenticated, postSearch)
+router.post('/searchpeople', isAuthenticated, postSearchPeople)
+
+router.post('/searchpost', isAuthenticated, postSearchPost)
+
+router.get('/newsfeed', isAuthenticated, getNewsfeed)
+
+router.post('/sendmessage', isAuthenticated, postMessage)
+
+router.post('/postreport', isAuthenticated, postReport)
 
 module.exports = router

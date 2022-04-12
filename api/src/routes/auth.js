@@ -1,16 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const { 
-    postRegister, 
-    postLogin, 
-    getVerifyToken, 
-    postResetLink, 
+    postRegister,
+    postLogin,
+    getVerifyToken,
+    postResetLink,
     postResetPassword,
     postUpdatePassword,
     postSwitchRole,
     postEditProfile,
     postUploadImage,
-    getEditProfile
+    getEditProfile,
+    getProfile
 } = require('../controllers/auth')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -20,9 +21,9 @@ router.post('/login', postLogin)
 
 router.post('/resetlink', postResetLink)
 
-router.post('/resetpassword', postResetPassword)
+router.post('/resetpassword/:resettoken', postResetPassword)
 
-router.post('/resetpassword', postUpdatePassword)
+router.post('/updatepassword', postUpdatePassword)
 
 router.get('/verify/:token', getVerifyToken)
 
@@ -33,5 +34,7 @@ router.post('/uploadimage', isAuthenticated, postUploadImage)
 router.get('/editprofile', isAuthenticated, getEditProfile)
 
 router.post('/editprofile', isAuthenticated, postEditProfile)
+
+router.get('/profile', isAuthenticated, getProfile)
 
 module.exports = router
