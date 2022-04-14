@@ -11,6 +11,7 @@ import {
 import Modal from "react-native-modal"
 import Entypo from 'react-native-vector-icons/Entypo'
 import axios from 'axios'
+import Report from '../components/report'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/othersProfile'
 import { std } from '../global/url'
@@ -21,9 +22,13 @@ const SOthersProfile = ({ navigation, route }) => {
     const styles = createStyles(colors)
     const { token } = React.useContext(AuthContext)
 
-    const [isModalVisible, setModalVisible] = React.useState(false)
+    const [reportModalVisible, setReportModalVisible] = React.useState(false)
     const [user, setUser] = React.useState(false)
     const [data, setData] = React.useState([])
+
+    const setRMVisibility = () => {
+        setReportModalVisible(!reportModalVisible)
+    }
 
     const getOthersProfile = async () => {
         try {
@@ -66,7 +71,7 @@ const SOthersProfile = ({ navigation, route }) => {
                     <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('SStack', { screen: 'SChat' })} style={styles.saveButton}>
                         <Text style={styles.textSave}>Message <Entypo name="message" color={colors.backgroundColor} size={20}/></Text>
                     </TouchableOpacity>
-                    <TouchableOpacity activeOpacity={0.5} onPress={() => setModalVisible(true)} style={{marginLeft: 10}}>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => setRMVisibility()} style={{marginLeft: 10}}>
                         <Entypo name="dots-three-horizontal" color={colors.text} size={20} />
                     </TouchableOpacity>
                 </View>}
@@ -95,12 +100,7 @@ const SOthersProfile = ({ navigation, route }) => {
                         </View>}
                 </View>)}
             </View>
-            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} onBackButtonPress={() => setModalVisible(false)}>
-                {/* <StatusBar translucent={true} backgroundColor={"#2D52B0"} barStyle="light-content"/> */}
-                <TouchableOpacity activeOpacity={0.7} style={styles.modalList}>
-                    <Text style={styles.modalListText}>Report User</Text>
-                </TouchableOpacity>
-            </Modal>   
+            <Report userId={user.id} isPost={false} reportModalVisible={reportModalVisible} setRMVisibility={setRMVisibility} />
         </ScrollView>
     )
 }

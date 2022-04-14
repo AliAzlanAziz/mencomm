@@ -12,25 +12,13 @@ import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/requested'
 import { ttr } from '../global/url'
 import { AuthContext } from '../context/authContext'
+import { postNotification } from '../utils/postNotifications';
 
 const TRequested = ({ navigation, route }) => {
     const { colors } = useTheme();
     const styles = createStyles(colors)
 
     const { token } = React.useContext(AuthContext)
-
-    // const [data, setData] = React.useState([
-    //     {id:1,  name: "Mark Doe Mark Doe Mark Doe Mark Doe", avatar_url:"https://bootdey.com/img/Content/avatar/avatar7.png"},
-    //     {id:2,  name: "Clark Man",  avatar_url:"https://bootdey.com/img/Content/avatar/avatar6.png"},
-    //     {id:3,  name: "Jaden Boor", avatar_url:"https://bootdey.com/img/Content/avatar/avatar5.png"},
-    //     {id:4,  name: "Srick Tree", avatar_url:"https://bootdey.com/img/Content/avatar/avatar4.png"},
-    //     {id:5,  name: "Erick Doe",  avatar_url:"https://bootdey.com/img/Content/avatar/avatar3.png"},
-    //     {id:6,  name: "Francis Doe",avatar_url:"https://bootdey.com/img/Content/avatar/avatar2.png"},
-    //     {id:8,  name: "Matilde Doe",avatar_url:"https://bootdey.com/img/Content/avatar/avatar1.png"},
-    //     {id:9,  name: "John Doe",   avatar_url:"https://bootdey.com/img/Content/avatar/avatar4.png"},
-    //     {id:10, name: "Fermod Doe", avatar_url:"https://bootdey.com/img/Content/avatar/avatar7.png"},
-    //     {id:11, name: "Danny Doe",  avatar_url:"https://bootdey.com/img/Content/avatar/avatar1.png"},
-    // ])
 
     const [data, setData] = React.useState([])
 
@@ -67,6 +55,7 @@ const TRequested = ({ navigation, route }) => {
             if(res.status == 200){
                 // console.log(JSON.stringify(res.data))
                 // setData(res.data.data)
+                postNotification(token, userId, postId, undefined, 'accepted your request to get enrolled')
                 getAllRequests();
             }
         } catch (error) {

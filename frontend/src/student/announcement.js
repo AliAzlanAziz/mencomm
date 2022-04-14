@@ -7,9 +7,9 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
-import Modal from 'react-native-modal'
 import Entypo from 'react-native-vector-icons/Entypo'
 import axios from 'axios'
+import Report from '../components/report'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/announcement'
 import { std } from '../global/url'
@@ -21,13 +21,11 @@ const SAnnouncement = ({ navigation, route }) => {
 
     const { token } = React.useContext(AuthContext)
 
-    const [isReportModalVisible, setReportModalVisible] = React.useState(false);
-    const [isRMModalVisible, setRMModalVisible] = React.useState(false);
+    const [reportModalVisible, setReportModalVisible] = React.useState(false)
     const [data, setData] = React.useState(false)
 
-    const handleReportPost = () => {
-        setReportModalVisible(false);
-        setRMModalVisible(true);
+    const setRMVisibility = () => {
+        setReportModalVisible(!reportModalVisible)
     }
 
     const getAnnouncements = async () => {
@@ -68,7 +66,7 @@ const SAnnouncement = ({ navigation, route }) => {
                                 <Text style={styles.cardName}>{data.name}</Text>
                                 <View style={{flexDirection: 'row', marginTop: 5}}>
                                     <Text style={styles.cardDate}>{new Date(item.time).toDateString()}</Text>
-                                    <TouchableOpacity activeOpacity={0.7} onPress={() => setReportModalVisible(true)} style={{marginLeft: 5}}>
+                                    <TouchableOpacity activeOpacity={0.5} onPress={() => setRMVisibility()} style={{marginLeft: 5}}>
                                         <Entypo name="dots-three-vertical" color={colors.text} size={20} />
                                     </TouchableOpacity>
                                 </View>
@@ -80,31 +78,7 @@ const SAnnouncement = ({ navigation, route }) => {
                     </View>
                 )}
             </View>
-            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isReportModalVisible} onBackdropPress={() => setReportModalVisible(false)} onBackButtonPress={() => setReportModalVisible(false)}>
-                <TouchableOpacity onPress={() => handleReportPost()} style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Report Post</Text>
-                </TouchableOpacity>
-            </Modal>
-            <Modal animationInTiming={500} style={{ margin: 0, justifyContent:"flex-end" }} isVisible={isRMModalVisible} onBackdropPress={() => setRMModalVisible(false)} onBackButtonPress={() => setRMModalVisible(false)}>
-                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Violence</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Harrassment</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Suicide or Self-injury</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Spam</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Hate Speech</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.modalList} activeOpacity={0.7}>
-                    <Text style={styles.modalListText}>Terrorism</Text>
-                </TouchableOpacity>
-            </Modal>
+            <Report postId={route.params.id} isPost={true} reportModalVisible={reportModalVisible} setRMVisibility={setRMVisibility} />
         </ScrollView>
     )
 }

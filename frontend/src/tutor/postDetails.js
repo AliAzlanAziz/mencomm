@@ -31,25 +31,6 @@ const TPostDetails = ({ navigation, route }) => {
     const { token } = React.useContext(AuthContext)
 
     const [isModalVisible, setModalVisible] = React.useState(false)
-
-    // const [data, setData] = React.useState({
-    //     name: 'Dr. Abdul Aziz', 
-    //     rating: 4.8,
-    //     avatar_url: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/ea7a3c32163929.567197ac70bda.png',
-    //     course: 'Object Oriented Programming',
-    //     grade: 'Under Grad',
-    //     tuition_type: 'Home Tuition',
-    //     fee: '10000 PKR',
-    //     address: 'R-442 Sector 8, North Karachi',
-    //     start_date: '18th Dec 2020, Wednesday',
-    //     schedule: [
-    //         { day: 'Monday', start_time: '06:00 PM', end_time: '08:00 PM' },
-    //         { day: 'Tuesday', start_time: '06:00 PM', end_time: '08:00 PM' },
-    //         { day: 'Wednesday', start_time: '06:00 PM', end_time: '08:00 PM' }
-    //     ],
-    //     description: 'Aliqua exercitation aliquip fugiat qui labore adipisicing sunt eu. Reprehenderit aliquip irure ut ullamco. Ex ut eu consequat ipsum.\n Laboris anim adipisicing ex et adipisicing occaecat labore reprehenderit voluptate mollit laborum. Culpa sint nisi quis sunt dolor. Reprehenderit incididunt amet aliqua culpa proident exercitation deserunt esse consectetur. Laborum velit duis ad fugiat magna anim nulla voluptate.\n Cillum ea amet amet dolore mollit laboris occaecat sunt voluptate excepteur. Excepteur et excepteur Lorem ex officia enim nulla. Duis exercitation elit occaecat esse commodo adipisicing id minim labore ea aute.Esse non Lorem elit ad ea ad aliquip qui eiusmod dolor laboris qui. Non sit dolor dolore quis. Veniam veniam adipisicing occaecat minim ullamco ex reprehenderit dolor commodo. Sint duis incididunt pariatur duis laborum. Occaecat minim tempor cillum veniam adipisicing ut esse pariatur officia est.\n Mollit laborum dolor incididunt laboris est eu pariatur nulla ullamco quis ea commodo eiusmod laboris. Velit non irure veniam qui proident ut velit. Ullamco enim occaecat fugiat sunt.\n Aliquip est pariatur nulla laboris eiusmod amet fugiat. Enim ut mollit dolore exercitation. Culpa laborum aute veniam proident commodo quis ea eu do ullamco nisi.'
-    // })
-
     const [data, setData] = React.useState(false)
 
     const getPost = async () => {

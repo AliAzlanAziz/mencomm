@@ -20,6 +20,7 @@ import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/contract'
 import { std } from '../global/url'
 import { AuthContext } from '../context/authContext'
+import { postNotification } from '../utils/postNotifications'
 
 const SContract = ({ navigation, route }) => {
     const { colors } = useTheme();
@@ -67,6 +68,7 @@ const SContract = ({ navigation, route }) => {
                     }
                 })
                 if(res.status == 200){
+                    postNotification(token, data.userId, undefined, data.id, 'gave you feedback on the contract')
                     getContract();
                 }
             }

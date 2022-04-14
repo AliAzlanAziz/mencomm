@@ -1,84 +1,168 @@
 import React from 'react'
 import { 
+    StatusBar,
     StyleSheet,
     Text,
     View,
     FlatList,
+    TouchableOpacity,
     Image
  } from 'react-native'
+import axios from 'axios'
+import { auth } from '../global/url'
+import { AuthContext } from '../context/authContext'
+import { postReadNotification } from '../utils/postNotifications'
 
 const SNotification = ({ navigation }) => {
-    const [data,setData]= React.useState([
-        {id:'1', from:'Tom', Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/cute-kitten-in-nature-picture-id502888545', date:'12-9-2021', time:'10:00 PM' },
-        {id:'2', from:'Mohit', Action:'Requested to join classroom', image:'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg', date:'12-9-2021', time:'10:00 PM' },
-        {id:'3', from:'Ali', Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/colorful-sunset-at-davis-lake-picture-id1184692500', date:'12-9-2021', time:'10:00 PM' },
-        {id:'4', from:'Haris',Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/cute-kitten-in-nature-picture-id502888545', date:'12-9-2021', time:'10:00 PM' },
-        {id:'1', from:'Tom', Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/cute-kitten-in-nature-picture-id502888545', date:'12-9-2021', time:'10:00 PM' },
-        {id:'1', from:'Tom', Action:'Requested to join classroom', image:'https://media.istockphoto.com/photos/cute-kitten-in-nature-picture-id502888545', date:'12-9-2021', time:'10:00 PM' },
-    ])
+    const { token } = React.useContext(AuthContext)
+
+    const [data, setData] = React.useState([])
+
+    const getNotifications = async () => {
+        try {
+            const res = await axios({
+                url: `${auth}/getnotifications`,
+                method: 'get',
+                headers: {
+                    token: token,
+                }
+            })
+            if(res.status == 200){
+                setData(res.data.data)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const handleNotifPress = (notifId, read, postId, contractId) => {
+        if(!read){
+            postReadNotification(token, notifId)
+        }
+
+        if(postId != undefined){
+            navigation.navigate('SStack', { screen: 'SPostDetails', params: { id: postId }})
+        }else{
+            navigation.navigate('SStack', { screen: 'SContract', params: { id: contractId }})
+        }
+    }
+
+    React.useEffect(() => {
+        getNotifications();
+    }, []);
 
     const renderItem = ({item}) => {
-        return(
-            <View style={styles.listContainer}>
-                <View style={styles.HeaderLeftImageView}>
-                    <Image style={styles.HeaderLeftImage} source={{uri:item.image}}/>
-                </View>
-
-                <View style={{marginLeft:10}}>
-                    <View style={{flexDirection:'row'}}>
-                        <Text style={styles.User}> {item.from} </Text>
-                        <Text style={styles.Text}> {item.Action} </Text>
+        return (
+            <TouchableOpacity activeOpacity={0.7} onPress={() => handleNotifPress(item?.id, item?.read, item?.postId, item?.contractId)}>
+                <View style={item.read ? styles.row : styles.rowUnique}>
+                    <Image source={{ uri: item.avatar_url }} style={styles.pic} />
+                    <View>
+                        <View style={styles.nameContainer}>
+                            <Text style={styles.nameText} numberOfLines={1} ellipsizeMode="tail">{item.name}</Text>
+                            <Text style={styles.dateText}>{new Date(item.time).toLocaleDateString()}</Text>
+                        </View>
+                        <View style={styles.msgContainer}>
+                            <Text style={styles.subjectText} numberOfLines={3} ellipsizeMode="tail">{item.description}</Text>
+                        </View>
                     </View>
-                    <Text style={{color:'#64676B'}}> {item.time} </Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         );
     }
 
-    return (
+    return(
         <View style={styles.container}>
-            <FlatList
-            data = {data}
-            keyExtractor = {(item,index) => {
-                return index.toString()
-           }}
-            renderItem={renderItem}
-        />
+            <StatusBar translucent={true} backgroundColor={'transparent'} barStyle="light-content"/>
+            {
+                data.length > 0 ?
+                    <FlatList 
+                        extraData={data}
+                        data={data}
+                        keyExtractor = {(item) => {
+                            return item.id;
+                        }}
+                        renderItem={renderItem}
+                    />
+                :
+                    <View style={styles.noItemsContainer}>
+                        <Text style={styles.noItemsText}>No contracts to show</Text>
+                    </View>
+            }
         </View>
-    )
+    );
 }
 
 export default SNotification
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
-        backgroundColor: 'white',
+        flex: 1,
+        backgroundColor: '#fff',
     },
-    listContainer:{
-        flex:1,
-        width:'100%',
-        height:'100%',
-        paddingVertical:15,
-        backgroundColor: 'white',
+    row: {
         flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#DCDCDC',
+        backgroundColor: '#fff',
+        borderBottomWidth: 1,
+        padding: 10,
     },
-    HeaderLeftImage:{
-        width:'100%',
-        height:'100%',
-        borderRadius:50,
+    rowUnique: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: '#DCDCDC',
+        backgroundColor: '#FFF2F2',
+        borderBottomWidth: 1,
+        padding: 10,
     },
-    HeaderLeftImageView:{
-        width:50,
-        height:50,
-        borderRadius:20,
-        marginLeft:15,
+    pic: {
+        borderRadius: 50,
+        width: 60,
+        height: 60,
     },
-    User:{
-        color:'#1B6ADF',
-        fontSize:15
+    nameContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
-    Text:{
-        color:'black',
+    nameText: {
+        fontFamily: 'Nunito-Regular',
+        marginLeft: 10,
+        color: '#000',
+        fontSize: 18,
+        width: '65%',
+    },
+    dateText: {
+        fontFamily: 'Nunito-Regular',
+        fontWeight: '300',
+        color: '#151515',
+        fontSize: 13,
+    },
+    msgContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    subjectText: {
+        fontFamily: 'Nunito-Regular',
+        color: '#151515',
+        fontSize: 16,
+        marginLeft: 10,
+        width: '65%',
+    },
+    prcText: {
+        fontFamily: 'Nunito-Regular',
+        fontWeight: '300',
+        color: '#151515',
+        fontSize: 13
+    },
+    noItemsContainer: {
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        marginTop: 20
+    },
+    noItemsText: {
+        fontFamily: 'Nunito-Regular',
+        marginLeft: 10,
+        color: '#000',
+        fontSize: 18,
     }
-})
+});

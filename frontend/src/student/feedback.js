@@ -8,8 +8,6 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
-import Modal from "react-native-modal"
-import Entypo from 'react-native-vector-icons/Entypo'
 import axios from 'axios'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/othersProfile'

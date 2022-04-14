@@ -16,6 +16,7 @@ import { useTheme } from 'react-native-paper'
 import createStyles from '../style/tutor/announcement'
 import { ttr } from '../global/url'
 import { AuthContext } from '../context/authContext'
+import { postAnnouncementNotification } from '../utils/postNotifications'
 
 const TAnnouncement = ({ navigation, route }) => {
     const { colors } = useTheme()
@@ -64,6 +65,7 @@ const TAnnouncement = ({ navigation, route }) => {
                 if(res.status == 200){
                     // console.log(JSON.stringify(res.data))
                     // setData(res.data.data)
+                    postAnnouncementNotification(token, route.params.id)
                     getAnnouncements();
                 }
             }
