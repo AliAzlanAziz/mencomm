@@ -5,6 +5,9 @@ const { sendmail } = require('../utils/sendMail')
 const User = require('../models/user')
 const Tutor = require('../models/tutor')
 const Student = require('../models/student')
+const Report = require('../models/report')
+const Post = require('../models/post')
+const Notification = require('../models/notification')
 const { cloudinary } = require('../utils/uploadCloud')
 
 module.exports = {
@@ -315,6 +318,7 @@ module.exports = {
                     Student.findOne({user: user._id}).exec()
                     .then(std => {
                         return res.status(200).json({
+                            id: user._id,
                             name: user.name,
                             email: user.email,
                             gender: user.gender,
@@ -372,5 +376,121 @@ module.exports = {
                 }
             }
         })
+    },
+
+    postReport: (req, res, next) => {
+        const report = new Report({
+            reporter: req.id,
+            reported_user: req.body.userId,
+            reported_post: req.body.postId,
+            description: req.body.description,
+            time: new Date()
+        })
+
+        report.save()
+        .then(rpt => {
+            if(rpt._id){
+                return res.status(200).json({
+                    message: 'Reported Object'
+                })
+            }
+        })
+    },
+
+    getNotifications: async (req, res, next) => {
+        const notifications = await Notification.find({to: req.id}).sort({time: -1}).populate('from')
+        const result = []
+        
+        notifications.map(item => result.push({
+            id: item._id,
+            postId: item.post,
+            contractId: item.contract,
+            description: item.description,
+            time: item.time,
+            read: item.read,
+            name: item.from.name,
+            avatar_url: item.from.avatar_url
+        }))
+
+        return res.status(200).json({
+            message: result.length + ' notifications retrieved!',
+            data: result
+        })
+    },
+
+    postNotification: async (req, res, next) => {
+        // const updateIfExist = await Notification.findOneAndUpdate({from: req.id, post: req.body.postId}, {time: new Date()})
+        // if(updateIfExist._id){
+        //     return res.status(200).json({
+        //         message: 'Notification Created'
+        //     })
+        // }
+
+        const notification = new Notification({
+            _id: new mongoose.Types.ObjectId(),
+            from: req.id,
+            to: req.body.userId,
+            post: req.body.postId,
+            contract: req.body.contractId,
+            description: req.body.description,
+            time: new Date()
+        })
+
+        notification.save()
+        .then(ntf => {
+            if(ntf._id){
+                return res.status(200).json({
+                    message: 'Notification Created'
+                })
+            }
+        })
+    },
+
+    postAnnouncementNotification: async (req, res, next) => {
+        try{
+            const allStudents = await Post.findById(req.body.postId).select('requests.user')
+
+            allStudents.requests.map(async item => {
+                const notification = new Notification({
+                    _id: new mongoose.Types.ObjectId(),
+                    from: req.id,
+                    to: item.user,
+                    post: req.body.postId,
+                    description: "created an announcement in a post you are enrolled",
+                    time: new Date()
+                })
+        
+                await notification.save()
+            })
+        }catch(error){
+            // console.log(error)
+            return res.status(500).json({
+                message: 'Internal server error'
+            })
+        }
+
+        return res.status(200).json({
+            message: 'Announcement Notifications Created'
+        })
+    },
+
+    postReadNotification: async (req, res, next) => {
+        try{
+            const notification = await Notification.findByIdAndUpdate(req.body.notifId, {read: true})
+            if(notification._id){
+                return res.status(200).json({
+                    message: 'Notification read'
+                })
+            }
+
+            return res.status(500).json({
+                message: 'Internal server error'
+            })
+        }catch(error){
+            // console.log(error)
+            return res.status(500).json({
+                message: 'Internal server error'
+            })
+        }
     },
 }

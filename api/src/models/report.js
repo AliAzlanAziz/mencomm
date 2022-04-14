@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const reportSchema = mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    // _id: mongoose.Schema.Types.ObjectId,
     reporter: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

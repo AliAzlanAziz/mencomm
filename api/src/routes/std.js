@@ -20,7 +20,6 @@ const {
     getNewsfeed,
     getChatList,
     postMessage,
-    postReport
 } = require('../controllers/std')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -61,7 +60,5 @@ router.get('/newsfeed', isAuthenticated, getNewsfeed)
 router.get('/chatlist', isAuthenticated, getChatList)
 
 router.post('/sendmessage', isAuthenticated, postMessage)
-
-router.post('/postreport', isAuthenticated, postReport)
 
 module.exports = router

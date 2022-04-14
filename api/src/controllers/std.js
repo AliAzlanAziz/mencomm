@@ -5,7 +5,6 @@ const Student = require('../models/student')
 const Post = require('../models/post')
 const Contract = require('../models/contract')
 const Message = require('../models/message')
-const Report = require('../models/report')
 const ContentBasedRecommender = require('content-based-recommender')
 const { getDistanceBetweenCoords } = require("../utils/distance")
 const recommender = new ContentBasedRecommender({
@@ -210,7 +209,7 @@ module.exports = {
             let result = []
             conts.forEach(item => {
                 result.push({
-                    id: item?.feedback?._id,
+                    id: item?._id,
                     name: item?.tutor?.name,
                     avatar_url: item?.tutor?.avatar_url,
                     review: item?.ttr_feedback?.review,
@@ -665,25 +664,6 @@ module.exports = {
             if(msg._id){
                 return res.status(200).json({
                     message: 'Message sent!'
-                })
-            }
-        })
-    },
-
-    postReport: (req, res, next) => {
-        const report = new Report({
-            reporter: req.id,
-            reported_user: req.body.userId,
-            reported_post: req.body.postId,
-            description: req.body.description,
-            time: new Date()
-        })
-
-        report.save()
-        .then(msg => {
-            if(msg._id){
-                return res.status(200).json({
-                    message: 'Reported'
                 })
             }
         })

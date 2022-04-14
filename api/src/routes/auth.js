@@ -11,7 +11,12 @@ const {
     postEditProfile,
     postUploadImage,
     getEditProfile,
-    getProfile
+    getProfile,
+    postReport,
+    getNotifications,
+    postNotification,
+    postReadNotification,
+    postAnnouncementNotification
 } = require('../controllers/auth')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -36,5 +41,15 @@ router.get('/editprofile', isAuthenticated, getEditProfile)
 router.post('/editprofile', isAuthenticated, postEditProfile)
 
 router.get('/profile', isAuthenticated, getProfile)
+
+router.post('/postreport', isAuthenticated, postReport)
+
+router.get('/getnotifications', isAuthenticated, getNotifications)
+
+router.post('/postnotifications', isAuthenticated, postNotification)
+
+router.post('/postannouncementnotifications', isAuthenticated, postAnnouncementNotification)
+
+router.post('/postreadnotification', isAuthenticated, postReadNotification)
 
 module.exports = router

@@ -56,9 +56,6 @@ const postSchema = mongoose.Schema({
             },
             time_requested: {
                 type: Date
-            },
-            time_accepted: {
-                type: Date
             }
         }
     ],

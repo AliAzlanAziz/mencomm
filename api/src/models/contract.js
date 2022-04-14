@@ -21,7 +21,6 @@ const contractSchema = mongoose.Schema({
         review: String,
         rating: {
             type: Number,
-            required: true,
             mix: 0,
             max: 5
         }
@@ -30,7 +29,6 @@ const contractSchema = mongoose.Schema({
         review: String,
         rating: {
             type: Number,
-            required: true,
             mix: 0,
             max: 5
         }

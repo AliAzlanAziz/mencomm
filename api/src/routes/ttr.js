@@ -22,7 +22,6 @@ const {
     postRejectEnroll,
     getEnrolls,
     postMessage,
-    postReport
 } = require('../controllers/ttr')
 const { isAuthenticated } = require('../middleware/authenticate')
 
@@ -67,7 +66,5 @@ router.post('/searchpost', isAuthenticated, postSearchPost)
 router.get('/newsfeed', isAuthenticated, getNewsfeed)
 
 router.post('/sendmessage', isAuthenticated, postMessage)
-
-router.post('/postreport', isAuthenticated, postReport)
 
 module.exports = router

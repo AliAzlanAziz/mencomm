@@ -10,17 +10,17 @@ const notificationSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    action: {
-        type: String,
-        enum: [ '1', '2', '3', '4' ]
+    description: String,
+    post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    url: {
-        type: String,
+    contract: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
     },
-    time: {
-        type: Date,
-    },
-    is_read: {
+    time: Date,
+    read: {
         type: Boolean,
         default: false
     }

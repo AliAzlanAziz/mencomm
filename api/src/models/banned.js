@@ -18,4 +18,4 @@ const reportSchema = mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Report', reportSchema)
+module.exports = mongoose.model('Banned', reportSchema)
