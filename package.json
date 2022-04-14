@@ -3,8 +3,9 @@
     "version": "1.0.0",
     "main": "",
     "scripts": {
-        "install-server": "cd api && npm install && cd .. ",
-        "heroku-postbuild": "rm -rf frontend && cd api && npm run start"
+        "start": "npm start --prefix api",
+        "install-server": "cd api && npm install && cd ..",
+        "heroku-postbuild": "rm -rf ./frontend && cd ./api && npm run start"
     },
     "engines": {
         "node": "14.15.0",
