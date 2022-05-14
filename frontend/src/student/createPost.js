@@ -44,14 +44,6 @@ const SCreatePost = ({ navigation }) => {
     const [showStartTimePicker, setShowStartTimePicker] = React.useState(false)
     const [showEndTimePicker, setShowEndTimePicker] = React.useState(false)
 
-    const [openTutionTypeList, setOpenTuitionTypeList] = React.useState(false)
-    const [tutionTypeValue, setTutionTypeValue] = React.useState('')
-    const [tuitionTypeChoices, setTuitionTypeChoices] = React.useState([
-        {label: 'Home Tuition', value: 'Home Tuition'},
-        {label: "Tutor's Home", value: 'Tutor\'s Home'},
-        {label: "Academy", value: 'Academy'}
-    ])
-
     const [openDayList, setOpenDayList] = React.useState(false)
     const [dayValue, setDayValue] = React.useState('')
     const [dayChoices, setDayChoices] = React.useState([
@@ -82,7 +74,7 @@ const SCreatePost = ({ navigation }) => {
     const [data, setData] = React.useState({
         course: 'Maths',
         grade: 'Matric',
-        tuition_type: 'Home Tuition',
+        tuition_type: '',
         fee: 500,
         start_date: new Date(),
         schedule: [],
@@ -94,10 +86,11 @@ const SCreatePost = ({ navigation }) => {
         description: 'I m good at math!'
     })
 
-    const handleTuitionPickerClose = () => {
-        if(tutionTypeValue!==null){
-            setData({...data, tuition_type: tutionTypeValue})
-            setCheck({...check, tuition_type: true})
+    const handleTuitionTypePress = (type) => {
+        if(data.tuition_type == type){
+            setData({...data, tuition_type: ''})
+        }else{
+            setData({...data, tuition_type: type})
         }
     }
 
@@ -266,40 +259,21 @@ const SCreatePost = ({ navigation }) => {
                     />
                 </View>
 
-                <View style={{flexDirection: 'row'}}>
+                <View>
                     <Text style={styles.textFooter}>Tuition Type</Text>
-                    <View style={styles.tutionTypeContainer}>
-                        <View style={styles.dropDownPicker}>
-                            <DropDownPicker
-                                containerStyle={{
-                                    width: '60%',
-                                }}
-                                textStyle={{
-                                    fontFamily: 'Nunito-Regular',
-                                }}
-                                labelStyle={{
-                                    fontFamily: 'Nunito-Regular',
-                                }}
-                                modalProps={{
-                                    animationType: "fade",
-                                    transparent: false
-                                }}
-                                listMode="MODAL"
-                                placeholder='Select tuition type'
-                                modalTitle="Select tuition type"
-                                searchable={false}
-                                open={openTutionTypeList}
-                                value={tutionTypeValue}
-                                items={tuitionTypeChoices}
-                                setOpen={setOpenTuitionTypeList}
-                                setValue={setTutionTypeValue}
-                                setItems={setTuitionTypeChoices}
-                                onClose={() => handleTuitionPickerClose()}
-                            />
-                        </View>
+                    <View style={styles.tutionTypesContainer}>
+                        <TouchableOpacity onPress={() => handleTuitionTypePress('Home Tuition')} activeOpacity={0.7} style={data.tuition_type == 'Home Tuition' ? styles.tuitionTypeButtonUnique : styles.tuitionTypeButton}>
+                            <Text style={{fontFamily: 'Nunito-Bold', fontSize: 14}}>Home Tuition</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleTuitionTypePress('Tutor\'s Home')} activeOpacity={0.7} style={data.tuition_type == 'Tutor\'s Home' ? styles.tuitionTypeButtonUnique : styles.tuitionTypeButton}>
+                            <Text style={{fontFamily: 'Nunito-Bold', fontSize: 14}}>Tutor's Home</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => handleTuitionTypePress('Academy')} activeOpacity={0.7} style={data.tuition_type == 'Academy' ? styles.tuitionTypeButtonUnique : styles.tuitionTypeButton}>
+                            <Text style={{fontFamily: 'Nunito-Bold', fontSize: 14}}>Academy</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-
+                
                 <Text style={styles.textFooter}>Fee*</Text>
                 <View style={styles.action}>
                     <MaterialIcons name="payment" color={colors.text} size={20} />
@@ -362,7 +336,7 @@ const SCreatePost = ({ navigation }) => {
                 )}
             
                 <Text style={styles.textFooter}>Schedule</Text>
-                <View style={styles.tutionTypeContainer}>
+                <View style={styles.scheduleContainer}>
                     <DropDownPicker
                         containerStyle={{
                             width: '40%',

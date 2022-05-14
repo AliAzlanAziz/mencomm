@@ -85,7 +85,7 @@ const SNotification = ({ navigation }) => {
                     />
                 :
                     <View style={styles.noItemsContainer}>
-                        <Text style={styles.noItemsText}>No contracts to show</Text>
+                        <Text style={styles.noItemsText}>No notification to show</Text>
                     </View>
             }
         </View>

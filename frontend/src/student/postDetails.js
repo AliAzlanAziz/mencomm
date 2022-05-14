@@ -23,7 +23,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import axios from 'axios'
 import { useTheme } from 'react-native-paper'
 import createStyles from '../style/student/postDetails'
-import { std } from '../global/url'
+import { std, pay } from '../global/url'
 import { AuthContext } from '../context/authContext'
 import { postNotification } from '../utils/postNotifications'
 
@@ -93,14 +93,14 @@ const SPostDetails = ({ navigation, route }) => {
         }
     }
 
-    // const subscribe = async () => {
+    // const subscribe = async (name) => {
     //     try {
     //         // sending request
-    //         const response = await fetch("http://localhost:5000/api/v1/pay/payment", {
+    //         const response = await fetch(`${pay}/payment`, {
     //             method: "POST",
     //             body: JSON.stringify({ name }),
     //             headers: {
-    //             "Content-Type": "application/json",
+    //                 "Content-Type": "application/json",
     //             },
     //         });
     //         const data = await response.json();
@@ -174,7 +174,7 @@ const SPostDetails = ({ navigation, route }) => {
                             <MaterialIcons name="payment" color={colors.text} size={20} />
                             <Text style={styles.text} numberOfLines={1} ellipsizeMode="tail">{data.fee}</Text>
                             {/* <StripeProvider publishableKey={"pk_test_emED6Iluek2T2xHVDyJCDmHh00EpY66lve"}>
-                                <TouchableOpacity activeOpacity={0.5} onPress={() => subscribe()}>
+                                <TouchableOpacity activeOpacity={0.5} onPress={() => subscribe(data.name)}>
                                     <Ionicons name="ios-card-outline" color={colors.text} size={20}/>
                                 </TouchableOpacity>
                             </StripeProvider> */}

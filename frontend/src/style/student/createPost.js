@@ -36,7 +36,28 @@ export default createStyles = (colors) => {
         dropDownPicker: { 
             marginLeft: '20%',
         },
-        tutionTypeContainer: {
+        tutionTypesContainer: {
+            flexDirection: 'row', 
+            margin: 10, 
+            justifyContent: 'space-between'
+        },
+        tuitionTypeButtonUnique: {
+            padding: 10, 
+            width: '30%', 
+            backgroundColor: '#9CB1E5', 
+            borderWidth:1, 
+            borderRadius: 8, 
+            borderColor: '#fff'
+        },
+        tuitionTypeButton: {
+            padding: 10, 
+            width: '30%', 
+            backgroundColor: '#fff', 
+            borderWidth:1, 
+            borderRadius: 8, 
+            borderColor: '#9CB1E5'
+        },
+        scheduleContainer: {
             flexDirection: 'row',
             justifyContent: 'space-between',
             borderBottomWidth: 1,
