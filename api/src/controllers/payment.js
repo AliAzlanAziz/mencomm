@@ -7,13 +7,13 @@ module.exports = {
             const { name, fee } = req.body;
             if (!name) return res.status(400).json({ message: "Please enter a name" });
             const paymentIntent = await Stripe.paymentIntents.create({
-                amount: fee, //rs * paisa
+                amount: fee * 100 , //cents * 100 = $
                 currency: "USD",
                 payment_method_types: ["card"],
                 metadata: { name: name, id: req.id },
             });
             const clientSecret = paymentIntent.client_secret;
-            res.json({ message: "Payment initiated", clientSecret });
+            res.status(200).json({ message: "Payment initiated", clientSecret });
         } catch (err) {
             console.error(err);
             res.status(500).json({ message: "Internal server error" });
