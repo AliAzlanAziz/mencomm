@@ -4,11 +4,11 @@ const Stripe = stripe(process.env.STRIPE_SECRET_KEY)
 module.exports = {
     postPay: async (req, res, next) => {
         try {
-            const { name } = req.body;
+            const { name, fee } = req.body;
             if (!name) return res.status(400).json({ message: "Please enter a name" });
             const paymentIntent = await Stripe.paymentIntents.create({
-                amount: Math.round(25 * 100), //rs * paisa
-                currency: "INR",
+                amount: fee, //rs * paisa
+                currency: "USD",
                 payment_method_types: ["card"],
                 metadata: { name: name, id: req.id },
             });
