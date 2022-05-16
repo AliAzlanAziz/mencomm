@@ -12,7 +12,7 @@ module.exports = {
             to: to,
             amount: amount,
             post: post,
-            date: new Date.now()
+            date: new Date()
         })
 
         payment.save()
