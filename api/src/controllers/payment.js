@@ -2,6 +2,7 @@ const stripe = require('stripe')
 const Stripe = stripe(process.env.STRIPE_SECRET_KEY)
 const mongoose = require('mongoose')
 const Payment = require('../models/payment')
+const Withdraw = require('../models/withdraw')
 
 module.exports = {
     postPaymentReceipt:  async (req, res, next) => {
@@ -64,6 +65,37 @@ module.exports = {
         })
     },
 
+    postPaymentReceipt:  async (req, res, next) => {
+        const { to, amount, post } = req.body
+        const payment = new Payment({
+            _id: new mongoose.Types.ObjectId(),
+            from: req.id,
+            to: to,
+            amount: amount,
+            post: post,
+            date: new Date()
+        })
+
+        payment.save()
+        .then(result => {
+            if(!result._id){
+                return res.status(500).json({
+                    message: err
+                });
+            }else{
+                return res.status(200).json({
+                    message: "Payment Receipt Added Successfully"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(500).json({
+                message: err
+            })
+        })
+    },
+    
     postStripePay: async (req, res, next) => {
         try {
             const { name, fee } = req.body;

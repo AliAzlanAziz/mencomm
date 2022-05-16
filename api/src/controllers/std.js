@@ -549,6 +549,7 @@ module.exports = {
         delete posts //free memory
 
         const similarDocuments = recommender.getSimilarDocuments(req.id, 0, 25)
+        // console.log(similarDocuments)
         let result = similarDocuments.map(item => ({
             id: postMap[item.id]?.id,
             userId: postMap[item.id]?.createdBy?._id,

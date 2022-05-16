@@ -134,6 +134,7 @@ module.exports = {
             posts.forEach(item => {
                 result.push({
                     id: item?._id,
+                    userId: item?.createdBy?._id,
                     name: item?.createdBy?.name,
                     avatar_url: item?.createdBy?.avatar_url,
                     created_on: item?.created_on,
