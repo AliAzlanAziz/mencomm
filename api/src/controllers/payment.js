@@ -1,5 +1,6 @@
 const stripe = require('stripe')
 const Stripe = stripe(process.env.STRIPE_SECRET_KEY)
+const mongoose = require('mongoose')
 const Payment = require('../models/payment')
 
 module.exports = {
