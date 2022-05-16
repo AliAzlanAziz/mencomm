@@ -16,7 +16,7 @@ module.exports = {
 
         payment.save()
         .then(result => {
-            if(!result){
+            if(!result._id){
                 return res.status(500).json({
                     message: err
                 });
