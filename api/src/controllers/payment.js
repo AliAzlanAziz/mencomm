@@ -1,8 +1,69 @@
 const stripe = require('stripe')
 const Stripe = stripe(process.env.STRIPE_SECRET_KEY)
+const Payment = require('../models/payment')
 
 module.exports = {
-    postPay: async (req, res, next) => {
+    postPaymentReceipt:  async (req, res, next) => {
+        const { to, amount, post } = req.body
+        const payment = new Payment({
+            _id: new mongoose.Types.ObjectId(),
+            from: req.id,
+            to: to,
+            amount: amount,
+            post: post,
+            date: new Date.now()
+        })
+
+        payment.save()
+        .then(result => {
+            if(!result){
+                return res.status(500).json({
+                    message: err
+                });
+            }else{
+                return res.status(200).json({
+                    message: "Payment Receipt Added Successfully"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(500).json({
+                message: err
+            })
+        })
+    },
+
+    getPaymentReceipt:  async (req, res, next) => {
+        Payment.find({from: req.id})
+        .populate('to')
+        .then(receipts => {
+            let result = []
+            receipts.forEach(item => {
+                result.push({
+                    id: item?._id,
+                    name: item?.to?.name,
+                    avatar_url: item?.to?.avatar_url,
+                    date: item?.date,
+                    amount: item?.amount,
+                    post: item?.post
+                })
+            })
+
+            return res.status(200).json({
+                message: result.length + ' payment receipts retreived',
+                data: result
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(500).json({
+                message: err
+            })
+        })
+    },
+
+    postStripePay: async (req, res, next) => {
         try {
             const { name, fee } = req.body;
             if (!name) return res.status(400).json({ message: "Please enter a name" });
