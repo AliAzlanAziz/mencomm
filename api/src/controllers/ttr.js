@@ -8,7 +8,7 @@ const Message = require('../models/message')
 const ContentBasedRecommender = require('content-based-recommender')
 const { getDistanceBetweenCoords } = require("../utils/distance")
 const recommender = new ContentBasedRecommender({
-    minScore: 0.2,
+    minScore: 0,
     maxSimilarDocs: 25
 })
 
@@ -163,21 +163,36 @@ module.exports = {
             Student.findOne({user: post.createdBy})
             .exec()
             .then(std => {
-                return res.status(200).json({
-                    id: post?._id,
-                    userId: post?.createdBy?._id,
-                    name: post?.createdBy?.name,
-                    avatar_url: post?.createdBy?.avatar_url || '',
-                    rating: std?.rating || 0,
-                    created_on: post?.created_on,
-                    course: post?.course,
-                    grade: post?.grade,
-                    tuition_type: post?.tuition_type || '',
-                    fee: post?.fee,
-                    address: post?.location?.address || '',
-                    start_date: post?.start_date || '',
-                    description: post?.description || '',
-                    schedule: post?.schedule || [],
+                let isAccepted = false
+                let isRequested = false
+                Post.find({_id: req.params.id, "requests.user": req.id})
+                .then(pst => {
+                    if(pst[0]?._id ){
+                        pst[0].requests.find(item => {
+                            if(item.user.toString() == req.id){
+                                isAccepted = item.isAccepted
+                            }
+                        })
+                        isRequested = true
+                    }
+                    return res.status(200).json({
+                        id: post?._id,
+                        userId: post?.createdBy?._id,
+                        name: post?.createdBy?.name,
+                        avatar_url: post?.createdBy?.avatar_url || '',
+                        rating: std?.rating || 0,
+                        created_on: post?.created_on,
+                        course: post?.course,
+                        grade: post?.grade,
+                        tuition_type: post?.tuition_type || '',
+                        fee: post?.fee,
+                        address: post?.location?.address || '',
+                        start_date: post?.start_date || '',
+                        description: post?.description || '',
+                        schedule: post?.schedule || [],
+                        isAccepted: isAccepted,
+                        isRequested: isRequested
+                    })
                 })
             })
         })
@@ -474,15 +489,15 @@ module.exports = {
         .exec()
         .then(async std => {
             if(std?._id != null){
-                Contract.find({tutor: req.params.id})
-                .populate('student')
+                Contract.find({student: req.params.id})
+                .populate('tutor')
                 .then(conts => {
                     let contracts = []
                     conts.forEach(item => {
                         contracts.push({
                             id: item?._id,
-                            name: item?.student?.name,
-                            avatar_url: item?.student?.avatar_url || '',
+                            name: item?.tutor?.name,
+                            avatar_url: item?.tutor?.avatar_url || '',
                             created_on: item?.created_on,
                             review: item?.ttr_feedback?.review || '',
                             rating: item?.ttr_feedback?.rating || 0

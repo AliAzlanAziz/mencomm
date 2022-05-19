@@ -37,19 +37,32 @@ module.exports = {
     },
 
     getPaymentReceipt:  async (req, res, next) => {
-        Payment.find({from: req.id})
-        .populate('to')
+        Payment.find({ $or: [ {from: req.id}, {to: req.id} ] }).sort({date: 'desc'})
+        .populate('to from')
         .then(receipts => {
             let result = []
             receipts.forEach(item => {
-                result.push({
-                    id: item?._id,
-                    name: item?.to?.name,
-                    avatar_url: item?.to?.avatar_url,
-                    date: item?.date,
-                    amount: item?.amount,
-                    post: item?.post
-                })
+                if(item.from._id == req.id){
+                    result.push({
+                        id: item?._id,
+                        from: 'You',
+                        to: item?.to?.name,
+                        avatar_url: item?.to?.avatar_url,
+                        date: item?.date,
+                        amount: item?.amount,
+                        post: item?.post
+                    })
+                }else{
+                    result.push({
+                        id: item?._id,
+                        from: item?.from.name,
+                        to: 'You',
+                        avatar_url: item?.from?.avatar_url,
+                        date: item?.date,
+                        amount: item?.amount,
+                        post: item?.post
+                    })
+                }
             })
 
             return res.status(200).json({

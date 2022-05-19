@@ -8,7 +8,7 @@ const Message = require('../models/message')
 const ContentBasedRecommender = require('content-based-recommender')
 const { getDistanceBetweenCoords } = require("../utils/distance")
 const recommender = new ContentBasedRecommender({
-    minScore: 0.2,
+    minScore: 0,
     maxSimilarDocs: 25
 })
 
