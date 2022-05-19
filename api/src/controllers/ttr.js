@@ -252,6 +252,41 @@ module.exports = {
         })
     },
 
+    postEnroll: (req, res, next) => {
+        const request = {
+            user: req.id,
+            isAccepted: false,
+            time_requested: new Date(),
+            time_accepted: null
+        }
+
+        Post.findByIdAndUpdate(req.params.id, {$push: {requests: request}})
+        .then(post => {
+            return res.status(200).json({
+                message: 'Requested to enroll successfully'
+            })
+        })
+    },
+
+    postCancelEnroll: (req, res, next) => {
+        Post
+        .findByIdAndUpdate(
+            req.params.id,
+            {$pull:
+                { requests: 
+                    {
+                        user: req.id
+                    }
+                }
+            }
+        )
+        .then(post => {
+            return res.status(200).json({
+                message: 'Cancelled request to enroll'
+            })
+        })
+    },
+
     getAnnouncements: (req, res, next) => {
         Post.findById(req.params.id)
         .populate("createdBy")

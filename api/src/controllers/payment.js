@@ -65,7 +65,40 @@ module.exports = {
         })
     },
 
-    postPaymentReceipt:  async (req, res, next) => {
+    postWithdrawRequest:  async (req, res, next) => {
+        const { amount } = req.body
+        Payment.find()
+        
+        const payment = new Payment({
+            _id: new mongoose.Types.ObjectId(),
+            from: req.id,
+            to: to,
+            amount: amount,
+            post: post,
+            date: new Date()
+        })
+
+        payment.save()
+        .then(result => {
+            if(!result._id){
+                return res.status(500).json({
+                    message: err
+                });
+            }else{
+                return res.status(200).json({
+                    message: "Payment Receipt Added Successfully"
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(500).json({
+                message: err
+            })
+        })
+    },
+
+    postWithdraw:  async (req, res, next) => {
         const { to, amount, post } = req.body
         const payment = new Payment({
             _id: new mongoose.Types.ObjectId(),

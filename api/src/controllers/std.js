@@ -510,6 +510,115 @@ module.exports = {
         })
     },
 
+    getRequests: (req, res, next) => {
+        Post.findById(req.params.id)
+        .populate("requests.user")
+        .then(post => {
+            let result = []
+            post.requests.forEach(item => {
+                if(!item.isAccepted)
+                    result.push({
+                        postId: post._id,
+                        reqId: item._id,
+                        userId: item.user._id,
+                        name: item.user.name,
+                        avatar_url: item.user.avatar_url
+                    })
+            })
+
+            return res.status(200).json({
+                message: result.length + " requests returned",
+                data: result
+            })
+        })
+    },
+
+    getEnrolls: (req, res, next) => {
+        Post.findById(req.params.id)
+        .populate("requests.user")
+        .then(post => {
+            let result = []
+            post.requests.forEach(item => {
+                if(item.isAccepted)
+                    result.push({
+                        postId: post._id,
+                        reqId: item._id,
+                        userId: item.user._id,
+                        name: item.user.name,
+                        avatar_url: item.user.avatar_url
+                    })
+            })
+
+            return res.status(200).json({
+                message: result.length + " enrolls returned",
+                data: result
+            })
+        })
+    },
+
+    postAcceptRequest: (req, res, next) => {
+        Post.updateOne(
+            {
+                _id: req.body.postId, 
+                "requests._id":  req.body.reqId
+            },
+            {
+                $set: {
+                    "requests.$.isAccepted": true,
+                }
+            })
+        .then(post => {
+            if(post !== undefined || post !== null){
+                const cont = new Contract({
+                    _id: new mongoose.Types.ObjectId(),
+                    tutor: req.id,
+                    student: req.body.userId,
+                    post: req.body.postId,
+                    created_on: new Date()
+                })
+                cont
+                .save()
+                .then(result => { 
+                    return res.status(200).json({
+                        message: "Request accepted and contract created successfully!",
+                        id: result._id
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(500).json({
+                        error: err
+                    })
+                })
+            }
+        })
+    },
+
+    postRejectEnroll: (req, res, next) => {
+        Post.updateOne(
+            {
+                _id: req.body.postId, 
+                "requests._id":  req.body.reqId
+            },
+            {
+                $set: {
+                    "requests.$.isAccepted": false,
+                }
+            }
+            )
+        .then(post => {
+            if(post !== undefined || post !== null){
+                return res.status(200).json({
+                    message: "Enrollment rejected successfully!"
+                })
+            }
+            // return res.status(200).json({
+            //     message: result.length + " requests returned",
+            //     data: result
+            // })
+        })
+    },
+
     getNewsfeed: async (req, res, next) => {
         const user = await User.aggregate([
             { $match: { _id: new mongoose.Types.ObjectId(req.id) } },

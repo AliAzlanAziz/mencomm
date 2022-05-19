@@ -9,6 +9,8 @@ const {
     getPost,
     getFeedbacks,
     postCreateFeedback,
+    postEnroll,
+    postCancelEnroll,
     getAnnouncements,
     postAnnouncement,
     postCreateContract,
@@ -52,6 +54,10 @@ router.post('/rejectenroll', isAuthenticated, postRejectEnroll)
 router.get('/feedbacks', isAuthenticated, getFeedbacks)
 
 router.post('/createfeedback', isAuthenticated, postCreateFeedback)
+
+router.post('/enroll/:id', isAuthenticated, postEnroll)
+
+router.post('/cancelenroll/:id', isAuthenticated, postCancelEnroll)
 
 router.get('/announcements/:id', isAuthenticated, getAnnouncements)
 

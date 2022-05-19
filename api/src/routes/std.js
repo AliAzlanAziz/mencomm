@@ -19,6 +19,10 @@ const {
     getOthersProfile,
     getNewsfeed,
     getChatList,
+    getRequests,
+    postAcceptRequest,
+    postRejectEnroll,
+    getEnrolls,
     postMessage,
 } = require('../controllers/std')
 const { isAuthenticated } = require('../middleware/authenticate')
@@ -38,6 +42,14 @@ router.get('/allcontracts', isAuthenticated, getAllContracts)
 router.get('/contract/:id', isAuthenticated, getContract)
 
 router.post('/createcontract', isAuthenticated, postCreateContract)
+
+router.get('/requests/:id', isAuthenticated, getRequests)
+
+router.post('/acceptrequest', isAuthenticated, postAcceptRequest)
+
+router.get('/enrolls/:id', isAuthenticated, getEnrolls)
+
+router.post('/rejectenroll', isAuthenticated, postRejectEnroll)
 
 router.get('/feedbacks', isAuthenticated, getFeedbacks)
 

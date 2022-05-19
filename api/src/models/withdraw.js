@@ -16,7 +16,8 @@ const withdrawSchema = mongoose.Schema({
         required: true
     },
     pending: {
-        type: Boolean
+        type: Boolean,
+        default: true
     }
 })
 
